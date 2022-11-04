@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HonoursProjectAlgorithmComparer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Algorithm Comparer" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Shortest Path Algorithm Comparer" HorizontalAlignment="Left" HorizontalContentAlignment = "Center" Height="43" Margin="221,20,0,0" VerticalAlignment="Top" Width="418" FontSize="25" Grid.Column="1"/>
 
     </Grid>
 </Window>
