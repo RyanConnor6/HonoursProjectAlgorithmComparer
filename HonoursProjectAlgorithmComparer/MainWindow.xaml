@@ -5,14 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HonoursProjectAlgorithmComparer"
         mc:Ignorable="d"
-        Title="Algorithm Comparer" Height="450" Width="800">
+        Title="Algorithm Comparer" Height="1000" Width="1800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="33*"/>
-        </Grid.ColumnDefinitions>
-
-        <Label Content="Shortest Path Algorithm Comparer" HorizontalAlignment="Left" HorizontalContentAlignment = "Center" Height="43" Margin="221,20,0,0" VerticalAlignment="Top" Width="418" FontSize="25" Grid.Column="1"/>
-
+        <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="750" Margin="950,0,0,0"/>
+        <Button x:Name="startBtn" Content="Start" HorizontalAlignment="Left" Height="131" Margin="153,0,0,0" VerticalAlignment="Center" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
     </Grid>
 </Window>
