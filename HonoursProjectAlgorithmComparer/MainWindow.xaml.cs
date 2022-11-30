@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 // HONOURS PROJECT
 // SHORTEST PATH ALGORITHM COMPARER
 // IMPLEMENTATION STARTED 21/11/22
-// LAST UPDATE 21/11/22
+// LAST UPDATE 30/11/22
 
 //Main Program Page for Honours Project
 namespace HonoursProjectAlgorithmComparer
@@ -41,11 +41,44 @@ namespace HonoursProjectAlgorithmComparer
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
             Random rnd = new Random();
-            int size = rnd.Next(5, 20);
-            //int size = 25;
+            //int size = rnd.Next(5, 20);
+            int size = 25;
             creategrid(size);
+
+            TableHandler th = new TableHandler(size);
+
+            int nodeAmount = th.NodeAmount;
+            List<Node> nodesList = th.NodesList;
+
+            int rand = rnd.Next(0, nodeAmount);
+            int rand2 = rnd.Next(0, nodeAmount);
+
+            if (rand == rand2)
+            {
+                while (rand == rand2)
+                {
+                    rand2 = rnd.Next(0, nodeAmount);
+                }
+            }
+
+            if (rand2 == rand + 1 || rand2 == rand - 1 || rand2 == rand + size || rand2 == rand - size)
+            {
+                while (rand2 == rand + 1 || rand2 == rand - 1 || rand2 == rand + size || rand2 == rand - size)
+                {
+                    rand2 = rnd.Next(0, nodeAmount);
+                }
+            }
+
+            Node first = nodesList[rand];
+            Node last = nodesList[rand2];
+
+            //MessageBox.Show(rand.ToString() + " " + rand2.ToString());
+
+            updatecol(first.NodeID, Brushes.Green);
+            updatecol(last.NodeID, Brushes.Red);
         }
 
+        //Create the grid
         public void creategrid(int size)
         {
             myGrid.Children.Clear();
@@ -83,6 +116,12 @@ namespace HonoursProjectAlgorithmComparer
                 }
             }
             this.canContainer.Children.Add(myGrid);
+        }
+
+        //Update colour on grid
+        public void updatecol(int ID, Brush color)
+        {
+            myList[ID - 1].Background = color;
         }
     }
 }
