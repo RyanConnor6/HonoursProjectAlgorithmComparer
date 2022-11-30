@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// RYAN CONNOR - 40437041
+// HONOURS PROJECT
+// SHORTEST PATH ALGORITHM COMPARER
+// IMPLEMENTATION STARTED 21/11/22
+// LAST UPDATE 30/11/22
+
 namespace HonoursProjectAlgorithmComparer
 {
     public class Node
