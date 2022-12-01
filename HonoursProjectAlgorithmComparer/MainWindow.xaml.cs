@@ -128,7 +128,7 @@ namespace HonoursProjectAlgorithmComparer
         private void sizeBtn_Click(object sender, RoutedEventArgs e)
         {
             int x = Int32.Parse(coordBox1.Text);
-            int y = Int32.Parse(coordBox1.Text);
+            int y = Int32.Parse(coordBox2.Text);
 
             foreach(Node n in nodesList)
             {
