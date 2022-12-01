@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,7 +108,7 @@ namespace HonoursProjectAlgorithmComparer
             myGrid.Height = 750;
             myGrid.HorizontalAlignment = HorizontalAlignment.Center;
             myGrid.VerticalAlignment = VerticalAlignment.Center;
-            myGrid.ShowGridLines = true;
+            myGrid.ShowGridLines = false;
 
             // Define the Columns
             for (int i = 0; i < size; i++)
@@ -131,6 +132,22 @@ namespace HonoursProjectAlgorithmComparer
                     myList.Add(stp);
                 }
             }
+
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Button MyControl1 = new Button();
+                    MyControl1.Name = "testy" + (i+1) + (j+1);
+                    MyControl1.Click += Button_Click;
+                    MyControl1.Background = Brushes.Transparent;
+
+                    Grid.SetColumn(MyControl1, j);
+                    Grid.SetRow(MyControl1, i);
+                    myGrid.Children.Add(MyControl1);
+                }
+            }
+
             this.canContainer.Children.Add(myGrid);
         }
 
@@ -138,6 +155,11 @@ namespace HonoursProjectAlgorithmComparer
         public void updatecol(int ID, Brush color)
         {
             myList[ID - 1].Background = color;
+        }
+
+        public void tester(object sender, RoutedEventArgs e)
+        {
+            updatecol(nodesList[0].NodeID, Brushes.Yellow);
         }
 
         private void sizeBtn_Click(object sender, RoutedEventArgs e)
@@ -155,6 +177,15 @@ namespace HonoursProjectAlgorithmComparer
                         updatecol(neighbour.NodeID, Brushes.LightBlue);
                     }
                 }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            if (b.Name.Equals("testy11"))
+            {
+                coordBox1.Text = nodesList[0].CoordinateX.ToString() + nodesList[0].CoordinateY.ToString();
             }
         }
     }
