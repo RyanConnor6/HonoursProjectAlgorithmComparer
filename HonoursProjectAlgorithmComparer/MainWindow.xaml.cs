@@ -77,6 +77,21 @@ namespace HonoursProjectAlgorithmComparer
 
             updatecol(first.NodeID, Brushes.Green);
             updatecol(last.NodeID, Brushes.Red);
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            float seconds = elapsedMs / 1000;
+            float seconds2 = elapsedMs % 1000;
+            float seconds3 = seconds + seconds2 / 1000;
+
+            updatecol(first.NodeID, Brushes.Green);
+            updatecol(last.NodeID, Brushes.Red);
+
+            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds");
         }
 
         //Create the grid
