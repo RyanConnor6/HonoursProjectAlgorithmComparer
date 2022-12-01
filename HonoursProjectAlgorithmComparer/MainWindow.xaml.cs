@@ -124,7 +124,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     Button MyControl1 = new Button();
                     MyControl1.Name = "c" + (j+1) + "c" + (i+1);
-                    MyControl1.Content = MyControl1.Name;
+                    //MyControl1.Content = MyControl1.Name;
                     MyControl1.Click += Button_Click;
                     MyControl1.FontSize = 10;
                     MyControl1.Background = Brushes.Transparent;
@@ -223,9 +223,18 @@ namespace HonoursProjectAlgorithmComparer
 
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            var iterator = 0;
             foreach (StackPanel stp in myList)
             {
-                stp.Background = Brushes.MintCream;
+                if(stp.Background == Brushes.Black)
+                {
+                    foreach (Node n in nodesList[iterator].ConnectedNodes)
+                    {
+                        n.ConnectedNodes.Remove(nodesList[iterator]);
+                    }
+                    nodesList[iterator].ConnectedNodes.Clear();
+                }
+                iterator++;
             }
 
             updatecol(first.NodeID, Brushes.Green);
