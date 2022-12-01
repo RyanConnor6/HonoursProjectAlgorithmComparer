@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,16 +40,22 @@ namespace HonoursProjectAlgorithmComparer
         List<StackPanel> myList = new();
         Grid myGrid = new Grid();
         List<Node> nodesList = new();
+        Node first;
+        Node last;
+        TableHandler th;
+
+        string mode = "placestart";
 
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
+            mode = "placestart";
             Random rnd = new Random();
             //int size = rnd.Next(5, 20);
             int size = 25;
             creategrid(size);
 
-            TableHandler th = new TableHandler(size);
+            th = new TableHandler(size);
 
             int nodeAmount = th.NodeAmount;
             nodesList = th.NodesList;
@@ -70,29 +78,6 @@ namespace HonoursProjectAlgorithmComparer
                     rand2 = rnd.Next(0, nodeAmount);
                 }
             }
-
-            Node first = nodesList[rand];
-            Node last = nodesList[rand2];
-
-            //MessageBox.Show(rand.ToString() + " " + rand2.ToString());
-
-            updatecol(first.NodeID, Brushes.Green);
-            updatecol(last.NodeID, Brushes.Red);
-
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
-            DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
-
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            float seconds = elapsedMs / 1000;
-            float seconds2 = elapsedMs % 1000;
-            float seconds3 = seconds + seconds2 / 1000;
-
-            updatecol(first.NodeID, Brushes.Green);
-            updatecol(last.NodeID, Brushes.Red);
-
-            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds");
         }
 
         //Create the grid
@@ -138,9 +123,13 @@ namespace HonoursProjectAlgorithmComparer
                 for (int j = 0; j < size; j++)
                 {
                     Button MyControl1 = new Button();
-                    MyControl1.Name = "testy" + (i+1) + (j+1);
+                    MyControl1.Name = "c" + (j+1) + "c" + (i+1);
+                    MyControl1.Content = MyControl1.Name;
                     MyControl1.Click += Button_Click;
+                    MyControl1.FontSize = 10;
                     MyControl1.Background = Brushes.Transparent;
+                    //RotateTransform rotateTransform = new RotateTransform(180);
+                    //MyControl1.RenderTransform = rotateTransform;
 
                     Grid.SetColumn(MyControl1, j);
                     Grid.SetRow(MyControl1, i);
@@ -183,10 +172,79 @@ namespace HonoursProjectAlgorithmComparer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (b.Name.Equals("testy11"))
+
+            string[] subs = b.Name.Split('c');
+
+            if (mode.Equals("placestart"))
             {
-                coordBox1.Text = nodesList[0].CoordinateX.ToString() + nodesList[0].CoordinateY.ToString();
+                int x = Int32.Parse(subs[1]);
+                int y = Int32.Parse(subs[2]);
+
+                foreach (Node n in nodesList)
+                {
+                    if (n.CoordinateX == x && n.CoordinateY == y)
+                    {
+                        updatecol(n.NodeID, Brushes.Green);
+                        first = n;
+                        mode = "placeend";
+                    }
+                }
             }
+            else if(mode.Equals("placeend"))
+            {
+                int x = Int32.Parse(subs[1]);
+                int y = Int32.Parse(subs[2]);
+
+                foreach (Node n in nodesList)
+                {
+                    if (n.CoordinateX == x && n.CoordinateY == y)
+                    {
+                        updatecol(n.NodeID, Brushes.Red);
+                        last = n;
+                        mode = "placewall";
+                    }
+                }
+            }
+            else if (mode.Equals("placewall"))
+            {
+                int x = Int32.Parse(subs[1]);
+                int y = Int32.Parse(subs[2]);
+
+                foreach (Node n in nodesList)
+                {
+                    if (n.CoordinateX == x && n.CoordinateY == y)
+                    {
+                        updatecol(n.NodeID, Brushes.Black);
+                        mode = "placewall";
+                    }
+                }
+            }
+        }
+
+        private void runBtn_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (StackPanel stp in myList)
+            {
+                stp.Background = Brushes.MintCream;
+            }
+
+            updatecol(first.NodeID, Brushes.Green);
+            updatecol(last.NodeID, Brushes.Red);
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            float seconds = elapsedMs / 1000;
+            float seconds2 = elapsedMs % 1000;
+            float seconds3 = seconds + seconds2 / 1000;
+
+            updatecol(first.NodeID, Brushes.Green);
+            updatecol(last.NodeID, Brushes.Red);
+
+            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds");
         }
     }
 }
