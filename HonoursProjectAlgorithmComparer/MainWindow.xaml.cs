@@ -36,6 +36,7 @@ namespace HonoursProjectAlgorithmComparer
         //Variables for grid
         List<StackPanel> myList = new();
         Grid myGrid = new Grid();
+        List<Node> nodesList = new();
 
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
@@ -48,7 +49,7 @@ namespace HonoursProjectAlgorithmComparer
             TableHandler th = new TableHandler(size);
 
             int nodeAmount = th.NodeAmount;
-            List<Node> nodesList = th.NodesList;
+            nodesList = th.NodesList;
 
             int rand = rnd.Next(0, nodeAmount);
             int rand2 = rnd.Next(0, nodeAmount);
@@ -122,6 +123,24 @@ namespace HonoursProjectAlgorithmComparer
         public void updatecol(int ID, Brush color)
         {
             myList[ID - 1].Background = color;
+        }
+
+        private void sizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int x = Int32.Parse(coordBox1.Text);
+            int y = Int32.Parse(coordBox1.Text);
+
+            foreach(Node n in nodesList)
+            {
+                if (n.CoordinateX == x && n.CoordinateY == y)
+                {
+                    updatecol(n.NodeID, Brushes.Blue);
+                    foreach (Node neighbour in n.ConnectedNodes)
+                    {
+                        updatecol(neighbour.NodeID, Brushes.LightBlue);
+                    }
+                }
+            }
         }
     }
 }

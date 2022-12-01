@@ -7,7 +7,19 @@
         mc:Ignorable="d"
         Title="Algorithm Comparer" Height="1000" Width="1800">
     <Grid>
-        <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="750" Margin="950,0,0,0"/>
+        <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="750" Margin="951,0,0,0" RenderTransformOrigin="0.5,0.5">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
         <Button x:Name="startBtn" Content="Start" HorizontalAlignment="Left" Height="131" Margin="153,0,0,0" VerticalAlignment="Center" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
+        <Button x:Name="sizeBtn" Content="Test Nbrs" HorizontalAlignment="Left" Height="131" Margin="153,700,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="sizeBtn_Click"/>
+        <TextBox x:Name="coordBox1" HorizontalAlignment="Left" Height="132" Margin="153,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
+        <TextBox x:Name="coordBox2" HorizontalAlignment="Left" Height="132" Margin="307,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
     </Grid>
 </Window>
