@@ -17,9 +17,11 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
-        <Button x:Name="startBtn" Content="Start" HorizontalAlignment="Left" Height="131" Margin="153,0,0,0" VerticalAlignment="Center" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
+        <Button x:Name="startBtn" Content="Start" HorizontalAlignment="Left" Height="131" Margin="153,277,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
         <Button x:Name="sizeBtn" Content="Test Nbrs" HorizontalAlignment="Left" Height="131" Margin="153,700,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="sizeBtn_Click"/>
         <TextBox x:Name="coordBox1" HorizontalAlignment="Left" Height="132" Margin="153,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
         <TextBox x:Name="coordBox2" HorizontalAlignment="Left" Height="132" Margin="307,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
+        <Label Content="Create Grid" HorizontalAlignment="Left" Height="69" Margin="153,193,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
+        <Label Content="Test Connections" HorizontalAlignment="Left" Height="69" Margin="93,479,0,0" VerticalAlignment="Top" Width="450" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
     </Grid>
 </Window>
