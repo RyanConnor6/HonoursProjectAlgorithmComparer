@@ -81,7 +81,10 @@ namespace HonoursProjectAlgorithmComparer
                 //If goal reached, display path and end
                 if (NodeChecking == lastNode)
                 {
-                    th.RunDisplayFunctions(lastNode);
+                    if (lastNode.Parent != null)
+                    {
+                        th.RunDisplayFunctions(lastNode);
+                    }
                     //MessageBox.Show("Found!");
                     return;
                 }

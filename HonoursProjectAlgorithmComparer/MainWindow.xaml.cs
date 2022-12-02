@@ -223,6 +223,8 @@ namespace HonoursProjectAlgorithmComparer
 
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            List<StackPanel> walls = new();
+
             var iterator = 0;
             foreach (StackPanel stp in myList)
             {
@@ -233,8 +235,19 @@ namespace HonoursProjectAlgorithmComparer
                         n.ConnectedNodes.Remove(nodesList[iterator]);
                     }
                     nodesList[iterator].ConnectedNodes.Clear();
+                    walls.Add(stp);
                 }
                 iterator++;
+            }
+
+            foreach (StackPanel stp in myList)
+            {
+                stp.Background = Brushes.MintCream;
+            }
+
+            foreach (StackPanel stp in walls)
+            {
+                stp.Background = Brushes.Black;
             }
 
             updatecol(first.NodeID, Brushes.Green);
