@@ -76,7 +76,16 @@ namespace HonoursProjectAlgorithmComparer
                 nodeQueue = nodeQueue.OrderBy(o => o.fScore).ToList();
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
-                wnd.updatecol(NodeChecking.NodeID, Brushes.LightGreen);
+
+                if (NodeChecking.Parent != null)
+                {
+                    wnd.updatecol(NodeChecking.NodeID, Brushes.LightGreen);
+                }
+
+                if (NodeChecking == firstNode && NodeChecking.ConnectedNodes.Count() == 0)
+                {
+                    return;
+                }
 
                 //If goal reached, display path and end
                 if (NodeChecking == lastNode)
