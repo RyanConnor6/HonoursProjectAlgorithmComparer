@@ -44,12 +44,12 @@ namespace HonoursProjectAlgorithmComparer
         Node last;
         TableHandler th;
 
-        string mode = "placestart";
+        string mode = "null";
 
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
-            mode = "placestart";
+            mode = "null";
             Random rnd = new Random();
             //int size = rnd.Next(5, 20);
             int size = 25;
@@ -151,24 +151,6 @@ namespace HonoursProjectAlgorithmComparer
             updatecol(nodesList[0].NodeID, Brushes.Yellow);
         }
 
-        private void sizeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            int x = Int32.Parse(coordBox1.Text);
-            int y = Int32.Parse(coordBox2.Text);
-
-            foreach(Node n in nodesList)
-            {
-                if (n.CoordinateX == x && n.CoordinateY == y)
-                {
-                    updatecol(n.NodeID, Brushes.Blue);
-                    foreach (Node neighbour in n.ConnectedNodes)
-                    {
-                        updatecol(neighbour.NodeID, Brushes.LightBlue);
-                    }
-                }
-            }
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -179,6 +161,10 @@ namespace HonoursProjectAlgorithmComparer
             {
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
+                if (first != null)
+                {
+                    updatecol(first.NodeID, Brushes.MintCream);
+                }
 
                 foreach (Node n in nodesList)
                 {
@@ -186,7 +172,6 @@ namespace HonoursProjectAlgorithmComparer
                     {
                         updatecol(n.NodeID, Brushes.Green);
                         first = n;
-                        mode = "placeend";
                     }
                 }
             }
@@ -194,6 +179,10 @@ namespace HonoursProjectAlgorithmComparer
             {
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
+                if (last != null)
+                {
+                    updatecol(last.NodeID, Brushes.MintCream);
+                }
 
                 foreach (Node n in nodesList)
                 {
@@ -201,7 +190,6 @@ namespace HonoursProjectAlgorithmComparer
                     {
                         updatecol(n.NodeID, Brushes.Red);
                         last = n;
-                        mode = "placewall";
                     }
                 }
             }
@@ -215,7 +203,19 @@ namespace HonoursProjectAlgorithmComparer
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
                         updatecol(n.NodeID, Brushes.Black);
-                        mode = "placewall";
+                    }
+                }
+            }
+            else if (mode.Equals("removewall"))
+            {
+                int x = Int32.Parse(subs[1]);
+                int y = Int32.Parse(subs[2]);
+
+                foreach (Node n in nodesList)
+                {
+                    if (n.CoordinateX == x && n.CoordinateY == y)
+                    {
+                        updatecol(n.NodeID, Brushes.MintCream);
                     }
                 }
             }
@@ -267,6 +267,26 @@ namespace HonoursProjectAlgorithmComparer
             updatecol(last.NodeID, Brushes.Red);
 
             MessageBox.Show("The algorithm has taken " + seconds3 + " seconds");
+        }
+
+        private void psBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mode = "placestart";
+        }
+
+        private void pgBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mode = "placeend";
+        }
+
+        private void pwBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mode = "placewall";
+        }
+
+        private void rwBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mode = "removewall";
         }
     }
 }

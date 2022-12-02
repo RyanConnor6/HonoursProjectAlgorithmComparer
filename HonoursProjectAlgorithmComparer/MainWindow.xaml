@@ -17,13 +17,11 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
-        <Button x:Name="startBtn" Content="Start" HorizontalAlignment="Left" Height="131" Margin="153,277,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
-        <Button x:Name="sizeBtn" Content="Test Nbrs" HorizontalAlignment="Left" Height="131" Margin="327,700,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="sizeBtn_Click"/>
-        <TextBox x:Name="coordBox1" HorizontalAlignment="Left" Height="132" Margin="327,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
-        <TextBox x:Name="coordBox2" HorizontalAlignment="Left" Height="132" Margin="481,563,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="Create Grid" HorizontalAlignment="Left" Height="69" Margin="153,193,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="Test Connections" HorizontalAlignment="Left" Height="69" Margin="267,479,0,0" VerticalAlignment="Top" Width="450" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
-        <Label Content="Run Dijkstra" HorizontalAlignment="Left" Height="69" Margin="504,193,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold"/>
-        <Button x:Name="runBtn" Content="Run" HorizontalAlignment="Left" Height="131" Margin="504,277,0,0" VerticalAlignment="Top" Width="309" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
+        <Button x:Name="startBtn" Content="Create Grid" HorizontalAlignment="Left" Height="130" Margin="47,126,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
+        <Button x:Name="runBtn" Content="Run Algorithm" HorizontalAlignment="Left" Height="131" Margin="47,805,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
+        <Button x:Name="psBtn" Content="Place Start" HorizontalAlignment="Left" Height="131" Margin="47,261,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="psBtn_Click"/>
+        <Button x:Name="pgBtn" Content="Place Goal" HorizontalAlignment="Left" Height="131" Margin="47,397,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pgBtn_Click"/>
+        <Button x:Name="pwBtn" Content="Place Wall" HorizontalAlignment="Left" Height="131" Margin="47,533,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pwBtn_Click"/>
+        <Button x:Name="rwBtn" Content="Remove Wall" HorizontalAlignment="Left" Height="131" Margin="47,669,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="rwBtn_Click"/>
     </Grid>
 </Window>
