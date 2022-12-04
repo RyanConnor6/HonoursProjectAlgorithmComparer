@@ -31,5 +31,10 @@
             <ComboBoxItem Name ="chosen25" Content="25x25"/>
             <ComboBoxItem Name ="chosen30" Content="30x30"/>
         </ComboBox>
+        <ComboBox Name="comboBox2" Margin="478,806,900,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>
+            <ComboBoxItem Name ="Dijkstra" Content="Dijkstra"/>
+        </ComboBox>
+
     </Grid>
 </Window>

@@ -242,8 +242,18 @@ namespace HonoursProjectAlgorithmComparer
             startBtn.IsEnabled = false;
             runBtn.IsEnabled = false;
 
-            //DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
-            AStarRunner runAStar = new AStarRunner(first, last, th);
+            ComboBoxItem myItem = (ComboBoxItem)comboBox2.SelectedItem;
+            string value = myItem.Content.ToString();
+            char run = value[0];
+
+            if (run == 'A')
+            {
+                AStarRunner runAStar = new AStarRunner(first, last, th);
+            }
+            if (run == 'D')
+            {
+                DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+            }
 
             psBtn.IsEnabled = true;
             pgBtn.IsEnabled = true;
