@@ -124,18 +124,15 @@ namespace HonoursProjectAlgorithmComparer
             //Get last node
             Node currentNode = last;
 
-            String nodeat = "_" + currentNode.CoordinateX.ToString() + currentNode.CoordinateY.ToString();
             wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
             currentNode = currentNode.Parent;
 
             do
             {
-                nodeat = "_" + currentNode.CoordinateX.ToString() + currentNode.CoordinateY.ToString();
                 wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                 currentNode = currentNode.Parent;
             } while (currentNode.Parent != null);
 
-            nodeat = "_" + currentNode.CoordinateX.ToString() + currentNode.CoordinateY.ToString();
             wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
         }
     }

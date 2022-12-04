@@ -246,6 +246,11 @@ namespace HonoursProjectAlgorithmComparer
             string value = myItem.Content.ToString();
             char run = value[0];
 
+            foreach (Node a in th.NodesList)
+            {
+                a.Parent = null;
+            }
+
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(first, last, th);

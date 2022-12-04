@@ -28,6 +28,8 @@ namespace HonoursProjectAlgorithmComparer
     {
         //tablehandler
         TableHandler th;
+
+        //Main window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
         public static void DoEvents()
@@ -83,7 +85,6 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     //Run all display functions in file handler and end
                     th.RunDisplayFunctions(lastNode);
-                    //MessageBox.Show("Found!");
                     return;
                 }
 
