@@ -146,11 +146,6 @@ namespace HonoursProjectAlgorithmComparer
             myList[ID - 1].Background = color;
         }
 
-        public void tester(object sender, RoutedEventArgs e)
-        {
-            updatecol(nodesList[0].NodeID, Brushes.Yellow);
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -223,6 +218,8 @@ namespace HonoursProjectAlgorithmComparer
 
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            mode = "running";
+
             th.ConstructNetwork();
 
             List<StackPanel> walls = new();
@@ -273,22 +270,40 @@ namespace HonoursProjectAlgorithmComparer
 
         private void psBtn_Click(object sender, RoutedEventArgs e)
         {
+            resetSearchVisualisation();
             mode = "placestart";
         }
 
         private void pgBtn_Click(object sender, RoutedEventArgs e)
         {
+            resetSearchVisualisation();
             mode = "placeend";
         }
 
         private void pwBtn_Click(object sender, RoutedEventArgs e)
         {
+            resetSearchVisualisation();
             mode = "placewall";
         }
 
         private void rwBtn_Click(object sender, RoutedEventArgs e)
         {
+            resetSearchVisualisation();
             mode = "removewall";
+        }
+
+        private void resetSearchVisualisation()
+        {
+            if (mode.Equals("running"))
+            {
+                foreach (StackPanel stp in myList)
+                {
+                    if (stp.Background == Brushes.GreenYellow || stp.Background == Brushes.LightGreen || stp.Background == Brushes.Khaki)
+                    {
+                        stp.Background = Brushes.MintCream;
+                    }
+                }
+            }
         }
     }
 }
