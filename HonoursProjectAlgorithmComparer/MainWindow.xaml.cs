@@ -39,10 +39,10 @@ namespace HonoursProjectAlgorithmComparer
         //Variables for grid
         List<StackPanel> myList = new();
         Grid myGrid = new Grid();
-        List<Node> nodesList = new();
         Node first;
         Node last;
         TableHandler th;
+        int size = 0;
 
         string mode = "null";
 
@@ -52,32 +52,10 @@ namespace HonoursProjectAlgorithmComparer
             mode = "null";
             Random rnd = new Random();
             //int size = rnd.Next(5, 20);
-            int size = 25;
+            size = 25;
             creategrid(size);
 
             th = new TableHandler(size);
-
-            int nodeAmount = th.NodeAmount;
-            nodesList = th.NodesList;
-
-            int rand = rnd.Next(0, nodeAmount);
-            int rand2 = rnd.Next(0, nodeAmount);
-
-            if (rand == rand2)
-            {
-                while (rand == rand2)
-                {
-                    rand2 = rnd.Next(0, nodeAmount);
-                }
-            }
-
-            if (rand2 == rand + 1 || rand2 == rand - 1 || rand2 == rand + size || rand2 == rand - size)
-            {
-                while (rand2 == rand + 1 || rand2 == rand - 1 || rand2 == rand + size || rand2 == rand - size)
-                {
-                    rand2 = rnd.Next(0, nodeAmount);
-                }
-            }
         }
 
         //Create the grid
@@ -161,7 +139,7 @@ namespace HonoursProjectAlgorithmComparer
                     updatecol(first.NodeID, Brushes.MintCream);
                 }
 
-                foreach (Node n in nodesList)
+                foreach (Node n in th.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -179,7 +157,7 @@ namespace HonoursProjectAlgorithmComparer
                     updatecol(last.NodeID, Brushes.MintCream);
                 }
 
-                foreach (Node n in nodesList)
+                foreach (Node n in th.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -193,7 +171,7 @@ namespace HonoursProjectAlgorithmComparer
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
 
-                foreach (Node n in nodesList)
+                foreach (Node n in th.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -206,7 +184,7 @@ namespace HonoursProjectAlgorithmComparer
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
 
-                foreach (Node n in nodesList)
+                foreach (Node n in th.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -220,8 +198,6 @@ namespace HonoursProjectAlgorithmComparer
         {
             mode = "running";
 
-            th.ConstructNetwork();
-
             List<StackPanel> walls = new();
 
             var iterator = 0;
@@ -229,11 +205,11 @@ namespace HonoursProjectAlgorithmComparer
             {
                 if(stp.Background == Brushes.Black)
                 {
-                    foreach (Node n in nodesList[iterator].ConnectedNodes)
+                    foreach (Node n in th.NodesList[iterator].ConnectedNodes)
                     {
-                        n.ConnectedNodes.Remove(nodesList[iterator]);
+                        n.ConnectedNodes.Remove(th.NodesList[iterator]);
                     }
-                    nodesList[iterator].ConnectedNodes.Clear();
+                    th.NodesList[iterator].ConnectedNodes.Clear();
                     walls.Add(stp);
                 }
                 iterator++;
