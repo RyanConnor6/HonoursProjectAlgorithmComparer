@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
@@ -49,10 +50,14 @@ namespace HonoursProjectAlgorithmComparer
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
+            first = null;
+            last = null;
             mode = "null";
-            Random rnd = new Random();
-            //int size = rnd.Next(5, 20);
-            size = 25;
+
+            ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
+            string value = myItem.Content.ToString();
+            string[] subs = value.Split('x');
+            size = Int32.Parse(subs[0]);
             creategrid(size);
 
             th = new TableHandler(size);
@@ -230,7 +235,21 @@ namespace HonoursProjectAlgorithmComparer
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
+            psBtn.IsEnabled = false;
+            pgBtn.IsEnabled = false;
+            pwBtn.IsEnabled = false;
+            rwBtn.IsEnabled = false;
+            startBtn.IsEnabled = false;
+            runBtn.IsEnabled = false;
+
             DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+
+            psBtn.IsEnabled = true;
+            pgBtn.IsEnabled = true;
+            pwBtn.IsEnabled = true;
+            rwBtn.IsEnabled = true;
+            startBtn.IsEnabled = true;
+            runBtn.IsEnabled = true;
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;

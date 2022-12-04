@@ -23,5 +23,13 @@
         <Button x:Name="pgBtn" Content="Place Goal" HorizontalAlignment="Left" Height="131" Margin="47,397,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pgBtn_Click"/>
         <Button x:Name="pwBtn" Content="Place Wall" HorizontalAlignment="Left" Height="131" Margin="47,533,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pwBtn_Click"/>
         <Button x:Name="rwBtn" Content="Remove Wall" HorizontalAlignment="Left" Height="131" Margin="47,669,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="rwBtn_Click"/>
+        <ComboBox Name="comboBox1" Margin="478,126,900,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <ComboBoxItem Name ="chosen5" Content="5x5"/>
+            <ComboBoxItem Name ="chosen10" IsSelected="True" Content="10x10"/>
+            <ComboBoxItem Name ="chosen15" Content="15x15"/>
+            <ComboBoxItem Name ="chosen20" Content="20x20"/>
+            <ComboBoxItem Name ="chosen25" Content="25x25"/>
+            <ComboBoxItem Name ="chosen30" Content="30x30"/>
+        </ComboBox>
     </Grid>
 </Window>
