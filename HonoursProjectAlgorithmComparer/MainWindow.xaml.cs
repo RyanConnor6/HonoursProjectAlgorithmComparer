@@ -223,6 +223,8 @@ namespace HonoursProjectAlgorithmComparer
 
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            th.ConstructNetwork();
+
             List<StackPanel> walls = new();
 
             var iterator = 0;

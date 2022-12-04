@@ -23,7 +23,6 @@ namespace HonoursProjectAlgorithmComparer
         private int nodeAmount;
         private int gridSize;
         private int[,] coordinatesArray;
-        private int[,] connectionMatrix;
         private List<Node> nodesList = new List<Node>();
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
@@ -48,12 +47,6 @@ namespace HonoursProjectAlgorithmComparer
             set { coordinatesArray = value; }
         }
 
-        public int[,] ConnectionMatrix
-        {
-            get { return connectionMatrix; }
-            set { connectionMatrix = value; }
-        }
-
         public List<Node> NodesList
         {
             get { return nodesList; }
@@ -61,8 +54,14 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Create network
-        void ConstructNetwork()
+        public void ConstructNetwork()
         {
+            //Reset connections
+            for (int i = 0; i < NodesList.Count(); i++)
+            {
+                NodesList[i].ConnectedNodes.Clear();
+            }
+
             //Amount of nodes is gridsize times gridsize
             NodeAmount = gridSize * gridSize;
 
