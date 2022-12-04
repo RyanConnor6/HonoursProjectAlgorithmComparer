@@ -242,7 +242,8 @@ namespace HonoursProjectAlgorithmComparer
             startBtn.IsEnabled = false;
             runBtn.IsEnabled = false;
 
-            DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+            //DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+            AStarRunner runAStar = new AStarRunner(first, last, th);
 
             psBtn.IsEnabled = true;
             pgBtn.IsEnabled = true;
