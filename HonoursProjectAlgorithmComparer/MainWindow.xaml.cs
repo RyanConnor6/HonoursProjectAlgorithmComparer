@@ -284,6 +284,8 @@ namespace HonoursProjectAlgorithmComparer
         {
             mode = "running";
 
+            th.ConstructNetwork();
+
             List<StackPanel> walls = new();
 
             var iterator = 0;
@@ -297,6 +299,32 @@ namespace HonoursProjectAlgorithmComparer
                     }
                     th.NodesList[iterator].ConnectedNodes.Clear();
                     walls.Add(stp);
+                }
+                if (stp.Background == Brushes.Green)
+                {
+                    string[] subs = stp.Name.Split('c');
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            first = n;
+                        }
+                    }
+                }
+                if (stp.Background == Brushes.Red)
+                {
+                    string[] subs = stp.Name.Split('c');
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            last = n;
+                        }
+                    }
                 }
                 iterator++;
             }

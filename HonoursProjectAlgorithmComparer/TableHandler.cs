@@ -59,7 +59,7 @@ namespace HonoursProjectAlgorithmComparer
             //Reset connections
             for (int i = 0; i < NodesList.Count(); i++)
             {
-                NodesList[i].ConnectedNodes.Clear();
+                NodesList.Clear();
             }
 
             //Amount of nodes is gridsize times gridsize
