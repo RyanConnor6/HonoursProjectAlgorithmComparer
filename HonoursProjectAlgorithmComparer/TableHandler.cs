@@ -23,6 +23,7 @@ namespace HonoursProjectAlgorithmComparer
         private int nodeAmount;
         private int gridSize;
         private int[,] coordinatesArray;
+        private int pathSize;
         private List<Node> nodesList = new List<Node>();
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
@@ -39,6 +40,12 @@ namespace HonoursProjectAlgorithmComparer
         {
             get { return nodeAmount; }
             set { nodeAmount = value; }
+        }
+
+        public int PathSize
+        {
+            get { return pathSize; }
+            set { pathSize = value; }
         }
 
         public int[,] CoordinatesArray
@@ -121,19 +128,22 @@ namespace HonoursProjectAlgorithmComparer
         //Display final path by backtracking through parents
         public void RunDisplayFunctions(Node last)
         {
+            pathSize = 0;
+
             //Get last node
             Node currentNode = last;
 
-            wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
+            wnd.updatecol(currentNode.NodeID, Brushes.Red);
             currentNode = currentNode.Parent;
 
             do
             {
+                pathSize++;
                 wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                 currentNode = currentNode.Parent;
             } while (currentNode.Parent != null);
 
-            wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
+            wnd.updatecol(currentNode.NodeID, Brushes.Green);
         }
     }
 }

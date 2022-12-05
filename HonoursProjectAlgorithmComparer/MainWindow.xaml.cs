@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,21 +32,21 @@ namespace HonoursProjectAlgorithmComparer
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        //Variables for grid
+        List<StackPanel> panelList = new();
+        Grid panelGrid = new Grid();
+        Node first;
+        Node last;
+        TableHandler th;
+        int size = 0;
+        string mode = "null";
+
         //Main Window Initialise
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        //Variables for grid
-        List<StackPanel> myList = new();
-        Grid myGrid = new Grid();
-        Node first;
-        Node last;
-        TableHandler th;
-        int size = 0;
-
-        string mode = "null";
 
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
@@ -66,27 +67,28 @@ namespace HonoursProjectAlgorithmComparer
         //Create the grid
         public void creategrid(int size)
         {
-            myGrid.Children.Clear();
-            myGrid.RowDefinitions.Clear();
-            myGrid.ColumnDefinitions.Clear();
+            panelGrid.Children.Clear();
+            panelGrid.RowDefinitions.Clear();
+            panelGrid.ColumnDefinitions.Clear();
             this.canContainer.Children.Clear();
-            myList.Clear();
+            panelList.Clear();
 
-            myGrid.Width = 750;
-            myGrid.Height = 750;
-            myGrid.HorizontalAlignment = HorizontalAlignment.Center;
-            myGrid.VerticalAlignment = VerticalAlignment.Center;
-            myGrid.ShowGridLines = false;
+            panelGrid.Width = 750;
+            panelGrid.Height = 750;
+            panelGrid.HorizontalAlignment = HorizontalAlignment.Center;
+            panelGrid.VerticalAlignment = VerticalAlignment.Center;
+            panelGrid.ShowGridLines = false;
 
-            // Define the Columns
+            //Define the Columns
             for (int i = 0; i < size; i++)
             {
                 ColumnDefinition cd = new ColumnDefinition();
-                myGrid.ColumnDefinitions.Add(cd);
+                panelGrid.ColumnDefinitions.Add(cd);
                 RowDefinition rd = new RowDefinition();
-                myGrid.RowDefinitions.Add(rd);
+                panelGrid.RowDefinitions.Add(rd);
             }
 
+            //Create Stack Panels
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -96,126 +98,52 @@ namespace HonoursProjectAlgorithmComparer
                     stp.Name = "c" + (j + 1) + "c" + (i + 1);
                     Grid.SetColumn(stp, j);
                     Grid.SetRow(stp, i);
-                    stp.MouseMove += Button_Click;
-                    stp.MouseDown += Button_Click2;
-                    myGrid.Children.Add(stp);
-
-                    myList.Add(stp);
+                    stp.MouseMove += PlacementControl;
+                    stp.MouseDown += PlacementControl2;
+                    panelGrid.Children.Add(stp);
+                    panelList.Add(stp);
                 }
             }
 
-            /*
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    Button MyControl1 = new Button();
-                    MyControl1.Name = "c" + (j+1) + "c" + (i+1);
-                    //MyControl1.Content = MyControl1.Name;
-                    MyControl1.Click += Button_Click;
-                    MyControl1.FontSize = 10;
-                    MyControl1.Background = Brushes.Transparent;
-                    //RotateTransform rotateTransform = new RotateTransform(180);
-                    //MyControl1.RenderTransform = rotateTransform;
-
-                    Grid.SetColumn(MyControl1, j);
-                    Grid.SetRow(MyControl1, i);
-                    myGrid.Children.Add(MyControl1);
-                }
-            }
-            */
-
-            myGrid.ShowGridLines = true;
-            this.canContainer.Children.Add(myGrid);
+            //Add to canvas
+            panelGrid.ShowGridLines = true;
+            this.canContainer.Children.Add(panelGrid);
         }
 
         //Update colour on grid
         public void updatecol(int ID, Brush color)
         {
-            myList[ID - 1].Background = color;
+            panelList[ID - 1].Background = color;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //Update placement of element on grid
+        private void PlacementControl(object sender, RoutedEventArgs e)
         {
+            //Draws elements when mouse is held
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
-
             if (mouseIsDown)
             {
                 StackPanel b = (StackPanel)sender;
 
-                string[] subs = b.Name.Split('c');
-
-                if (mode.Equals("placestart"))
-                {
-                    int x = Int32.Parse(subs[1]);
-                    int y = Int32.Parse(subs[2]);
-                    if (first != null)
-                    {
-                        updatecol(first.NodeID, Brushes.MintCream);
-                    }
-
-                    foreach (Node n in th.NodesList)
-                    {
-                        if (n.CoordinateX == x && n.CoordinateY == y)
-                        {
-                            updatecol(n.NodeID, Brushes.Green);
-                            first = n;
-                        }
-                    }
-                }
-                else if (mode.Equals("placeend"))
-                {
-                    int x = Int32.Parse(subs[1]);
-                    int y = Int32.Parse(subs[2]);
-                    if (last != null)
-                    {
-                        updatecol(last.NodeID, Brushes.MintCream);
-                    }
-
-                    foreach (Node n in th.NodesList)
-                    {
-                        if (n.CoordinateX == x && n.CoordinateY == y)
-                        {
-                            updatecol(n.NodeID, Brushes.Red);
-                            last = n;
-                        }
-                    }
-                }
-                else if (mode.Equals("placewall"))
-                {
-                    int x = Int32.Parse(subs[1]);
-                    int y = Int32.Parse(subs[2]);
-
-                    foreach (Node n in th.NodesList)
-                    {
-                        if (n.CoordinateX == x && n.CoordinateY == y)
-                        {
-                            updatecol(n.NodeID, Brushes.Black);
-                        }
-                    }
-                }
-                else if (mode.Equals("removewall"))
-                {
-                    int x = Int32.Parse(subs[1]);
-                    int y = Int32.Parse(subs[2]);
-
-                    foreach (Node n in th.NodesList)
-                    {
-                        if (n.CoordinateX == x && n.CoordinateY == y)
-                        {
-                            updatecol(n.NodeID, Brushes.MintCream);
-                        }
-                    }
-                }
+                UpdatePanelBasedOnMode(b);
             }
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
+        //Update placement of element on grid
+        private void PlacementControl2(object sender, RoutedEventArgs e)
         {
+            //Adds elements when clicked
             StackPanel b = (StackPanel)sender;
+            UpdatePanelBasedOnMode(b);
+        }
 
+        //Update panel based upon mode
+        private void UpdatePanelBasedOnMode(StackPanel b)
+        {
+            //Get coordinate from stackpanel name
             string[] subs = b.Name.Split('c');
 
+            //If start mode, place start
             if (mode.Equals("placestart"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -234,6 +162,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
+            //If end mode, place end
             else if (mode.Equals("placeend"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -252,6 +181,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
+            //If wall mode, place wall
             else if (mode.Equals("placewall"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -261,10 +191,14 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        updatecol(n.NodeID, Brushes.Black);
+                        if (b.Background == Brushes.MintCream)
+                        {
+                            updatecol(n.NodeID, Brushes.Black);
+                        }
                     }
                 }
             }
+            //If remove wall mode, remove wall
             else if (mode.Equals("removewall"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -274,22 +208,30 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        updatecol(n.NodeID, Brushes.MintCream);
+                        if (b.Background == Brushes.Black)
+                        {
+                            updatecol(n.NodeID, Brushes.MintCream);
+                        }
                     }
                 }
             }
         }
 
+        //Run the algorithm
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Set mode to run
             mode = "running";
 
+            //Construct node network
             th.ConstructNetwork();
 
+            //Keep list of walls
             List<StackPanel> walls = new();
 
+            //Fully set up grid for algorithm
             var iterator = 0;
-            foreach (StackPanel stp in myList)
+            foreach (StackPanel stp in panelList)
             {
                 if(stp.Background == Brushes.Black)
                 {
@@ -328,8 +270,7 @@ namespace HonoursProjectAlgorithmComparer
                 }
                 iterator++;
             }
-
-            foreach (StackPanel stp in myList)
+            foreach (StackPanel stp in panelList)
             {
                 stp.Background = Brushes.MintCream;
             }
@@ -339,11 +280,14 @@ namespace HonoursProjectAlgorithmComparer
                 stp.Background = Brushes.Black;
             }
 
+            //Show start and goal
             updatecol(first.NodeID, Brushes.Green);
             updatecol(last.NodeID, Brushes.Red);
 
+            //Create a watch to track time
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
+            //Disable buttons when running
             psBtn.IsEnabled = false;
             pgBtn.IsEnabled = false;
             pwBtn.IsEnabled = false;
@@ -351,15 +295,18 @@ namespace HonoursProjectAlgorithmComparer
             startBtn.IsEnabled = false;
             runBtn.IsEnabled = false;
 
+            //Get algorithm from combobox
             ComboBoxItem myItem = (ComboBoxItem)comboBox2.SelectedItem;
             string value = myItem.Content.ToString();
             char run = value[0];
 
+            //Reset parents
             foreach (Node a in th.NodesList)
             {
                 a.Parent = null;
             }
 
+            //Run correct mode
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(first, last, th);
@@ -369,6 +316,7 @@ namespace HonoursProjectAlgorithmComparer
                 DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
             }
 
+            //Reenable buttons
             psBtn.IsEnabled = true;
             pgBtn.IsEnabled = true;
             pwBtn.IsEnabled = true;
@@ -376,47 +324,55 @@ namespace HonoursProjectAlgorithmComparer
             startBtn.IsEnabled = true;
             runBtn.IsEnabled = true;
 
+            //Get final run time
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             float seconds = elapsedMs / 1000;
             float seconds2 = elapsedMs % 1000;
             float seconds3 = seconds + seconds2 / 1000;
 
+            //Redraw start and goal
             updatecol(first.NodeID, Brushes.Green);
             updatecol(last.NodeID, Brushes.Red);
 
-            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds");
+            //Print run time
+            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds, path of size " + th.PathSize + " found.");
         }
 
+        //Change mode
         private void psBtn_Click(object sender, RoutedEventArgs e)
         {
             resetSearchVisualisation();
             mode = "placestart";
         }
 
+        //Change mode
         private void pgBtn_Click(object sender, RoutedEventArgs e)
         {
             resetSearchVisualisation();
             mode = "placeend";
         }
 
+        //Change mode
         private void pwBtn_Click(object sender, RoutedEventArgs e)
         {
             resetSearchVisualisation();
             mode = "placewall";
         }
 
+        //Change mode
         private void rwBtn_Click(object sender, RoutedEventArgs e)
         {
             resetSearchVisualisation();
             mode = "removewall";
         }
 
+        //Reset tiles that were coloured by the search
         private void resetSearchVisualisation()
         {
             if (mode.Equals("running"))
             {
-                foreach (StackPanel stp in myList)
+                foreach (StackPanel stp in panelList)
                 {
                     if (stp.Background == Brushes.GreenYellow || stp.Background == Brushes.LightGreen || stp.Background == Brushes.Khaki)
                     {
@@ -424,13 +380,6 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-        }
-
-        private void BaseButtonRight_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // keep performing action while mouse left button is pressed.  
-            // Checking e.ButtonState works only for one click
-            MessageBox.Show("rewe");
         }
     }
 }
