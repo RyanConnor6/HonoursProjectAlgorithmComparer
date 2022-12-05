@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HonoursProjectAlgorithmComparer"
         mc:Ignorable="d"
-        Title="Algorithm Comparer" Height="1000" Width="1800">
+        Title="Algorithm Comparer" Height="1000" Width="1800" Left="50" Top="25">
     <Grid>
         <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="750" Margin="951,0,0,0" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
@@ -35,6 +35,5 @@
             <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>
             <ComboBoxItem Name ="Dijkstra" Content="Dijkstra"/>
         </ComboBox>
-
     </Grid>
 </Window>

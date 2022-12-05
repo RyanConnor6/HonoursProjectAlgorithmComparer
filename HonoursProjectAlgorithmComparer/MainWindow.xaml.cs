@@ -93,14 +93,18 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     StackPanel stp = new StackPanel();
                     stp.Background = Brushes.MintCream;
+                    stp.Name = "c" + (j + 1) + "c" + (i + 1);
                     Grid.SetColumn(stp, j);
                     Grid.SetRow(stp, i);
+                    stp.MouseMove += Button_Click;
+                    stp.MouseDown += Button_Click2;
                     myGrid.Children.Add(stp);
 
                     myList.Add(stp);
                 }
             }
 
+            /*
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -119,7 +123,9 @@ namespace HonoursProjectAlgorithmComparer
                     myGrid.Children.Add(MyControl1);
                 }
             }
+            */
 
+            myGrid.ShowGridLines = true;
             this.canContainer.Children.Add(myGrid);
         }
 
@@ -131,7 +137,82 @@ namespace HonoursProjectAlgorithmComparer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
+            bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
+
+            if (mouseIsDown)
+            {
+                StackPanel b = (StackPanel)sender;
+
+                string[] subs = b.Name.Split('c');
+
+                if (mode.Equals("placestart"))
+                {
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+                    if (first != null)
+                    {
+                        updatecol(first.NodeID, Brushes.MintCream);
+                    }
+
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            updatecol(n.NodeID, Brushes.Green);
+                            first = n;
+                        }
+                    }
+                }
+                else if (mode.Equals("placeend"))
+                {
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+                    if (last != null)
+                    {
+                        updatecol(last.NodeID, Brushes.MintCream);
+                    }
+
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            updatecol(n.NodeID, Brushes.Red);
+                            last = n;
+                        }
+                    }
+                }
+                else if (mode.Equals("placewall"))
+                {
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            updatecol(n.NodeID, Brushes.Black);
+                        }
+                    }
+                }
+                else if (mode.Equals("removewall"))
+                {
+                    int x = Int32.Parse(subs[1]);
+                    int y = Int32.Parse(subs[2]);
+
+                    foreach (Node n in th.NodesList)
+                    {
+                        if (n.CoordinateX == x && n.CoordinateY == y)
+                        {
+                            updatecol(n.NodeID, Brushes.MintCream);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            StackPanel b = (StackPanel)sender;
 
             string[] subs = b.Name.Split('c');
 
@@ -153,7 +234,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            else if(mode.Equals("placeend"))
+            else if (mode.Equals("placeend"))
             {
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
@@ -315,6 +396,13 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
+        }
+
+        private void BaseButtonRight_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // keep performing action while mouse left button is pressed.  
+            // Checking e.ButtonState works only for one click
+            MessageBox.Show("rewe");
         }
     }
 }
