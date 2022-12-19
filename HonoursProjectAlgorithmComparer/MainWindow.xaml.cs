@@ -41,7 +41,7 @@ namespace HonoursProjectAlgorithmComparer
         TableHandler th;
         int size = 0;
         string mode = "null";
-        StackPanel lastb;
+        StackPanel laststp;
 
         //Main Window Initialise
         public MainWindow()
@@ -68,12 +68,12 @@ namespace HonoursProjectAlgorithmComparer
         //Create the grid
         public void creategrid(int size)
         {
+            //Setup panel grid
             panelGrid.Children.Clear();
             panelGrid.RowDefinitions.Clear();
             panelGrid.ColumnDefinitions.Clear();
             this.canContainer.Children.Clear();
             panelList.Clear();
-
             panelGrid.Width = 750;
             panelGrid.Height = 750;
             panelGrid.HorizontalAlignment = HorizontalAlignment.Center;
@@ -110,6 +110,7 @@ namespace HonoursProjectAlgorithmComparer
             panelGrid.ShowGridLines = true;
             this.canContainer.Children.Add(panelGrid);
 
+            //Create start and end points
             panelList[(size * (size / 2)) + 1].Background = Brushes.Green;
             panelList[(size * (size / 2)) + size - 2].Background = Brushes.Red;
         }
@@ -123,59 +124,34 @@ namespace HonoursProjectAlgorithmComparer
         //Update placement of element on grid
         private void PlacementControl(object sender, RoutedEventArgs e)
         {
-            StackPanel b = (StackPanel)sender;
+            //Get panel
+            StackPanel stp = (StackPanel)sender;
 
             //Draws elements when mouse is held
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
             if (mouseIsDown)
             {
+                //If an algorithm was run remove visualised search
                 if (mode.Equals("running"))
                 {
                     resetSearchVisualisation();
-                    if (b.Background == Brushes.Green)
-                    {
-                        mode = "placestart";
-                    }
-                    if (b.Background == Brushes.Red)
-                    {
-                        mode = "placeend";
-                    }
-                    if (b.Background == Brushes.MintCream)
-                    {
-                        mode = "placewall";
-                    }
-                    if (b.Background == Brushes.Black)
-                    {
-                        mode = "removewall";
-                    }
+                    switchMode(stp);
                 }
-                b = (StackPanel)sender;
-                if (b != lastb)
+
+                //If its not the same panel, change colour
+                if (stp != laststp)
                 {
-                    UpdatePanelBasedOnMode(b);
+                    UpdatePanelBasedOnMode(stp);
                 }
-                lastb = b;
+
+                //Update last visited stackpanel
+                laststp = stp;
             }
             else
             {
                 if (mode.Equals("running")!=true)
                 {
-                    if (b.Background == Brushes.Green)
-                    {
-                        mode = "placestart";
-                    }
-                    if (b.Background == Brushes.Red)
-                    {
-                        mode = "placeend";
-                    }
-                    if (b.Background == Brushes.MintCream)
-                    {
-                        mode = "placewall";
-                    }
-                    if (b.Background == Brushes.Black)
-                    {
-                        mode = "removewall";
-                    }
+                    switchMode(stp);
                 }
             }
         }
@@ -184,21 +160,25 @@ namespace HonoursProjectAlgorithmComparer
         private void PlacementControl2(object sender, RoutedEventArgs e)
         {
             //Adds elements when clicked
-            StackPanel b = (StackPanel)sender;
+            StackPanel stp = (StackPanel)sender;
+
+            //If an algorithm was run remove visualised search
             if (mode.Equals("running"))
             {
                 resetSearchVisualisation();
             }
-            UpdatePanelBasedOnMode(b);
+
+            //Update panel colour
+            UpdatePanelBasedOnMode(stp);
         }
 
         //Update panel based upon mode
-        private void UpdatePanelBasedOnMode(StackPanel b)
+        private void UpdatePanelBasedOnMode(StackPanel stp)
         {
             //Get coordinate from stackpanel name
-            string[] subs = b.Name.Split('c');
+            string[] subs = stp.Name.Split('c');
 
-            //If start mode, place start
+            //If start mode, move start
             if (mode.Equals("placestart"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -217,7 +197,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            //If end mode, place end
+            //If end mode, move end
             else if (mode.Equals("placeend"))
             {
                 int x = Int32.Parse(subs[1]);
@@ -246,7 +226,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        if (b.Background == Brushes.MintCream)
+                        if (stp.Background == Brushes.MintCream)
                         {
                             updatecol(n.NodeID, Brushes.Black);
                         }
@@ -263,7 +243,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        if (b.Background == Brushes.Black)
+                        if (stp.Background == Brushes.Black)
                         {
                             updatecol(n.NodeID, Brushes.MintCream);
                         }
@@ -399,6 +379,27 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     stp.Background = Brushes.MintCream;
                 }
+            }
+        }
+
+        //Switch mode based on which stackpanel is hovered over
+        private void switchMode(StackPanel stp)
+        {
+            if (stp.Background == Brushes.Green)
+            {
+                mode = "placestart";
+            }
+            if (stp.Background == Brushes.Red)
+            {
+                mode = "placeend";
+            }
+            if (stp.Background == Brushes.MintCream)
+            {
+                mode = "placewall";
+            }
+            if (stp.Background == Brushes.Black)
+            {
+                mode = "removewall";
             }
         }
     }
