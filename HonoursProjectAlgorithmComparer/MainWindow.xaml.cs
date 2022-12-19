@@ -108,6 +108,9 @@ namespace HonoursProjectAlgorithmComparer
             //Add to canvas
             panelGrid.ShowGridLines = true;
             this.canContainer.Children.Add(panelGrid);
+
+            panelList[(size * (size / 2)) + 1].Background = Brushes.Green;
+            panelList[(size * (size / 2)) + size - 2].Background = Brushes.Red;
         }
 
         //Update colour on grid
@@ -124,7 +127,6 @@ namespace HonoursProjectAlgorithmComparer
             if (mouseIsDown)
             {
                 StackPanel b = (StackPanel)sender;
-
                 UpdatePanelBasedOnMode(b);
             }
         }
@@ -310,6 +312,10 @@ namespace HonoursProjectAlgorithmComparer
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(first, last, th);
+            }
+            if (run == 'B')
+            {
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(first, last, th);
             }
             if (run == 'D')
             {

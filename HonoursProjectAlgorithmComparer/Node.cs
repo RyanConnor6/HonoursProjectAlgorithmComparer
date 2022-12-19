@@ -22,6 +22,7 @@ namespace HonoursProjectAlgorithmComparer
         private int nodeID;
         private Node parent;
         private List<Node> connectedNodes = new List<Node>();
+        private bool explored = false;
 
         //Node constructor
         public Node(int ID, int x, int y)
@@ -72,6 +73,12 @@ namespace HonoursProjectAlgorithmComparer
         {
             get { return connectedNodes; }
             set { connectedNodes = value; }
+        }
+
+        public bool Explored
+        {
+            get { return explored; }
+            set { explored = value; }
         }
 
         //Euclidean Distance Calculator
