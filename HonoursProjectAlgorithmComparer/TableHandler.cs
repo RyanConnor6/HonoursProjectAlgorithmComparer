@@ -94,32 +94,67 @@ namespace HonoursProjectAlgorithmComparer
             {
                 for (int column = 0; column < gridSize; column++)
                 {
-                    if(column == 0)
+
+                    //Adjacent connections
+                    if (counter + 1 < NodesList.Count())
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
+                        if (column != gridSize - 1)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
+                        }
                     }
-                    else if (column == gridSize - 1)
+                    if (counter - 1 >= 0)
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
+                        if (column != 0)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
+                        }
                     }
-                    else
+                    if (counter + gridSize < NodesList.Count())
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
+                        if (column != gridSize - 1)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
+                        }
                     }
-                    if (row == 0)
+                    if (counter - gridSize >= 0)
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
+                        if (column != 0)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
+                        }
                     }
-                    else if (row == gridSize - 1)
+
+                    //Diagonal connections
+                    if ((counter + gridSize) + 1 < NodesList.Count())
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
+                        if (column != gridSize - 1)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize + 1]);
+                        }
                     }
-                    else
+                    if ((counter + gridSize) - 1 < NodesList.Count())
                     {
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
-                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
+                        if (column != 0)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize - 1]);
+                        }
                     }
+                    if ((counter - gridSize) - 1 >= 0)
+                    {
+                        if (column != 0)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize - 1]);
+                        }
+                    }
+                    if ((counter - gridSize) + 1 >= 0)
+                    {
+                        if (column != gridSize - 1)
+                        {
+                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize + 1]);
+                        }
+                    }
+
                     counter++;
                 }
             }
