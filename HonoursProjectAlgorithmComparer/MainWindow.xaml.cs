@@ -41,6 +41,7 @@ namespace HonoursProjectAlgorithmComparer
         TableHandler th;
         int size = 0;
         string mode = "null";
+        StackPanel lastb;
 
         //Main Window Initialise
         public MainWindow()
@@ -122,12 +123,37 @@ namespace HonoursProjectAlgorithmComparer
         //Update placement of element on grid
         private void PlacementControl(object sender, RoutedEventArgs e)
         {
+            StackPanel b = (StackPanel)sender;
+
             //Draws elements when mouse is held
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
             if (mouseIsDown)
             {
-                StackPanel b = (StackPanel)sender;
-                UpdatePanelBasedOnMode(b);
+                b = (StackPanel)sender;
+                if (b != lastb)
+                {
+                    UpdatePanelBasedOnMode(b);
+                }
+                lastb = b;
+            }
+            else
+            {
+                if (b.Background == Brushes.Green)
+                {
+                    mode = "placestart";
+                }
+                if (b.Background == Brushes.Red)
+                {
+                    mode = "placeend";
+                }
+                if (b.Background == Brushes.MintCream)
+                {
+                    mode = "placewall";
+                }
+                if (b.Background == Brushes.Black)
+                {
+                    mode = "removewall";
+                }
             }
         }
 
