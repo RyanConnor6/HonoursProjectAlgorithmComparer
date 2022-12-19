@@ -19,10 +19,6 @@
         </Canvas>
         <Button x:Name="startBtn" Content="Create Grid" HorizontalAlignment="Left" Height="130" Margin="47,126,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
         <Button x:Name="runBtn" Content="Run Algorithm" HorizontalAlignment="Left" Height="131" Margin="47,805,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
-        <Button x:Name="psBtn" Content="Place Start" HorizontalAlignment="Left" Height="131" Margin="47,261,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="psBtn_Click"/>
-        <Button x:Name="pgBtn" Content="Place Goal" HorizontalAlignment="Left" Height="131" Margin="47,397,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pgBtn_Click"/>
-        <Button x:Name="pwBtn" Content="Place Wall" HorizontalAlignment="Left" Height="131" Margin="47,533,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="pwBtn_Click"/>
-        <Button x:Name="rwBtn" Content="Remove Wall" HorizontalAlignment="Left" Height="131" Margin="47,669,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="rwBtn_Click"/>
         <ComboBox Name="comboBox1" Margin="478,126,900,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <ComboBoxItem Name ="chosen5" Content="5x5"/>
             <ComboBoxItem Name ="chosen10" Content="10x10"/>

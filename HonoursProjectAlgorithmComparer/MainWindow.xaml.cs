@@ -129,6 +129,26 @@ namespace HonoursProjectAlgorithmComparer
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
             if (mouseIsDown)
             {
+                if (mode.Equals("running"))
+                {
+                    resetSearchVisualisation();
+                    if (b.Background == Brushes.Green)
+                    {
+                        mode = "placestart";
+                    }
+                    if (b.Background == Brushes.Red)
+                    {
+                        mode = "placeend";
+                    }
+                    if (b.Background == Brushes.MintCream)
+                    {
+                        mode = "placewall";
+                    }
+                    if (b.Background == Brushes.Black)
+                    {
+                        mode = "removewall";
+                    }
+                }
                 b = (StackPanel)sender;
                 if (b != lastb)
                 {
@@ -138,21 +158,24 @@ namespace HonoursProjectAlgorithmComparer
             }
             else
             {
-                if (b.Background == Brushes.Green)
+                if (mode.Equals("running")!=true)
                 {
-                    mode = "placestart";
-                }
-                if (b.Background == Brushes.Red)
-                {
-                    mode = "placeend";
-                }
-                if (b.Background == Brushes.MintCream)
-                {
-                    mode = "placewall";
-                }
-                if (b.Background == Brushes.Black)
-                {
-                    mode = "removewall";
+                    if (b.Background == Brushes.Green)
+                    {
+                        mode = "placestart";
+                    }
+                    if (b.Background == Brushes.Red)
+                    {
+                        mode = "placeend";
+                    }
+                    if (b.Background == Brushes.MintCream)
+                    {
+                        mode = "placewall";
+                    }
+                    if (b.Background == Brushes.Black)
+                    {
+                        mode = "removewall";
+                    }
                 }
             }
         }
@@ -162,6 +185,10 @@ namespace HonoursProjectAlgorithmComparer
         {
             //Adds elements when clicked
             StackPanel b = (StackPanel)sender;
+            if (mode.Equals("running"))
+            {
+                resetSearchVisualisation();
+            }
             UpdatePanelBasedOnMode(b);
         }
 
@@ -316,10 +343,6 @@ namespace HonoursProjectAlgorithmComparer
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             //Disable buttons when running
-            psBtn.IsEnabled = false;
-            pgBtn.IsEnabled = false;
-            pwBtn.IsEnabled = false;
-            rwBtn.IsEnabled = false;
             startBtn.IsEnabled = false;
             runBtn.IsEnabled = false;
 
@@ -349,10 +372,6 @@ namespace HonoursProjectAlgorithmComparer
             }
 
             //Reenable buttons
-            psBtn.IsEnabled = true;
-            pgBtn.IsEnabled = true;
-            pwBtn.IsEnabled = true;
-            rwBtn.IsEnabled = true;
             startBtn.IsEnabled = true;
             runBtn.IsEnabled = true;
 
@@ -371,45 +390,14 @@ namespace HonoursProjectAlgorithmComparer
             MessageBox.Show("The algorithm has taken " + seconds3 + " seconds, path of size " + th.PathSize + " found.");
         }
 
-        //Change mode
-        private void psBtn_Click(object sender, RoutedEventArgs e)
-        {
-            resetSearchVisualisation();
-            mode = "placestart";
-        }
-
-        //Change mode
-        private void pgBtn_Click(object sender, RoutedEventArgs e)
-        {
-            resetSearchVisualisation();
-            mode = "placeend";
-        }
-
-        //Change mode
-        private void pwBtn_Click(object sender, RoutedEventArgs e)
-        {
-            resetSearchVisualisation();
-            mode = "placewall";
-        }
-
-        //Change mode
-        private void rwBtn_Click(object sender, RoutedEventArgs e)
-        {
-            resetSearchVisualisation();
-            mode = "removewall";
-        }
-
         //Reset tiles that were coloured by the search
         private void resetSearchVisualisation()
         {
-            if (mode.Equals("running"))
+            foreach (StackPanel stp in panelList)
             {
-                foreach (StackPanel stp in panelList)
+                if (stp.Background == Brushes.GreenYellow || stp.Background == Brushes.LightGreen || stp.Background == Brushes.Khaki)
                 {
-                    if (stp.Background == Brushes.GreenYellow || stp.Background == Brushes.LightGreen || stp.Background == Brushes.Khaki)
-                    {
-                        stp.Background = Brushes.MintCream;
-                    }
+                    stp.Background = Brushes.MintCream;
                 }
             }
         }
