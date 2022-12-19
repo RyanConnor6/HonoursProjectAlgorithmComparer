@@ -259,7 +259,12 @@ namespace HonoursProjectAlgorithmComparer
             mode = "running";
 
             //Construct node network
-            th.ConstructNetwork();
+            bool diagonalAllowed = true;
+            if ((bool)Diagonal.IsChecked == false) 
+            { 
+                diagonalAllowed = false;
+            }
+            th.ConstructNetwork(diagonalAllowed);
 
             //Keep list of walls
             List<StackPanel> walls = new();

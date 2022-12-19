@@ -32,7 +32,7 @@ namespace HonoursProjectAlgorithmComparer
         {
             //Get size and create node network
             gridSize = size;
-            ConstructNetwork();
+            ConstructNetwork(true);
         }
 
         //Getters and setters for private values
@@ -61,7 +61,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Create network
-        public void ConstructNetwork()
+        public void ConstructNetwork(bool diagonalAllowed)
         {
             //Reset connections
             for (int i = 0; i < NodesList.Count(); i++)
@@ -126,32 +126,35 @@ namespace HonoursProjectAlgorithmComparer
                     }
 
                     //Diagonal connections
-                    if ((counter + gridSize) + 1 < NodesList.Count())
+                    if (diagonalAllowed == true)
                     {
-                        if (column != gridSize - 1)
+                        if ((counter + gridSize) + 1 < NodesList.Count())
                         {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize + 1]);
+                            if (column != gridSize - 1)
+                            {
+                                NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize + 1]);
+                            }
                         }
-                    }
-                    if ((counter + gridSize) - 1 < NodesList.Count())
-                    {
-                        if (column != 0)
+                        if ((counter + gridSize) - 1 < NodesList.Count())
                         {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize - 1]);
+                            if (column != 0)
+                            {
+                                NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize - 1]);
+                            }
                         }
-                    }
-                    if ((counter - gridSize) - 1 >= 0)
-                    {
-                        if (column != 0)
+                        if ((counter - gridSize) - 1 >= 0)
                         {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize - 1]);
+                            if (column != 0)
+                            {
+                                NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize - 1]);
+                            }
                         }
-                    }
-                    if ((counter - gridSize) + 1 >= 0)
-                    {
-                        if (column != gridSize - 1)
+                        if ((counter - gridSize) + 1 >= 0)
                         {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize + 1]);
+                            if (column != gridSize - 1)
+                            {
+                                NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize + 1]);
+                            }
                         }
                     }
 
