@@ -330,13 +330,6 @@ namespace HonoursProjectAlgorithmComparer
             updatecol(first.NodeID, Brushes.Green);
             updatecol(last.NodeID, Brushes.Red);
 
-            //Create a watch to track time
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
-            //Disable buttons when running
-            startBtn.IsEnabled = false;
-            runBtn.IsEnabled = false;
-
             //Get algorithm from combobox
             ComboBoxItem myItem = (ComboBoxItem)comboBox2.SelectedItem;
             string value = myItem.Content.ToString();
@@ -351,34 +344,19 @@ namespace HonoursProjectAlgorithmComparer
             //Run correct mode
             if (run == 'A')
             {
-                AStarRunner runAStar = new AStarRunner(first, last, th);
+                AStarRunner runAStar = new AStarRunner(th);
+                runAStar.algRun(first, last);
             }
             if (run == 'B')
             {
-                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(first, last, th);
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
+                runBreadthFirst.algRun(first, last);
             }
             if (run == 'D')
             {
-                DijkstraRunner runDijkstra = new DijkstraRunner(first, last, th);
+                DijkstraRunner runDijkstra = new DijkstraRunner(th);
+                runDijkstra.algRun(first, last);
             }
-
-            //Reenable buttons
-            startBtn.IsEnabled = true;
-            runBtn.IsEnabled = true;
-
-            //Get final run time
-            watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-            float seconds = elapsedMs / 1000;
-            float seconds2 = elapsedMs % 1000;
-            float seconds3 = seconds + seconds2 / 1000;
-
-            //Redraw start and goal
-            updatecol(first.NodeID, Brushes.Green);
-            updatecol(last.NodeID, Brushes.Red);
-
-            //Print run time
-            MessageBox.Show("The algorithm has taken " + seconds3 + " seconds, path of size " + th.PathSize + " found.");
         }
 
         //Reset tiles that were coloured by the search
@@ -411,6 +389,27 @@ namespace HonoursProjectAlgorithmComparer
             if (stp.Background == Brushes.Black)
             {
                 mode = "removewall";
+            }
+        }
+
+        public void enableButtons()
+        {
+            startBtn.IsEnabled = true;
+            runBtn.IsEnabled = true;
+            foreach (StackPanel stp in panelList)
+            {
+                stp.MouseDown += PlacementControl2;
+                stp.MouseMove += PlacementControl;
+            }
+        }
+        public void disableButtons()
+        {
+            startBtn.IsEnabled = false;
+            runBtn.IsEnabled = false;
+            foreach (StackPanel stp in panelList)
+            {
+                stp.MouseDown -= PlacementControl2;
+                stp.MouseMove -= PlacementControl;
             }
         }
     }

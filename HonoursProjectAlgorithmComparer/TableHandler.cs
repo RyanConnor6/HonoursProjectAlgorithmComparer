@@ -164,7 +164,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Display final path by backtracking through parents
-        public void RunDisplayFunctions(Node last)
+        public void RunDisplayFunctions(Node last, float time)
         {
             pathSize = 0;
 
@@ -182,6 +182,8 @@ namespace HonoursProjectAlgorithmComparer
             } while (currentNode.Parent != null);
 
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
+
+            MessageBox.Show("Algorithm has taken: " + time + "        Path size found: " + pathSize);
         }
     }
 }

@@ -32,17 +32,17 @@ namespace HonoursProjectAlgorithmComparer
         //Main window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
-        public static void DoEvents()
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                                  new Action(delegate { }));
-        }
-
         //Called upon creation, runs the a* algorithm
-        public AStarRunner(Node firstNode, Node lastNode, TableHandler tableHandler)
+        public AStarRunner(TableHandler tableHandler)
         {
             //table Handler
             this.th = tableHandler;
+        }
+
+        public async void algRun(Node firstNode, Node lastNode)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            wnd.disableButtons();
 
             //Create open set and add first Node
             List<Node> openSet = new List<Node>();
@@ -57,13 +57,7 @@ namespace HonoursProjectAlgorithmComparer
             //While there are still values in the open set
             while (openSet.Count() != 0)
             {
-                int counter = 0;
-                while (counter < 2)
-                {
-                    DoEvents();
-                    Thread.Sleep(4);
-                    ++counter;
-                }
+                await Task.Delay(10);
 
                 foreach (Node c in openSet)
                 {
@@ -84,8 +78,15 @@ namespace HonoursProjectAlgorithmComparer
                 //If the Node is now the last Node
                 if (NodeChecking == lastNode)
                 {
+                    watch.Stop();
+                    wnd.enableButtons();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    float seconds = elapsedMs / 1000;
+                    float seconds2 = elapsedMs % 1000;
+                    float seconds3 = seconds + seconds2 / 1000;
+
                     //Run all display functions in file handler and end
-                    th.RunDisplayFunctions(lastNode);
+                    th.RunDisplayFunctions(lastNode, seconds3);
                     return;
                 }
 

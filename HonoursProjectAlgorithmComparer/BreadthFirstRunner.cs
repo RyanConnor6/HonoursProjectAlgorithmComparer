@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 // RYAN CONNOR - 40437041
@@ -32,18 +23,17 @@ namespace HonoursProjectAlgorithmComparer
         //Main Window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
-        //Function to allow visualisation drawing without freezing
-        public static void DoEvents()
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-                                                  new Action(delegate { }));
-        }
-
         //Called upon creation, runs the BF algorithm
-        public BreadthFirstRunner(Node firstNode, Node lastNode, TableHandler tableHandler)
+        public BreadthFirstRunner(TableHandler tableHandler)
         {
             //Get the file handler from parameters
             this.th = tableHandler;
+        }
+
+        public async void algRun(Node firstNode, Node lastNode)
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            wnd.disableButtons();
 
             //Create list of all nodes
             List<Node> nodeQueue = new List<Node>();
@@ -57,16 +47,10 @@ namespace HonoursProjectAlgorithmComparer
             //While nodes in queue
             while (nodeQueue.Count() != 0)
             {
+                await Task.Delay(10);
+
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
                 wnd.updatecol(lastNode.NodeID, Brushes.Red);
-
-                int counter = 0;
-                while (counter < 2)
-                {
-                    DoEvents();
-                    Thread.Sleep(4);
-                    ++counter;
-                }
 
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
@@ -81,9 +65,17 @@ namespace HonoursProjectAlgorithmComparer
                 //If goal reached, display path and end
                 if (NodeChecking == lastNode)
                 {
+
+                    watch.Stop();
+                    wnd.enableButtons();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    float seconds = elapsedMs / 1000;
+                    float seconds2 = elapsedMs % 1000;
+                    float seconds3 = seconds + seconds2 / 1000;
+
                     if (lastNode.Parent != null)
                     {
-                        th.RunDisplayFunctions(lastNode);
+                        th.RunDisplayFunctions(lastNode, seconds3);
                     }
                     //MessageBox.Show("Found!");
                     return;
