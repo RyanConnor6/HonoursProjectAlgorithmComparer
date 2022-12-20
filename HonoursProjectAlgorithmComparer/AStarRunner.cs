@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 // RYAN CONNOR - 40437041
 // HONOURS PROJECT
@@ -32,15 +22,17 @@ namespace HonoursProjectAlgorithmComparer
         //Main window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
-        //Called upon creation, runs the a* algorithm
+        //Create class
         public AStarRunner(TableHandler tableHandler)
         {
             //table Handler
             this.th = tableHandler;
         }
 
+        //Run A*
         public async void algRun(Node firstNode, Node lastNode)
         {
+            //Start watch and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
             wnd.disableButtons();
 
@@ -57,8 +49,10 @@ namespace HonoursProjectAlgorithmComparer
             //While there are still values in the open set
             while (openSet.Count() != 0)
             {
+                //Stall task to show visualisation
                 await Task.Delay(10);
 
+                //Update colours
                 foreach (Node c in openSet)
                 {
                     wnd.updatecol(c.NodeID, Brushes.GreenYellow);
@@ -78,8 +72,8 @@ namespace HonoursProjectAlgorithmComparer
                 //If the Node is now the last Node
                 if (NodeChecking == lastNode)
                 {
+                    //Stop timer and capture time
                     watch.Stop();
-                    wnd.enableButtons();
                     var elapsedMs = watch.ElapsedMilliseconds;
                     float seconds = elapsedMs / 1000;
                     float seconds2 = elapsedMs % 1000;

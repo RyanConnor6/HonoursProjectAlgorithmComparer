@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Markup;
 using System.Windows.Media;
 
 // RYAN CONNOR - 40437041
@@ -22,7 +19,6 @@ namespace HonoursProjectAlgorithmComparer
         //Node Information
         private int nodeAmount;
         private int gridSize;
-        private int[,] coordinatesArray;
         private int pathSize;
         private List<Node> nodesList = new List<Node>();
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
@@ -46,12 +42,6 @@ namespace HonoursProjectAlgorithmComparer
         {
             get { return pathSize; }
             set { pathSize = value; }
-        }
-
-        public int[,] CoordinatesArray
-        {
-            get { return coordinatesArray; }
-            set { coordinatesArray = value; }
         }
 
         public List<Node> NodesList
@@ -164,7 +154,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Display final path by backtracking through parents
-        public void RunDisplayFunctions(Node last, float time)
+        public async void RunDisplayFunctions(Node last, float time)
         {
             pathSize = 0;
 
@@ -176,12 +166,14 @@ namespace HonoursProjectAlgorithmComparer
 
             do
             {
+                await Task.Delay(10);
                 pathSize++;
                 wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                 currentNode = currentNode.Parent;
             } while (currentNode.Parent != null);
 
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
+            wnd.enableButtons();
 
             MessageBox.Show("Algorithm has taken: " + time + "        Path size found: " + pathSize);
         }

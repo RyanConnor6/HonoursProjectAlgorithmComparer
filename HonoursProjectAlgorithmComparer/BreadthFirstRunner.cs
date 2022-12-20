@@ -23,15 +23,17 @@ namespace HonoursProjectAlgorithmComparer
         //Main Window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
-        //Called upon creation, runs the BF algorithm
+        //Create BF class
         public BreadthFirstRunner(TableHandler tableHandler)
         {
             //Get the file handler from parameters
             this.th = tableHandler;
         }
 
+        //Run BF search
         public async void algRun(Node firstNode, Node lastNode)
         {
+            //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
             wnd.disableButtons();
 
@@ -47,6 +49,7 @@ namespace HonoursProjectAlgorithmComparer
             //While nodes in queue
             while (nodeQueue.Count() != 0)
             {
+                //Stall to show visualisation
                 await Task.Delay(10);
 
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
@@ -65,7 +68,7 @@ namespace HonoursProjectAlgorithmComparer
                 //If goal reached, display path and end
                 if (NodeChecking == lastNode)
                 {
-
+                    //Stop timer and display path
                     watch.Stop();
                     wnd.enableButtons();
                     var elapsedMs = watch.ElapsedMilliseconds;
@@ -77,11 +80,10 @@ namespace HonoursProjectAlgorithmComparer
                     {
                         th.RunDisplayFunctions(lastNode, seconds3);
                     }
-                    //MessageBox.Show("Found!");
                     return;
                 }
 
-                //Update best costs
+                //Update best
                 foreach (Node connectedNode in NodeChecking.ConnectedNodes)
                 {
                     if (connectedNode.Explored == false)

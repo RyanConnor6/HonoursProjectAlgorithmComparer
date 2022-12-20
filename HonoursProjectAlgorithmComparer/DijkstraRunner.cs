@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 // RYAN CONNOR - 40437041
 // HONOURS PROJECT
@@ -32,15 +21,17 @@ namespace HonoursProjectAlgorithmComparer
         //Main Window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
-        //Called upon creation, runs the dijkstra algorithm
+        //Class creation
         public DijkstraRunner(TableHandler tableHandler)
         {
             //Get the file handler from parameters
             this.th = tableHandler;
         }
 
+        //Run Dijkstra
         public async void algRun(Node firstNode, Node lastNode)
         {
+            //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
             wnd.disableButtons();
 
@@ -61,8 +52,10 @@ namespace HonoursProjectAlgorithmComparer
             //While nodes in queue
             while (nodeQueue.Count() != 0)
             {
+                //Stall to show visualisation
                 await Task.Delay(10);
 
+                //Make sure important nodes arent coloured over
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
                 wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
@@ -84,8 +77,8 @@ namespace HonoursProjectAlgorithmComparer
                 //If goal reached, display path and end
                 if (NodeChecking == lastNode)
                 {
+                    //Stop timer and display path
                     watch.Stop();
-                    wnd.enableButtons();
                     var elapsedMs = watch.ElapsedMilliseconds;
                     float seconds = elapsedMs / 1000;
                     float seconds2 = elapsedMs % 1000;
@@ -95,7 +88,6 @@ namespace HonoursProjectAlgorithmComparer
                     {
                         th.RunDisplayFunctions(lastNode, seconds3);
                     }
-                    //MessageBox.Show("Found!");
                     return;
                 }
 
