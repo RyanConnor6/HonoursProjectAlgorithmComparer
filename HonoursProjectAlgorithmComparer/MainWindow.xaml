@@ -26,11 +26,15 @@
             <ComboBoxItem Name ="chosen20" IsSelected="True" Content="20x20"/>
             <ComboBoxItem Name ="chosen25" Content="25x25"/>
             <ComboBoxItem Name ="chosen30" Content="30x30"/>
+            <ComboBoxItem Name ="chosen35" Content="35x35"/>
+            <ComboBoxItem Name ="chosen40" Content="40x40"/>
+            <ComboBoxItem Name ="chosen45" Content="45x45"/>
         </ComboBox>
         <ComboBox Name="comboBox2" Margin="452,596,926,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>
-            <ComboBoxItem Name ="BreadthFirst" Content="Breadth First"/>
             <ComboBoxItem Name ="Dijkstra" Content="Dijkstra"/>
+            <ComboBoxItem Name ="BreadthFirst" Content="Breadth First"/>
+            <ComboBoxItem Name ="Item4" Content="Item4"/>
         </ComboBox>
         <CheckBox Name ="Diagonal" Content="Allow Diagonal Movement" HorizontalAlignment="Left" Height="16" Margin="21,460,0,0" VerticalAlignment="Top" Width="162" IsChecked="True">
             <CheckBox.LayoutTransform>

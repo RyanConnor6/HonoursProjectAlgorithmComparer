@@ -58,6 +58,7 @@ namespace HonoursProjectAlgorithmComparer
             while (nodeQueue.Count() != 0)
             {
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
+                wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
                 int counter = 0;
                 while (counter < 2)

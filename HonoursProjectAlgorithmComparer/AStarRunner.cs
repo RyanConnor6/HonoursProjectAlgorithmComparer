@@ -74,6 +74,7 @@ namespace HonoursProjectAlgorithmComparer
                     wnd.updatecol(c.NodeID, Brushes.LightGreen);
                 }
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
+                wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
 
                 //Get the next Node with the lowest fScore 

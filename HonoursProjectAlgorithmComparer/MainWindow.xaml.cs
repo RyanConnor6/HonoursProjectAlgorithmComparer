@@ -255,6 +255,12 @@ namespace HonoursProjectAlgorithmComparer
         //Run the algorithm
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            if(panelGrid == null)
+            {
+                MessageBox.Show("ERROR: Please create a grid");
+                return;
+            }
+
             //Set mode to run
             mode = "running";
 
