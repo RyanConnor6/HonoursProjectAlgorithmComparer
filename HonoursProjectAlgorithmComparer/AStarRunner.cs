@@ -146,6 +146,8 @@ namespace HonoursProjectAlgorithmComparer
             {
                 //Run display function for no possible route
                 //th.CaseNodeNotFound();
+                wnd.enableButtons();
+                MessageBox.Show("No possible path");
                 return;
             }
         }

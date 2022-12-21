@@ -95,6 +95,8 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
+            wnd.enableButtons();
+            MessageBox.Show("No possible path");
         }
     }
 }
