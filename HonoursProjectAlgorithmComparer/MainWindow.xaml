@@ -29,6 +29,8 @@
             <ComboBoxItem Name ="chosen35" Content="35x35"/>
             <ComboBoxItem Name ="chosen40" Content="40x40"/>
             <ComboBoxItem Name ="chosen45" Content="45x45"/>
+            <ComboBoxItem Name ="chosen50" Content="50x50"/>
+            <ComboBoxItem Name ="chosen55" Content="55x55"/>
         </ComboBox>
         <ComboBox Name="comboBox2" Margin="452,596,926,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>

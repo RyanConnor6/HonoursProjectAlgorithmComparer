@@ -50,6 +50,9 @@ namespace HonoursProjectAlgorithmComparer
             creategrid(size);
 
             th = new TableHandler(size);
+
+            first = th.NodesList[(size * (size / 2)) + 1];
+            last = th.NodesList[(size * (size / 2)) + size - 2];
         }
 
         //Create the grid
@@ -179,8 +182,15 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        updatecol(n.NodeID, Brushes.Green);
-                        first = n;
+                        if (n.NodeID != last.NodeID)
+                        {
+                            updatecol(n.NodeID, Brushes.Green);
+                            first = n;
+                        }
+                        else
+                        {
+                            updatecol(first.NodeID, Brushes.Green);
+                        }
                     }
                 }
             }
@@ -198,8 +208,15 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        updatecol(n.NodeID, Brushes.Red);
-                        last = n;
+                        if (n.NodeID != first.NodeID)
+                        {
+                            updatecol(n.NodeID, Brushes.Red);
+                            last = n;
+                        }
+                        else
+                        {
+                            updatecol(last.NodeID, Brushes.Red);
+                        }
                     }
                 }
             }
@@ -383,6 +400,8 @@ namespace HonoursProjectAlgorithmComparer
         {
             startBtn.IsEnabled = true;
             runBtn.IsEnabled = true;
+            comboBox1.IsEnabled = true;
+            comboBox2.IsEnabled = true;
             foreach (StackPanel stp in panelList)
             {
                 stp.MouseDown += PlacementControl2;
@@ -393,6 +412,8 @@ namespace HonoursProjectAlgorithmComparer
         {
             startBtn.IsEnabled = false;
             runBtn.IsEnabled = false;
+            comboBox1.IsEnabled = false;
+            comboBox2.IsEnabled = false;
             foreach (StackPanel stp in panelList)
             {
                 stp.MouseDown -= PlacementControl2;
