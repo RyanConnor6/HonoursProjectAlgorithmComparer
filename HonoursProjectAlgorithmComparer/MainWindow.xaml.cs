@@ -361,6 +361,11 @@ namespace HonoursProjectAlgorithmComparer
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
                 runDijkstra.algRun(first, last);
             }
+            if (run == 'G')
+            {
+                BestFirstRunner runBestFirst = new BestFirstRunner(th);
+                runBestFirst.algRun(first, last);
+            }
         }
 
         //Reset tiles that were coloured by the search

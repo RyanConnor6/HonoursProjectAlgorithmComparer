@@ -20,9 +20,6 @@
         <Button x:Name="startBtn" Content="Create Grid" HorizontalAlignment="Left" Height="130" Margin="21,276,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
         <Button x:Name="runBtn" Content="Run Algorithm" HorizontalAlignment="Left" Height="131" Margin="21,595,0,0" VerticalAlignment="Top" Width="400" FontSize="50" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
         <ComboBox Name="comboBox1" Margin="452,276,926,0" FontSize="50" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-            <ComboBoxItem Name ="chosen5" Content="5x5"/>
-            <ComboBoxItem Name ="chosen10" Content="10x10"/>
-            <ComboBoxItem Name ="chosen15" Content="15x15"/>
             <ComboBoxItem Name ="chosen20" IsSelected="True" Content="20x20"/>
             <ComboBoxItem Name ="chosen25" Content="25x25"/>
             <ComboBoxItem Name ="chosen30" Content="30x30"/>
@@ -36,7 +33,7 @@
             <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>
             <ComboBoxItem Name ="Dijkstra" Content="Dijkstra"/>
             <ComboBoxItem Name ="BreadthFirst" Content="Breadth First"/>
-            <ComboBoxItem Name ="Item4" Content="Item4"/>
+            <ComboBoxItem Name ="GreedyBestFirst" Content="Greedy Best First"/>
         </ComboBox>
         <CheckBox Name ="Diagonal" Content="Allow Diagonal Movement" HorizontalAlignment="Left" Height="16" Margin="21,460,0,0" VerticalAlignment="Top" Width="162" IsChecked="True">
             <CheckBox.LayoutTransform>
