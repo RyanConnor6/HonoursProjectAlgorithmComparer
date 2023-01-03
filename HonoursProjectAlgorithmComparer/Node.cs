@@ -14,7 +14,7 @@ namespace HonoursProjectAlgorithmComparer
 {
     public class Node
     {
-        //Private variables storing cave info
+        //Private variables storing node info
         private int coordinateX;
         private int coordinateY;
         private double GScore;
