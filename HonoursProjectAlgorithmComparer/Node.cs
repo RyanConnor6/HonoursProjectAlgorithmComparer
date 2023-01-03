@@ -19,6 +19,7 @@ namespace HonoursProjectAlgorithmComparer
         private int coordinateY;
         private double GScore;
         private double FScore;
+        private double Distance;
         private int nodeID;
         private Node parent;
         private List<Node> connectedNodes = new List<Node>();
@@ -55,6 +56,12 @@ namespace HonoursProjectAlgorithmComparer
         {
             get { return FScore; }
             set { FScore = value; }
+        }
+
+        public double distance
+        {
+            get { return Distance; }
+            set { Distance = value; }
         }
 
         public int NodeID

@@ -41,13 +41,13 @@ namespace HonoursProjectAlgorithmComparer
             //Add each node to the queue
             foreach (Node c in th.NodesList)
             {
-                c.fScore = int.MaxValue;
+                c.distance = int.MaxValue;
                 c.Parent = null;
                 nodeQueue.Add(c);
             }
 
             //Initialise cost of first node as 0
-            firstNode.fScore = 0;
+            firstNode.distance = 0;
 
             //While nodes in queue
             while (nodeQueue.Count() != 0)
@@ -60,7 +60,7 @@ namespace HonoursProjectAlgorithmComparer
                 wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
                 //Get next node to check
-                nodeQueue = nodeQueue.OrderBy(o => o.fScore).ToList();
+                nodeQueue = nodeQueue.OrderBy(o => o.distance).ToList();
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
 
@@ -94,10 +94,10 @@ namespace HonoursProjectAlgorithmComparer
                 //Update best costs
                 foreach (Node connectedNode in NodeChecking.ConnectedNodes)
                 {
-                    double alt = NodeChecking.fScore + NodeChecking.FindDistance(connectedNode.CoordinateX, connectedNode.CoordinateY);
-                    if (alt < connectedNode.fScore)
+                    double alt = NodeChecking.distance + NodeChecking.FindDistance(connectedNode.CoordinateX, connectedNode.CoordinateY);
+                    if (alt < connectedNode.distance)
                     {
-                        connectedNode.fScore = alt;
+                        connectedNode.distance = alt;
                         connectedNode.Parent = NodeChecking;
                         wnd.updatecol(connectedNode.NodeID, Brushes.GreenYellow);
                     }

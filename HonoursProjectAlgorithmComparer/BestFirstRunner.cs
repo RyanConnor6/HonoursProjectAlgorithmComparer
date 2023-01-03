@@ -38,7 +38,7 @@ namespace HonoursProjectAlgorithmComparer
             wnd.disableButtons();
 
             firstNode.Explored = true;
-            firstNode.fScore = firstNode.FindDistance(lastNode.CoordinateX, lastNode.CoordinateY);
+            firstNode.distance = firstNode.FindDistance(lastNode.CoordinateX, lastNode.CoordinateY);
 
             List<Node> nodeQueue = new List<Node>();
 
@@ -53,7 +53,7 @@ namespace HonoursProjectAlgorithmComparer
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
                 wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
-                nodeQueue = nodeQueue.OrderBy(o => o.fScore).ToList();
+                nodeQueue = nodeQueue.OrderBy(o => o.distance).ToList();
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
 
@@ -66,7 +66,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 foreach (Node connectedNode in NodeChecking.ConnectedNodes)
                 {
-                    connectedNode.fScore = connectedNode.FindDistance(lastNode.CoordinateX, lastNode.CoordinateY);
+                    connectedNode.distance = connectedNode.FindDistance(lastNode.CoordinateX, lastNode.CoordinateY);
                     if (connectedNode.Explored != true)
                     {
                         if (connectedNode == lastNode)
