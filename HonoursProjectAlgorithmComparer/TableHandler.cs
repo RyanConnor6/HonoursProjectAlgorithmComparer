@@ -175,7 +175,7 @@ namespace HonoursProjectAlgorithmComparer
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
             wnd.enableButtons();
 
-            MessageBox.Show("Algorithm has taken: " + time + "        Path size found: " + pathSize);
+            wnd.showResults(time, pathSize); 
         }
     }
 }

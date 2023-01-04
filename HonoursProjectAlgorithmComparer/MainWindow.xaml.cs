@@ -37,6 +37,21 @@ namespace HonoursProjectAlgorithmComparer
         public MainWindow()
         {
             InitializeComponent();
+
+            first = null;
+            last = null;
+            mode = "null";
+
+            ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
+            string value = myItem.Content.ToString();
+            string[] subs = value.Split('x');
+            size = Int32.Parse(subs[0]);
+            creategrid(size);
+
+            th = new TableHandler(size);
+
+            first = th.NodesList[(size * (size / 2)) + 1];
+            last = th.NodesList[(size * (size / 2)) + size - 2];
         }
 
         //Start Button clicked
@@ -352,42 +367,26 @@ namespace HonoursProjectAlgorithmComparer
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(th);
-
-                List<Task> tasks = new();
-                {
-                    tasks.Add(runAStar.algRun(first, last));
-                }
-                Task.WaitAll();
+                runAStar.algRun(first, last);
+                algLabel.Content = "Algorithm Run: A*";
             }
             if (run == 'B')
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
-                
-                List<Task> tasks = new();
-                {
-                    tasks.Add(runBreadthFirst.algRun(first, last));
-                }
-                Task.WaitAll();
+                runBreadthFirst.algRun(first, last);
+                algLabel.Content = "Algorithm Run: Breadth First";
             }
             if (run == 'D')
             {
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
-
-                List<Task> tasks = new();
-                {
-                    tasks.Add(runDijkstra.algRun(first, last));
-                }
-                Task.WaitAll();
+                runDijkstra.algRun(first, last);
+                algLabel.Content = "Algorithm Run: Dijkstra's";
             }
             if (run == 'G')
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(th);
-
-                List<Task> tasks = new();
-                {
-                    tasks.Add(runBestFirst.algRun(first, last));
-                }
-                Task.WaitAll();
+                runBestFirst.algRun(first, last);
+                algLabel.Content = "Algorithm Run: Greedy Best First";
             }
         }
 
@@ -447,6 +446,12 @@ namespace HonoursProjectAlgorithmComparer
                 stp.MouseDown -= PlacementControl2;
                 stp.MouseMove -= PlacementControl;
             }
+        }
+
+        public void showResults(double time, int pathSize)
+        {
+            algLabel2.Content = "Time Taken: " + time.ToString("0.00");
+            algLabel3.Content = "Path Size Found: " + pathSize.ToString();
         }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Algorithm Comparer" Height="1000" Width="1800" Left="50" Top="25">
     <Grid>
-        <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Top" Width="750" Margin="942,121,0,0" RenderTransformOrigin="0.5,0.5">
+        <Canvas x:Name="canContainer" HorizontalAlignment="Left" Height="750" VerticalAlignment="Center" Width="750" Margin="951,0,0,0" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -17,9 +17,9 @@
                 </TransformGroup>
             </Canvas.RenderTransform>
         </Canvas>
-        <Button x:Name="startBtn" Content="Create Grid" HorizontalAlignment="Left" Height="65" Margin="21,137,0,0" VerticalAlignment="Top" Width="300" FontSize="30" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
-        <Button x:Name="runBtn" Content="Run Algorithm" HorizontalAlignment="Left" Height="65" Margin="18,643,0,0" VerticalAlignment="Top" Width="300" FontSize="30" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
-        <ComboBox Name="comboBox1" Margin="351,137,1149,0" FontSize="30" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="65" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+        <Button x:Name="startBtn" Content="Change Grid Size" HorizontalAlignment="Left" Height="130" Margin="474,38,0,0" VerticalAlignment="Top" Width="400" FontSize="40" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click"/>
+        <Button x:Name="runBtn" Content="Run Algorithm" HorizontalAlignment="Left" Height="131" Margin="474,338,0,0" VerticalAlignment="Top" Width="400" FontSize="40" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click"/>
+        <ComboBox Name="comboBox1" Margin="21,38,1357,0" FontSize="40" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <ComboBoxItem Name ="chosen20" IsSelected="True" Content="20x20"/>
             <ComboBoxItem Name ="chosen25" Content="25x25"/>
             <ComboBoxItem Name ="chosen30" Content="30x30"/>
@@ -29,19 +29,21 @@
             <ComboBoxItem Name ="chosen50" Content="50x50"/>
             <ComboBoxItem Name ="chosen55" Content="55x55"/>
         </ComboBox>
-        <ComboBox Name="comboBox2" Margin="351,648,1149,0" FontSize="30" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="65" Width="300" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+        <ComboBox Name="comboBox2" Margin="21,339,1357,0" FontSize="40" FontFamily="Arial Rounded MT Bold" VerticalAlignment="Top" Height="130" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
             <ComboBoxItem Name ="AStar" IsSelected="True" Content="A*"/>
             <ComboBoxItem Name ="Dijkstra" Content="Dijkstra"/>
             <ComboBoxItem Name ="BreadthFirst" Content="Breadth First"/>
             <ComboBoxItem Name ="GreedyBestFirst" Content="Greedy Best First"/>
         </ComboBox>
-        <CheckBox Name ="Diagonal" Content="Allow Diagonal Movement" HorizontalAlignment="Left" FontSize="10" Height="16" Margin="20,405,0,0" VerticalAlignment="Top" Width="160" IsChecked="True">
+        <CheckBox Name ="Diagonal" Content="Allow Diagonal Movement" HorizontalAlignment="Left" Height="16" Margin="21,216,0,0" VerticalAlignment="Top" Width="162" IsChecked="True">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="4" ScaleY="4" />
             </CheckBox.LayoutTransform>
         </CheckBox>
-        <Label Content="Create Grid" FontSize="70" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Height="90" Margin="133,42,0,0" VerticalAlignment="Top" Width="413"/>
-        <Label Content="Movement Options" FontSize="70" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Height="84" Margin="18,316,0,0" VerticalAlignment="Top" Width="643"/>
-        <Label Content="Algorithm To Run" FontSize="70" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Height="90" Margin="33,553,0,0" VerticalAlignment="Top" Width="616"/>
+        <Canvas Margin="21,584,926,114" Background="#FFD3D6FF">
+            <Label Name="algLabel" Content="Algorithm Run: N/A" FontSize="50" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="78" Width="853"/>
+            <Label x:Name="algLabel2" Content="Time Taken: N/A" FontSize="50" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Height="78" Width="853"/>
+            <Label x:Name="algLabel3" Content="Path Size Found: N/A" FontSize="50" FontFamily="Arial Rounded MT Bold" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Height="78" Width="853"/>
+        </Canvas>
     </Grid>
 </Window>
