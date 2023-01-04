@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 // RYAN CONNOR - 40437041
 // HONOURS PROJECT
@@ -349,22 +352,42 @@ namespace HonoursProjectAlgorithmComparer
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(th);
-                runAStar.algRun(first, last);
+
+                List<Task> tasks = new();
+                {
+                    tasks.Add(runAStar.algRun(first, last));
+                }
+                Task.WaitAll();
             }
             if (run == 'B')
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
-                runBreadthFirst.algRun(first, last);
+                
+                List<Task> tasks = new();
+                {
+                    tasks.Add(runBreadthFirst.algRun(first, last));
+                }
+                Task.WaitAll();
             }
             if (run == 'D')
             {
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
-                runDijkstra.algRun(first, last);
+
+                List<Task> tasks = new();
+                {
+                    tasks.Add(runDijkstra.algRun(first, last));
+                }
+                Task.WaitAll();
             }
             if (run == 'G')
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(th);
-                runBestFirst.algRun(first, last);
+
+                List<Task> tasks = new();
+                {
+                    tasks.Add(runBestFirst.algRun(first, last));
+                }
+                Task.WaitAll();
             }
         }
 
