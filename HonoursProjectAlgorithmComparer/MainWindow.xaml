@@ -17,8 +17,6 @@
                     <ComboBoxItem x:Name ="chosen35" Content="35x35"/>
                     <ComboBoxItem x:Name ="chosen40" Content="40x40"/>
                     <ComboBoxItem x:Name ="chosen45" Content="45x45"/>
-                    <ComboBoxItem x:Name ="chosen50" Content="50x50"/>
-                    <ComboBoxItem x:Name ="chosen55" Content="55x55"/>
                 </ComboBox>
                 <Button x:Name="startBtn" Content="Change Grid Size" Height="44" Width="290" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click" HorizontalAlignment="Center" Canvas.Left="310" Canvas.Top="56" VerticalAlignment="Top"/>
             </Canvas>
@@ -50,19 +48,6 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="360" Margin="100,22,0,0" VerticalAlignment="Top" Width="647">
             <Canvas HorizontalAlignment="Center" Height="360" VerticalAlignment="Center" Width="647"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="510" Margin="96,422,0,0" VerticalAlignment="Top" Width="648">
-            <Canvas Margin="0,0,0,-2" HorizontalAlignment="Center" Width="646">
-                <Label x:Name="algLabel" Content="Current Algorithm Run: N/A" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Height="50" Width="637" Canvas.Left="10"/>
-                <Label x:Name="algLabel2" Content="CurrentTime Taken: N/A" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="637" Canvas.Left="10" Canvas.Top="50"/>
-                <Label x:Name="algLabel3" Content="Current Path Size Found: N/A" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="637" Canvas.Left="10" Canvas.Top="100"/>
-                <Label x:Name="algLabel4" Content="Last Algorithm Run: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="180"/>
-                <Label x:Name="algLabel5" Content="Last Time Taken: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="230" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="algLabel6" Content="Last Path Size Found: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="280" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="algLabel7" Content="Best Algorithm Run: N/A" FontSize="30" Height="50" Width="636" Canvas.Left="10" Canvas.Top="358" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="algLabel8" Content="Best Time Taken: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="408" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="algLabel9" Content="Best Path Size Found: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="458" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </Canvas>
-        </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="910" Margin="906,22,0,0" VerticalAlignment="Top" Width="794">
             <Canvas x:Name="canContainer" HorizontalAlignment="Right" Height="750" VerticalAlignment="Top" Width="750" Margin="0,25,25,0" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
@@ -75,8 +60,26 @@
                 </Canvas.RenderTransform>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" Margin="96,423,0,0" VerticalAlignment="Top" Width="648"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="182" Margin="96,589,0,0" VerticalAlignment="Top" Width="648"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="161" Margin="96,771,0,0" VerticalAlignment="Top" Width="648"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" Margin="100,426,0,0" VerticalAlignment="Top" Width="648">
+            <Canvas HorizontalAlignment="Center" Background ="#FFFFE7BD" Height="166" VerticalAlignment="Center" Width="648">
+                <Label x:Name="algLabel" Content="Current Algorithm Run: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="9" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel2" Content="Current Time Taken: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="59" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel3" Content="Current Path Size Found: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="166" Width="648" HorizontalAlignment="Center" Canvas.Top="170" VerticalAlignment="Top">
+                    <Canvas HorizontalAlignment="Center" Background ="#FFFFE7BD" Height="166" VerticalAlignment="Center" Width="648">
+                        <Label x:Name="algLabel4" Content="Last Algorithm Run: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="9" VerticalAlignment="Top"/>
+                        <Label x:Name="algLabel5" Content="Last Time Taken: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="59" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label x:Name="algLabel6" Content="Last Path Size Found: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </Canvas>
+                </Border>
+            </Canvas>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" Margin="100,766,0,0" VerticalAlignment="Top" Width="648">
+            <Canvas HorizontalAlignment="Center" Background ="#FFDAFFB6" Height="166" VerticalAlignment="Center" Width="648">
+                <Label x:Name="algLabel7" Content="Best Algorithm Run: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="9" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel8" Content="Best Time Taken: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="59" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel9" Content="Best Path Size Found: N/A" FontSize="30" Height="50" Width="637" Canvas.Left="10" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Canvas>
+        </Border>
     </Grid>
 </Window>

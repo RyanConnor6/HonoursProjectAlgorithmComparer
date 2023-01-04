@@ -89,6 +89,9 @@ namespace HonoursProjectAlgorithmComparer
         //Create the grid
         public void creategrid(int size)
         {
+            //reset labels
+            resetLabels();
+
             //Setup panel grid
             panelGrid.Children.Clear();
             panelGrid.RowDefinitions.Clear();
@@ -157,6 +160,9 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     resetSearchVisualisation();
                     switchMode(stp);
+
+                    //reset labels
+                    resetLabels();
                 }
 
                 //If its not the same panel, change colour
@@ -187,6 +193,9 @@ namespace HonoursProjectAlgorithmComparer
             if (mode.Equals("running"))
             {
                 resetSearchVisualisation();
+
+                //reset labels
+                resetLabels();
             }
 
             //Update panel colour
@@ -479,16 +488,42 @@ namespace HonoursProjectAlgorithmComparer
             currentSize = pathSize;
             algLabel3.Content = "Current Path Size Found: " + pathSize.ToString();
 
-            if (currentTime < bestTime)
+            if (currentSize <= bestSize)
             {
-                bestRun = currentRun;
-                bestTime = currentTime;
-                bestSize = currentSize;
-                
-                algLabel7.Content = "Best Algorithm Run: " + bestRun;
-                algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
-                algLabel9.Content = "Best Path Size: " + bestSize;
+                if (currentTime <=bestTime)
+                {
+                    bestRun = currentRun;
+                    bestTime = currentTime;
+                    bestSize = currentSize;
+
+                    algLabel7.Content = "Best Algorithm Run: " + bestRun;
+                    algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
+                    algLabel9.Content = "Best Path Size: " + bestSize;
+                }
             }
+        }
+
+        public void resetLabels()
+        {
+            algLabel.Content = "Current Algorithm Run: N/A";
+            algLabel2.Content = "Current Time Taken: N/A";
+            algLabel3.Content = "Current Path Size: N/A";
+            algLabel4.Content = "Last Algorithm Run: N/A";
+            algLabel5.Content = "Last Time Taken: N/A";
+            algLabel6.Content = "Last Path Size: N/A";
+            algLabel7.Content = "Best Algorithm Run: N/A";
+            algLabel8.Content = "Best Time Taken: N/A";
+            algLabel9.Content = "Best Path Size: N/A";
+
+            currentRun = "N/A";
+            currentTime = 0;
+            currentSize = 0;
+            lastRun = "N/A";
+            lastTime = 0;
+            lastSize = 0;
+            bestRun = "N/A";
+            bestTime = 99;
+            bestSize = 99;
         }
     }
 }
