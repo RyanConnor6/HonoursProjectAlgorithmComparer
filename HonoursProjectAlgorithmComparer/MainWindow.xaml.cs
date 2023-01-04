@@ -33,6 +33,19 @@ namespace HonoursProjectAlgorithmComparer
         string mode = "null";
         StackPanel laststp;
 
+        string currentRun = "N/A";
+        double currentTime = 0;
+        int currentSize = 0;
+
+        string lastRun = "N/A";
+        double lastTime = 0;
+        int lastSize = 0;
+
+        string bestRun = "N/A";
+        double bestTime = 99;
+        int bestSize = 99;
+
+
         //Main Window Initialise
         public MainWindow()
         {
@@ -82,8 +95,8 @@ namespace HonoursProjectAlgorithmComparer
             panelGrid.ColumnDefinitions.Clear();
             this.canContainer.Children.Clear();
             panelList.Clear();
-            panelGrid.Width = 750;
-            panelGrid.Height = 750;
+            panelGrid.Width = canContainer.Width;
+            panelGrid.Height = canContainer.Height;
             panelGrid.HorizontalAlignment = HorizontalAlignment.Center;
             panelGrid.VerticalAlignment = VerticalAlignment.Center;
             panelGrid.ShowGridLines = false;
@@ -368,25 +381,29 @@ namespace HonoursProjectAlgorithmComparer
             {
                 AStarRunner runAStar = new AStarRunner(th);
                 runAStar.algRun(first, last);
-                algLabel.Content = "Algorithm Run: A*";
+                lastRun = currentRun;
+                currentRun = "A*";
             }
             if (run == 'B')
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
                 runBreadthFirst.algRun(first, last);
-                algLabel.Content = "Algorithm Run: Breadth First";
+                lastRun = currentRun;
+                currentRun = "Breadth First";
             }
             if (run == 'D')
             {
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
                 runDijkstra.algRun(first, last);
-                algLabel.Content = "Algorithm Run: Dijkstra's";
+                lastRun = currentRun;
+                currentRun = "Dijkstra's";
             }
             if (run == 'G')
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(th);
                 runBestFirst.algRun(first, last);
-                algLabel.Content = "Algorithm Run: Greedy Best First";
+                lastRun = currentRun;
+                currentRun = "Greedy Best First";
             }
         }
 
@@ -449,9 +466,29 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         public void showResults(double time, int pathSize)
-        {
-            algLabel2.Content = "Time Taken: " + time.ToString("0.00");
-            algLabel3.Content = "Path Size Found: " + pathSize.ToString();
+        {    
+            algLabel4.Content = "Last Algorithm Run: " + lastRun;
+            lastTime = currentTime;
+            algLabel5.Content = "Last Time Taken: " + lastTime.ToString("0.00");
+            lastSize = currentSize;
+            algLabel6.Content = "Last Path Size: " + lastSize;
+
+            algLabel.Content = "Current Algorithm Run: " + currentRun;
+            currentTime = time;
+            algLabel2.Content = "Current Time Taken: " + time.ToString("0.00");
+            currentSize = pathSize;
+            algLabel3.Content = "Current Path Size Found: " + pathSize.ToString();
+
+            if (currentTime < bestTime)
+            {
+                bestRun = currentRun;
+                bestTime = currentTime;
+                bestSize = currentSize;
+                
+                algLabel7.Content = "Best Algorithm Run: " + bestRun;
+                algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
+                algLabel9.Content = "Best Path Size: " + bestSize;
+            }
         }
     }
 }
