@@ -43,8 +43,8 @@ namespace HonoursProjectAlgorithmComparer
         int lastSize = 0;
 
         string bestRun = "N/A";
-        double bestTime = 99;
-        int bestSize = 99;
+        double bestTime = 9999;
+        int bestSize = 9999;
 
         CancellationTokenSource cts;
 
@@ -524,8 +524,8 @@ namespace HonoursProjectAlgorithmComparer
             lastTime = 0;
             lastSize = 0;
             bestRun = "N/A";
-            bestTime = 99;
-            bestSize = 99;
+            bestTime = 9999;
+            bestSize = 9999;
         }
 
         public void ctsStop()
