@@ -84,35 +84,31 @@ namespace HonoursProjectAlgorithmComparer
             {
                 for (int column = 0; column < gridSize; column++)
                 {
-
-                    //Adjacent connections
-                    if (counter + 1 < NodesList.Count())
+                    if (column == 0)
                     {
-                        if (column != gridSize - 1)
-                        {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
-                        }
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
                     }
-                    if (counter - 1 >= 0)
+                    else if (column == gridSize - 1)
                     {
-                        if (column != 0)
-                        {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
-                        }
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
                     }
-                    if (counter + gridSize < NodesList.Count())
+                    else
                     {
-                        if (column != gridSize - 1)
-                        {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
-                        }
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + 1]);
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - 1]);
                     }
-                    if (counter - gridSize >= 0)
+                    if (row == 0)
                     {
-                        if (column != 0)
-                        {
-                            NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
-                        }
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
+                    }
+                    else if (row == gridSize - 1)
+                    {
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
+                    }
+                    else
+                    {
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter + gridSize]);
+                        NodesList[counter].ConnectedNodes.Add(NodesList[counter - gridSize]);
                     }
 
                     //Diagonal connections
