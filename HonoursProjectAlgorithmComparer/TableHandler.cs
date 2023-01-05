@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -150,7 +151,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Display final path by backtracking through parents
-        public async void RunDisplayFunctions(Node last, float time)
+        public async void RunDisplayFunctions(Node last, float time, CancellationToken token)
         {
             pathSize = 0;
 
@@ -162,14 +163,24 @@ namespace HonoursProjectAlgorithmComparer
 
             do
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 await Task.Delay(10);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 pathSize++;
                 wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                 currentNode = currentNode.Parent;
             } while (currentNode.Parent != null);
 
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
-            wnd.enableButtons();
 
             wnd.showResults(time, pathSize); 
         }

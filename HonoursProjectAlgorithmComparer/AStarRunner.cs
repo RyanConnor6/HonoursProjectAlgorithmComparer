@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -30,11 +31,10 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run A*
-        public async void algRun(Node firstNode, Node lastNode)
+        public async void algRun(Node firstNode, Node lastNode, CancellationToken token)
         {
             //Start watch and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            wnd.disableButtons();
 
             //Create open set and add first Node
             List<Node> openSet = new List<Node>();
@@ -49,8 +49,18 @@ namespace HonoursProjectAlgorithmComparer
             //While there are still values in the open set
             while (openSet.Count() != 0)
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 //Stall task to show visualisation
                 await Task.Delay(10);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
 
                 //Update colours
                 foreach (Node c in openSet)
@@ -80,7 +90,7 @@ namespace HonoursProjectAlgorithmComparer
                     float seconds3 = seconds + seconds2 / 1000;
 
                     //Run all display functions in file handler and end
-                    th.RunDisplayFunctions(lastNode, seconds3);
+                    th.RunDisplayFunctions(lastNode, seconds3, token);
                     return;
                 }
 
@@ -146,7 +156,6 @@ namespace HonoursProjectAlgorithmComparer
             {
                 //Run display function for no possible route
                 //th.CaseNodeNotFound();
-                wnd.enableButtons();
                 MessageBox.Show("No possible path");
                 return;
             }

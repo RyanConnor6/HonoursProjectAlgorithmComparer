@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,6 +46,8 @@ namespace HonoursProjectAlgorithmComparer
         double bestTime = 99;
         int bestSize = 99;
 
+        CancellationTokenSource cts;
+
 
         //Main Window Initialise
         public MainWindow()
@@ -70,6 +73,8 @@ namespace HonoursProjectAlgorithmComparer
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
+            ctsStop();
+
             first = null;
             last = null;
             mode = "null";
@@ -155,6 +160,8 @@ namespace HonoursProjectAlgorithmComparer
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
             if (mouseIsDown)
             {
+                ctsStop();
+
                 //If an algorithm was run remove visualised search
                 if (mode.Equals("running"))
                 {
@@ -188,6 +195,8 @@ namespace HonoursProjectAlgorithmComparer
         {
             //Adds elements when clicked
             StackPanel stp = (StackPanel)sender;
+
+            ctsStop();
 
             //If an algorithm was run remove visualised search
             if (mode.Equals("running"))
@@ -299,6 +308,8 @@ namespace HonoursProjectAlgorithmComparer
         //Run the algorithm
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            ctsStop();
+
             if(th == null)
             {
                 MessageBox.Show("ERROR: Please create a grid");
@@ -385,32 +396,36 @@ namespace HonoursProjectAlgorithmComparer
                 a.Parent = null;
             }
 
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
             //Run correct mode
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(th);
-                runAStar.algRun(first, last);
+                runAStar.algRun(first, last, cts.Token);
                 lastRun = currentRun;
                 currentRun = "A*";
             }
             if (run == 'B')
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
-                runBreadthFirst.algRun(first, last);
+                runBreadthFirst.algRun(first, last, cts.Token);
                 lastRun = currentRun;
                 currentRun = "Breadth First";
             }
             if (run == 'D')
             {
+                cts = new CancellationTokenSource();
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
-                runDijkstra.algRun(first, last);
+                runDijkstra.algRun(first, last, cts.Token);
                 lastRun = currentRun;
                 currentRun = "Dijkstra's";
             }
             if (run == 'G')
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(th);
-                runBestFirst.algRun(first, last);
+                runBestFirst.algRun(first, last, cts.Token);
                 lastRun = currentRun;
                 currentRun = "Greedy Best First";
             }
@@ -449,31 +464,6 @@ namespace HonoursProjectAlgorithmComparer
             }
         }
 
-        public void enableButtons()
-        {
-            startBtn.IsEnabled = true;
-            runBtn.IsEnabled = true;
-            comboBox1.IsEnabled = true;
-            comboBox2.IsEnabled = true;
-            foreach (StackPanel stp in panelList)
-            {
-                stp.MouseDown += PlacementControl2;
-                stp.MouseMove += PlacementControl;
-            }
-        }
-        public void disableButtons()
-        {
-            startBtn.IsEnabled = false;
-            runBtn.IsEnabled = false;
-            comboBox1.IsEnabled = false;
-            comboBox2.IsEnabled = false;
-            foreach (StackPanel stp in panelList)
-            {
-                stp.MouseDown -= PlacementControl2;
-                stp.MouseMove -= PlacementControl;
-            }
-        }
-
         public void showResults(double time, int pathSize)
         {    
             algLabel4.Content = "Last Algorithm Run: " + lastRun;
@@ -490,6 +480,16 @@ namespace HonoursProjectAlgorithmComparer
 
             if (currentSize <= bestSize)
             {
+                if(currentSize < bestSize)
+                {
+                    bestRun = currentRun;
+                    bestTime = currentTime;
+                    bestSize = currentSize;
+
+                    algLabel7.Content = "Best Algorithm Run: " + bestRun;
+                    algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
+                    algLabel9.Content = "Best Path Size: " + bestSize;
+                }
                 if (currentTime <=bestTime)
                 {
                     bestRun = currentRun;
@@ -524,6 +524,15 @@ namespace HonoursProjectAlgorithmComparer
             bestRun = "N/A";
             bestTime = 99;
             bestSize = 99;
+        }
+
+        public void ctsStop()
+        {
+            if (cts != null)
+            {
+                cts.Cancel();
+                cts = null;
+            }
         }
     }
 }

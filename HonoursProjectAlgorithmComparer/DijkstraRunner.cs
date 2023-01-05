@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -29,11 +30,11 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run Dijkstra
-        public async void algRun(Node firstNode, Node lastNode)
+        public async void algRun(Node firstNode, Node lastNode, CancellationToken token)
         {
             //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            wnd.disableButtons();
+            //wnd.disableButtons();
 
             //Create list of all nodes
             List<Node> nodeQueue = new List<Node>();
@@ -52,8 +53,18 @@ namespace HonoursProjectAlgorithmComparer
             //While nodes in queue
             while (nodeQueue.Count() != 0)
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 //Stall to show visualisation
                 await Task.Delay(10);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
 
                 //Make sure important nodes arent coloured over
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
@@ -86,7 +97,7 @@ namespace HonoursProjectAlgorithmComparer
 
                     if (lastNode.Parent != null)
                     {
-                        th.RunDisplayFunctions(lastNode, seconds3);
+                        th.RunDisplayFunctions(lastNode, seconds3, token);
                     }
                     return;
                 }
@@ -103,7 +114,6 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            wnd.enableButtons();
             MessageBox.Show("No possible path");
         }
     }

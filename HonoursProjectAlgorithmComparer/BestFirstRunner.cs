@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -31,11 +32,10 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run BF search
-        public async void algRun(Node firstNode, Node lastNode)
+        public async void algRun(Node firstNode, Node lastNode, CancellationToken token)
         {
             //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            wnd.disableButtons();
 
             firstNode.Explored = true;
             firstNode.distance = firstNode.FindDistance(lastNode.CoordinateX, lastNode.CoordinateY);
@@ -47,8 +47,18 @@ namespace HonoursProjectAlgorithmComparer
             //While nodes in queue
             while (nodeQueue.Count() != 0)
             {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 //Stall to show visualisation
                 await Task.Delay(10);
+
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
 
                 wnd.updatecol(firstNode.NodeID, Brushes.Green);
                 wnd.updatecol(lastNode.NodeID, Brushes.Red);
@@ -74,7 +84,6 @@ namespace HonoursProjectAlgorithmComparer
                             connectedNode.Parent = NodeChecking;
                             //Stop timer and display path
                             watch.Stop();
-                            wnd.enableButtons();
                             var elapsedMs = watch.ElapsedMilliseconds;
                             float seconds = elapsedMs / 1000;
                             float seconds2 = elapsedMs % 1000;
@@ -82,7 +91,7 @@ namespace HonoursProjectAlgorithmComparer
 
                             if (lastNode.Parent != null)
                             {
-                                th.RunDisplayFunctions(lastNode, seconds3);
+                                th.RunDisplayFunctions(lastNode, seconds3, token);
                             }
                             return;
                         }
@@ -96,7 +105,6 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            wnd.enableButtons();
             MessageBox.Show("No possible path");
         }
     }
