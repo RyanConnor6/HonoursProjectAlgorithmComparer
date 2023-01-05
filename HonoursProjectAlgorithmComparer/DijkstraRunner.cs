@@ -114,7 +114,6 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            MessageBox.Show("No possible path");
         }
     }
 }

@@ -60,14 +60,14 @@ namespace HonoursProjectAlgorithmComparer
                     return;
                 }
 
-                wnd.updatecol(firstNode.NodeID, Brushes.Green);
-                wnd.updatecol(lastNode.NodeID, Brushes.Red);
-
                 nodeQueue = nodeQueue.OrderBy(o => o.distance).ToList();
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
 
                 wnd.updatecol(NodeChecking.NodeID, Brushes.LightGreen);
+
+                wnd.updatecol(firstNode.NodeID, Brushes.Green);
+                wnd.updatecol(lastNode.NodeID, Brushes.Red);
 
                 if (NodeChecking == firstNode && NodeChecking.ConnectedNodes.Count() == 0)
                 {
@@ -105,7 +105,6 @@ namespace HonoursProjectAlgorithmComparer
                     }
                 }
             }
-            MessageBox.Show("No possible path");
         }
     }
 }

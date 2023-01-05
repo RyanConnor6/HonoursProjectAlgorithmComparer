@@ -154,9 +154,6 @@ namespace HonoursProjectAlgorithmComparer
             //If there are no more Nodes in the open set and closed set does not contain the last Node
             if (closedSet.Contains(lastNode) == false)
             {
-                //Run display function for no possible route
-                //th.CaseNodeNotFound();
-                MessageBox.Show("No possible path");
                 return;
             }
         }

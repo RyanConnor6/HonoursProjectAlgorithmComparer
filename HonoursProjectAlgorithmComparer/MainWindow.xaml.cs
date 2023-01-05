@@ -202,6 +202,7 @@ namespace HonoursProjectAlgorithmComparer
             if (mode.Equals("running"))
             {
                 resetSearchVisualisation();
+                switchMode(stp);
 
                 //reset labels
                 resetLabels();
