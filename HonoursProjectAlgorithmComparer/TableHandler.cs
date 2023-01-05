@@ -151,7 +151,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Display final path by backtracking through parents
-        public async void RunDisplayFunctions(Node last, float time, CancellationToken token)
+        public async void RunDisplayFunctions(Node last, float time, CancellationToken token, int runSpeed)
         {
             pathSize = 0;
 
@@ -168,7 +168,7 @@ namespace HonoursProjectAlgorithmComparer
                     return;
                 }
 
-                await Task.Delay(10);
+                await Task.Delay(runSpeed);
 
                 if (token.IsCancellationRequested)
                 {

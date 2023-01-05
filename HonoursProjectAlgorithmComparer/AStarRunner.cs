@@ -31,7 +31,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run A*
-        public async void algRun(Node firstNode, Node lastNode, CancellationToken token)
+        public async void algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
         {
             //Start watch and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -55,7 +55,7 @@ namespace HonoursProjectAlgorithmComparer
                 }
 
                 //Stall task to show visualisation
-                await Task.Delay(10);
+                await Task.Delay(runSpeed);
 
                 if (token.IsCancellationRequested)
                 {
@@ -90,7 +90,7 @@ namespace HonoursProjectAlgorithmComparer
                     float seconds3 = seconds + seconds2 / 1000;
 
                     //Run all display functions in file handler and end
-                    th.RunDisplayFunctions(lastNode, seconds3, token);
+                    th.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
                     return;
                 }
 

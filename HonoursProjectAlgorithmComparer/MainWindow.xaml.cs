@@ -398,19 +398,20 @@ namespace HonoursProjectAlgorithmComparer
 
             //Create cancellation token
             cts = new CancellationTokenSource();
+            var runSpeed = 10;
 
             //Run correct mode
             if (run == 'A')
             {
                 AStarRunner runAStar = new AStarRunner(th);
-                runAStar.algRun(first, last, cts.Token);
+                runAStar.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "A*";
             }
             if (run == 'B')
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
-                runBreadthFirst.algRun(first, last, cts.Token);
+                runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Breadth First";
             }
@@ -418,14 +419,14 @@ namespace HonoursProjectAlgorithmComparer
             {
                 cts = new CancellationTokenSource();
                 DijkstraRunner runDijkstra = new DijkstraRunner(th);
-                runDijkstra.algRun(first, last, cts.Token);
+                runDijkstra.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Dijkstra's";
             }
             if (run == 'G')
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(th);
-                runBestFirst.algRun(first, last, cts.Token);
+                runBestFirst.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Greedy Best First";
             }

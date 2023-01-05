@@ -30,7 +30,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run Dijkstra
-        public async void algRun(Node firstNode, Node lastNode, CancellationToken token)
+        public async void algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
         {
             //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -59,7 +59,7 @@ namespace HonoursProjectAlgorithmComparer
                 }
 
                 //Stall to show visualisation
-                await Task.Delay(10);
+                await Task.Delay(runSpeed);
 
                 if (token.IsCancellationRequested)
                 {
@@ -97,7 +97,7 @@ namespace HonoursProjectAlgorithmComparer
 
                     if (lastNode.Parent != null)
                     {
-                        th.RunDisplayFunctions(lastNode, seconds3, token);
+                        th.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
                     }
                     return;
                 }
