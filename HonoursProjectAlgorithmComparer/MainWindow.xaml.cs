@@ -209,6 +209,7 @@ namespace HonoursProjectAlgorithmComparer
             }
 
             //Update panel colour
+            switchMode(stp);
             UpdatePanelBasedOnMode(stp);
         }
 
