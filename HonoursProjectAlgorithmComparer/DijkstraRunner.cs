@@ -17,16 +17,16 @@ namespace HonoursProjectAlgorithmComparer
     class DijkstraRunner
     {
         //Table handler
-        TableHandler th;
+        ConnectionManager cm;
 
         //Main Window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
         //Class creation
-        public DijkstraRunner(TableHandler tableHandler)
+        public DijkstraRunner(ConnectionManager ConnectionManager)
         {
             //Get the file handler from parameters
-            this.th = tableHandler;
+            this.cm = ConnectionManager;
         }
 
         //Run Dijkstra
@@ -40,7 +40,7 @@ namespace HonoursProjectAlgorithmComparer
             List<Node> nodeQueue = new List<Node>();
 
             //Add each node to the queue
-            foreach (Node c in th.NodesList)
+            foreach (Node c in cm.NodesList)
             {
                 c.distance = int.MaxValue;
                 c.Parent = null;
@@ -95,9 +95,10 @@ namespace HonoursProjectAlgorithmComparer
                     float seconds2 = elapsedMs % 1000;
                     float seconds3 = seconds + seconds2 / 1000;
 
+                    //Run all display functions in connection manager and end
                     if (lastNode.Parent != null)
                     {
-                        th.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
+                        cm.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
                     }
                     return;
                 }

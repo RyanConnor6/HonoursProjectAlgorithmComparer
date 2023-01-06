@@ -29,7 +29,7 @@ namespace HonoursProjectAlgorithmComparer
         Grid panelGrid = new Grid();
         Node first;
         Node last;
-        TableHandler th;
+        ConnectionManager cm;
         int size = 0;
         string mode = "null";
         StackPanel laststp;
@@ -64,10 +64,10 @@ namespace HonoursProjectAlgorithmComparer
             size = Int32.Parse(subs[0]);
             creategrid(size);
 
-            th = new TableHandler(size);
+            cm = new ConnectionManager(size);
 
-            first = th.NodesList[(size * (size / 2)) + 1];
-            last = th.NodesList[(size * (size / 2)) + size - 2];
+            first = cm.NodesList[(size * (size / 2)) + 1];
+            last = cm.NodesList[(size * (size / 2)) + size - 2];
         }
 
         //Start Button clicked
@@ -85,10 +85,10 @@ namespace HonoursProjectAlgorithmComparer
             size = Int32.Parse(subs[0]);
             creategrid(size);
 
-            th = new TableHandler(size);
+            cm = new ConnectionManager(size);
 
-            first = th.NodesList[(size * (size / 2)) + 1];
-            last = th.NodesList[(size * (size / 2)) + size - 2];
+            first = cm.NodesList[(size * (size / 2)) + 1];
+            last = cm.NodesList[(size * (size / 2)) + size - 2];
         }
 
         //Create the grid
@@ -229,7 +229,7 @@ namespace HonoursProjectAlgorithmComparer
                     updatecol(first.NodeID, Brushes.MintCream);
                 }
 
-                foreach (Node n in th.NodesList)
+                foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -255,7 +255,7 @@ namespace HonoursProjectAlgorithmComparer
                     updatecol(last.NodeID, Brushes.MintCream);
                 }
 
-                foreach (Node n in th.NodesList)
+                foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -277,7 +277,7 @@ namespace HonoursProjectAlgorithmComparer
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
 
-                foreach (Node n in th.NodesList)
+                foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -294,7 +294,7 @@ namespace HonoursProjectAlgorithmComparer
                 int x = Int32.Parse(subs[1]);
                 int y = Int32.Parse(subs[2]);
 
-                foreach (Node n in th.NodesList)
+                foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
@@ -312,7 +312,7 @@ namespace HonoursProjectAlgorithmComparer
         {
             ctsStop();
 
-            if(th == null)
+            if(cm == null)
             {
                 MessageBox.Show("ERROR: Please create a grid");
                 return;
@@ -327,7 +327,7 @@ namespace HonoursProjectAlgorithmComparer
             { 
                 diagonalAllowed = false;
             }
-            th.ConstructNetwork(diagonalAllowed);
+            cm.ConstructNetwork(diagonalAllowed);
 
             //Keep list of walls
             List<StackPanel> walls = new();
@@ -338,11 +338,11 @@ namespace HonoursProjectAlgorithmComparer
             {
                 if(stp.Background == Brushes.Black)
                 {
-                    foreach (Node n in th.NodesList[iterator].ConnectedNodes)
+                    foreach (Node n in cm.NodesList[iterator].ConnectedNodes)
                     {
-                        n.ConnectedNodes.Remove(th.NodesList[iterator]);
+                        n.ConnectedNodes.Remove(cm.NodesList[iterator]);
                     }
-                    th.NodesList[iterator].ConnectedNodes.Clear();
+                    cm.NodesList[iterator].ConnectedNodes.Clear();
                     walls.Add(stp);
                 }
                 if (stp.Background == Brushes.Green)
@@ -350,7 +350,7 @@ namespace HonoursProjectAlgorithmComparer
                     string[] subs = stp.Name.Split('c');
                     int x = Int32.Parse(subs[1]);
                     int y = Int32.Parse(subs[2]);
-                    foreach (Node n in th.NodesList)
+                    foreach (Node n in cm.NodesList)
                     {
                         if (n.CoordinateX == x && n.CoordinateY == y)
                         {
@@ -363,7 +363,7 @@ namespace HonoursProjectAlgorithmComparer
                     string[] subs = stp.Name.Split('c');
                     int x = Int32.Parse(subs[1]);
                     int y = Int32.Parse(subs[2]);
-                    foreach (Node n in th.NodesList)
+                    foreach (Node n in cm.NodesList)
                     {
                         if (n.CoordinateX == x && n.CoordinateY == y)
                         {
@@ -393,7 +393,7 @@ namespace HonoursProjectAlgorithmComparer
             char run = value[0];
 
             //Reset parents
-            foreach (Node a in th.NodesList)
+            foreach (Node a in cm.NodesList)
             {
                 a.Parent = null;
             }
@@ -405,14 +405,14 @@ namespace HonoursProjectAlgorithmComparer
             //Run correct mode
             if (run == 'A')
             {
-                AStarRunner runAStar = new AStarRunner(th);
+                AStarRunner runAStar = new AStarRunner(cm);
                 runAStar.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "A*";
             }
             if (run == 'B')
             {
-                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(th);
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
                 runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Breadth First";
@@ -420,14 +420,14 @@ namespace HonoursProjectAlgorithmComparer
             if (run == 'D')
             {
                 cts = new CancellationTokenSource();
-                DijkstraRunner runDijkstra = new DijkstraRunner(th);
+                DijkstraRunner runDijkstra = new DijkstraRunner(cm);
                 runDijkstra.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Dijkstra's";
             }
             if (run == 'G')
             {
-                BestFirstRunner runBestFirst = new BestFirstRunner(th);
+                BestFirstRunner runBestFirst = new BestFirstRunner(cm);
                 runBestFirst.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Greedy Best First";

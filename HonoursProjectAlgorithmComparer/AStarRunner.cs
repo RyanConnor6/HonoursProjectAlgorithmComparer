@@ -17,17 +17,17 @@ namespace HonoursProjectAlgorithmComparer
     //Class to run a* algorithm
     class AStarRunner
     {
-        //tablehandler
-        TableHandler th;
+        //ConnectionManager
+        ConnectionManager cm;
 
         //Main window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
         //Create class
-        public AStarRunner(TableHandler tableHandler)
+        public AStarRunner(ConnectionManager ConnectionManager)
         {
             //table Handler
-            this.th = tableHandler;
+            this.cm = ConnectionManager;
         }
 
         //Run A*
@@ -89,8 +89,8 @@ namespace HonoursProjectAlgorithmComparer
                     float seconds2 = elapsedMs % 1000;
                     float seconds3 = seconds + seconds2 / 1000;
 
-                    //Run all display functions in file handler and end
-                    th.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
+                    //Run all display functions in connection manager and end
+                    cm.RunDisplayFunctions(lastNode, seconds3, token, runSpeed);
                     return;
                 }
 

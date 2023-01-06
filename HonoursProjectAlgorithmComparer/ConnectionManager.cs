@@ -15,7 +15,7 @@ namespace HonoursProjectAlgorithmComparer
 {
     //Class to construct node networks on grid
     //Class to print out final constructed path
-    class TableHandler
+    class ConnectionManager
     {
         //Node Information
         private int nodeAmount;
@@ -25,7 +25,7 @@ namespace HonoursProjectAlgorithmComparer
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
         //Constructor
-        public TableHandler(int size)
+        public ConnectionManager(int size)
         {
             //Get size and create node network
             gridSize = size;
