@@ -33,6 +33,8 @@ namespace HonoursProjectAlgorithmComparer
         int size = 0;
         string mode = "null";
         StackPanel laststp;
+        Brush lastStpColourStart = Brushes.MintCream;
+        Brush lastStpColourEnd = Brushes.MintCream;
 
         string currentRun = "N/A";
         double currentTime = 0;
@@ -186,6 +188,8 @@ namespace HonoursProjectAlgorithmComparer
                 if (mode.Equals("running")!=true)
                 {
                     switchMode(stp);
+                    lastStpColourStart = Brushes.MintCream;
+                    lastStpColourEnd = Brushes.MintCream;
                 }
             }
         }
@@ -226,15 +230,17 @@ namespace HonoursProjectAlgorithmComparer
                 int y = Int32.Parse(subs[2]);
                 if (first != null)
                 {
-                    updatecol(first.NodeID, Brushes.MintCream);
+                    updatecol(first.NodeID, lastStpColourStart);
                 }
 
+                var counter = 0;
                 foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
                         if (n.NodeID != last.NodeID)
                         {
+                            lastStpColourStart = panelList[counter].Background;
                             updatecol(n.NodeID, Brushes.Green);
                             first = n;
                         }
@@ -243,6 +249,7 @@ namespace HonoursProjectAlgorithmComparer
                             updatecol(first.NodeID, Brushes.Green);
                         }
                     }
+                    counter++;
                 }
             }
             //If end mode, move end
@@ -252,15 +259,17 @@ namespace HonoursProjectAlgorithmComparer
                 int y = Int32.Parse(subs[2]);
                 if (last != null)
                 {
-                    updatecol(last.NodeID, Brushes.MintCream);
+                    updatecol(last.NodeID, lastStpColourEnd);
                 }
 
+                var counter = 0;
                 foreach (Node n in cm.NodesList)
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
                         if (n.NodeID != first.NodeID)
                         {
+                            lastStpColourEnd = panelList[counter].Background;
                             updatecol(n.NodeID, Brushes.Red);
                             last = n;
                         }
@@ -269,6 +278,7 @@ namespace HonoursProjectAlgorithmComparer
                             updatecol(last.NodeID, Brushes.Red);
                         }
                     }
+                    counter++;
                 }
             }
             //If wall mode, place wall
