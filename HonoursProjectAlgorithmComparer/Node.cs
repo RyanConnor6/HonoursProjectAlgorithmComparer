@@ -25,6 +25,8 @@ namespace HonoursProjectAlgorithmComparer
         private List<Node> connectedNodes = new List<Node>();
         private bool explored = false;
 
+        private int distType;
+
         //Node constructor
         public Node(int ID, int x, int y)
         {
@@ -88,11 +90,33 @@ namespace HonoursProjectAlgorithmComparer
             set { explored = value; }
         }
 
+        public void DistType(int type)
+        {
+            distType = type;
+        }
+
         //Euclidean Distance Calculator
         public double FindDistance(int targetX, int targetY)
-        {
-            double euclideanDistance = (Math.Sqrt((Math.Pow(CoordinateX - targetX, 2)) + (Math.Pow(CoordinateY - targetY, 2))));
-            return euclideanDistance;
+        {  
+            //Switch depending on distance type
+            switch (distType)
+            {
+                //Euclidean
+                case 0:
+                    double euclideanDistance = (Math.Sqrt((Math.Pow(CoordinateX - targetX, 2)) + (Math.Pow(CoordinateY - targetY, 2))));
+                    return euclideanDistance;
+                //Manhattan
+                case 1:
+                    return Math.Abs(CoordinateX - targetX) + Math.Abs(coordinateY - targetY);
+                //Chebyshev
+                case 2:
+                    var dx = Math.Abs(targetX - coordinateX);
+                    var dy = Math.Abs(targetY - coordinateY);
+                    return (dx + dy) - Math.Min(dx, dy);
+                default:
+                    double euclideanDistance2 = (Math.Sqrt((Math.Pow(CoordinateX - targetX, 2)) + (Math.Pow(CoordinateY - targetY, 2))));
+                    return euclideanDistance2;
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 // RYAN CONNOR - 40437041
@@ -74,6 +77,27 @@ namespace HonoursProjectAlgorithmComparer
                     int x = j+1;
                     int y = i+1;
                     Node node = new Node(nodeID, x, y);
+
+                    ComboBoxItem myItem = (ComboBoxItem)wnd.comboBox3.SelectedItem;
+                    string value = myItem.Content.ToString();
+                    char distType = value[0];
+                    if (distType == 'E')
+                    {
+                        node.DistType(0);
+                    }
+                    else if (distType == 'M')
+                    {
+                        node.DistType(1);
+                    }
+                    else if (distType == 'C')
+                    {
+                        node.DistType(2);
+                    }
+                    else
+                    {
+                        node.DistType(0);
+                    }
+                    
                     NodesList.Add(node);
                     nodeID++;
                 }
