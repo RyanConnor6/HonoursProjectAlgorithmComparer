@@ -66,7 +66,7 @@ namespace HonoursProjectAlgorithmComparer
             size = Int32.Parse(subs[0]);
             creategrid(size);
 
-            cm = new ConnectionManager(size);
+            cm = new ConnectionManager(size, this);
 
             first = cm.NodesList[(size * (size / 2)) + 1];
             last = cm.NodesList[(size * (size / 2)) + size - 2];
@@ -87,7 +87,7 @@ namespace HonoursProjectAlgorithmComparer
             size = Int32.Parse(subs[0]);
             creategrid(size);
 
-            cm = new ConnectionManager(size);
+            cm = new ConnectionManager(size, this);
 
             first = cm.NodesList[(size * (size / 2)) + 1];
             last = cm.NodesList[(size * (size / 2)) + size - 2];
@@ -337,7 +337,12 @@ namespace HonoursProjectAlgorithmComparer
             { 
                 diagonalAllowed = false;
             }
-            cm.ConstructNetwork(diagonalAllowed);
+
+            ComboBoxItem myItem = (ComboBoxItem)comboBox3.SelectedItem;
+            string value = myItem.Content.ToString();
+            char distType = value[0];
+
+            cm.ConstructNetwork(diagonalAllowed, distType);
 
             //Keep list of walls
             List<StackPanel> walls = new();
@@ -398,9 +403,9 @@ namespace HonoursProjectAlgorithmComparer
             updatecol(last.NodeID, Brushes.Red);
 
             //Get algorithm from combobox
-            ComboBoxItem myItem = (ComboBoxItem)comboBox2.SelectedItem;
-            string value = myItem.Content.ToString();
-            char run = value[0];
+            ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
+            string value2 = myItem2.Content.ToString();
+            char run = value2[0];
 
             //Reset parents
             foreach (Node a in cm.NodesList)

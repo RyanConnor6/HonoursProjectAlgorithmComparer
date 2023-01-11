@@ -1,8 +1,6 @@
-using HonoursProjectAlgorithmComparer;
-
 namespace HonoursTests
 {
-    public class Tests
+    public class DistanceTests
     {
         [SetUp]
         public void Setup()

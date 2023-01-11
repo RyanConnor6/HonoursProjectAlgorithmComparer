@@ -18,21 +18,22 @@ namespace HonoursProjectAlgorithmComparer
 {
     //Class to construct node networks on grid
     //Class to print out final constructed path
-    class ConnectionManager
+    public class ConnectionManager
     {
         //Node Information
         private int nodeAmount;
         private int gridSize;
         private int pathSize;
         private List<Node> nodesList = new List<Node>();
-        MainWindow wnd = (MainWindow)Application.Current.MainWindow;
+        public MainWindow wnd;
 
         //Constructor
-        public ConnectionManager(int size)
+        public ConnectionManager(int size, MainWindow Window)
         {
             //Get size and create node network
             gridSize = size;
-            ConstructNetwork(true);
+            wnd = Window;
+            ConstructNetwork(true, 'E');
         }
 
         //Getters and setters for private values
@@ -55,7 +56,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Create network
-        public void ConstructNetwork(bool diagonalAllowed)
+        public void ConstructNetwork(bool diagonalAllowed, char distType)
         {
             //Reset connections
             for (int i = 0; i < NodesList.Count(); i++)
@@ -78,9 +79,6 @@ namespace HonoursProjectAlgorithmComparer
                     int y = i+1;
                     Node node = new Node(nodeID, x, y);
 
-                    ComboBoxItem myItem = (ComboBoxItem)wnd.comboBox3.SelectedItem;
-                    string value = myItem.Content.ToString();
-                    char distType = value[0];
                     if (distType == 'E')
                     {
                         node.DistType(0);
