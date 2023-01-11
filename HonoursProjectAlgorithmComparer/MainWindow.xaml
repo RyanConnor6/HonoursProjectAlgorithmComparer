@@ -41,7 +41,7 @@
                     <ComboBoxItem x:Name ="Chebyshev" Content="Chebyshev Distance"/>
                 </ComboBox>
                 <Label Content="Movement Options" FontSize ="30" Height="56" Width="278" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="166" Canvas.Top="-2"/>
-                <CheckBox x:Name ="Diagonal" Content="Diagonal Movement" Height="16" Width="140" IsChecked="False" HorizontalAlignment="Left" Canvas.Left="305" Canvas.Top="59" VerticalAlignment="Top">
+                <CheckBox x:Name ="Diagonal" Content="Diagonal Movement" Height="16" Width="140" IsChecked="True" HorizontalAlignment="Left" Canvas.Left="305" Canvas.Top="59" VerticalAlignment="Top">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="2" ScaleY="2" />
                     </CheckBox.LayoutTransform>
