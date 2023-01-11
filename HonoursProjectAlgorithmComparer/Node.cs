@@ -24,7 +24,7 @@ namespace HonoursProjectAlgorithmComparer
         private Node parent;
         private List<Node> connectedNodes = new List<Node>();
         private bool explored = false;
-
+        
         private int distType;
 
         //Node constructor
@@ -88,6 +88,12 @@ namespace HonoursProjectAlgorithmComparer
         {
             get { return explored; }
             set { explored = value; }
+        }
+
+        public int DistanceType
+        {
+            get { return distType; }
+            set { distType = value; }
         }
 
         public void DistType(int type)
