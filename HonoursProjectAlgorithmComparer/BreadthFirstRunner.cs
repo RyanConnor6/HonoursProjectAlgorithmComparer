@@ -42,7 +42,7 @@ namespace HonoursProjectAlgorithmComparer
 
             nodeQueue.Add(firstNode);
 
-            firstNode.Parent = null;
+            firstNode.Parent = null!;
 
             firstNode.Explored = true;
 

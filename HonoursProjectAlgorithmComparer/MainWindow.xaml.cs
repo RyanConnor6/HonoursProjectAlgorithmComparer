@@ -27,12 +27,12 @@ namespace HonoursProjectAlgorithmComparer
         //Variables for grid
         List<StackPanel> panelList = new();
         Grid panelGrid = new Grid();
-        Node first;
-        Node last;
+        Node? first;
+        Node? last;
         ConnectionManager cm;
         int size = 0;
         string mode = "null";
-        StackPanel laststp;
+        StackPanel? laststp;
         Brush lastStpColourStart = Brushes.MintCream;
         Brush lastStpColourEnd = Brushes.MintCream;
 
@@ -48,7 +48,7 @@ namespace HonoursProjectAlgorithmComparer
         double bestTime = 9999;
         int bestSize = 9999;
 
-        CancellationTokenSource cts;
+        CancellationTokenSource? cts;
 
 
         //Main Window Initialise
@@ -61,7 +61,7 @@ namespace HonoursProjectAlgorithmComparer
             mode = "null";
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
-            string value = myItem.Content.ToString();
+            string value = myItem.Content.ToString()!;
             string[] subs = value.Split('x');
             size = Int32.Parse(subs[0]);
             creategrid(size);
@@ -82,7 +82,7 @@ namespace HonoursProjectAlgorithmComparer
             mode = "null";
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
-            string value = myItem.Content.ToString();
+            string value = myItem.Content.ToString()!;
             string[] subs = value.Split('x');
             size = Int32.Parse(subs[0]);
             creategrid(size);
@@ -238,7 +238,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        if (n.NodeID != last.NodeID)
+                        if (n.NodeID != last!.NodeID)
                         {
                             lastStpColourStart = panelList[counter].Background;
                             updatecol(n.NodeID, Brushes.Green);
@@ -246,7 +246,7 @@ namespace HonoursProjectAlgorithmComparer
                         }
                         else
                         {
-                            updatecol(first.NodeID, Brushes.Green);
+                            updatecol(first!.NodeID, Brushes.Green);
                         }
                     }
                     counter++;
@@ -267,7 +267,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     if (n.CoordinateX == x && n.CoordinateY == y)
                     {
-                        if (n.NodeID != first.NodeID)
+                        if (n.NodeID != first!.NodeID)
                         {
                             lastStpColourEnd = panelList[counter].Background;
                             updatecol(n.NodeID, Brushes.Red);
@@ -275,7 +275,7 @@ namespace HonoursProjectAlgorithmComparer
                         }
                         else
                         {
-                            updatecol(last.NodeID, Brushes.Red);
+                            updatecol(last!.NodeID, Brushes.Red);
                         }
                     }
                     counter++;
@@ -333,13 +333,13 @@ namespace HonoursProjectAlgorithmComparer
 
             //Construct node network
             bool diagonalAllowed = true;
-            if ((bool)Diagonal.IsChecked == false) 
+            if ((bool)Diagonal.IsChecked! == false) 
             { 
                 diagonalAllowed = false;
             }
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox3.SelectedItem;
-            string value = myItem.Content.ToString();
+            string value = myItem.Content.ToString()!;
             char distType = value[0];
 
             cm.ConstructNetwork(diagonalAllowed, distType);
@@ -399,18 +399,18 @@ namespace HonoursProjectAlgorithmComparer
             }
 
             //Show start and goal
-            updatecol(first.NodeID, Brushes.Green);
-            updatecol(last.NodeID, Brushes.Red);
+            updatecol(first!.NodeID, Brushes.Green);
+            updatecol(last!.NodeID, Brushes.Red);
 
             //Get algorithm from combobox
             ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
-            string value2 = myItem2.Content.ToString();
+            string value2 = myItem2.Content.ToString()!;
             char run = value2[0];
 
             //Reset parents
             foreach (Node a in cm.NodesList)
             {
-                a.Parent = null;
+                a.Parent = null!;
             }
 
             //Create cancellation token

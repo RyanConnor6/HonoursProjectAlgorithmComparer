@@ -43,7 +43,7 @@ namespace HonoursProjectAlgorithmComparer
             foreach (Node c in cm.NodesList)
             {
                 c.distance = int.MaxValue;
-                c.Parent = null;
+                c.Parent = null!;
                 nodeQueue.Add(c);
             }
 

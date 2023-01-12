@@ -21,7 +21,7 @@ namespace HonoursProjectAlgorithmComparer
         private double FScore;
         private double Distance;
         private int nodeID;
-        private Node parent;
+        private Node? parent;
         private List<Node> connectedNodes = new List<Node>();
         private bool explored = false;
         
@@ -74,7 +74,7 @@ namespace HonoursProjectAlgorithmComparer
 
         public Node Parent
         {
-            get { return parent; }
+            get { return parent!; }
             set { parent = value; }
         }
 
