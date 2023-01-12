@@ -11,7 +11,7 @@
         [Test]
         public void NodeCountTest()
         {
-            MainWindow window = null;
+            MainWindow window = null!;
 
             // The dispatcher thread
             var t = new Thread(() =>
@@ -44,7 +44,7 @@
         [Test]
         public void NodeNeighbourTestCornerNoDiagonal()
         {
-            MainWindow window = null;
+            MainWindow window = null!;
 
             // The dispatcher thread
             var t = new Thread(() =>
@@ -77,7 +77,7 @@
         [Test]
         public void NodeNeighbourTestCornerDiagonal()
         {
-            MainWindow window = null;
+            MainWindow window = null!;
 
             // The dispatcher thread
             var t = new Thread(() =>
@@ -110,7 +110,7 @@
         [Test]
         public void NodeNeighbourTestInGridNoDiagonal()
         {
-            MainWindow window = null;
+            MainWindow window = null!;
 
             // The dispatcher thread
             var t = new Thread(() =>
@@ -143,7 +143,7 @@
         [Test]
         public void NodeNeighbourTestInGridDiagonal1()
         {
-            MainWindow window = null;
+            MainWindow window = null!;
 
             // The dispatcher thread
             var t = new Thread(() =>
