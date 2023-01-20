@@ -27,27 +27,37 @@ namespace HonoursProjectAlgorithmComparer
         //Variables for grid
         public List<StackPanel> panelList = new();
         public Grid panelGrid = new Grid();
+
+        //Start and goal nodes
         private Node? first;
         private Node? last;
+
+        //Connection manager
         private ConnectionManager cm;
+
+        //Grid size
         private int size = 0;
+
+        //Currernt mode eg. place wall, move start point etc.
         private string mode = "null";
+
+        //Stackpanel variables
         private StackPanel? laststp;
         private Brush lastStpColourStart = Brushes.MintCream;
         private Brush lastStpColourEnd = Brushes.MintCream;
 
+        //Comparison variables
         private string currentRun = "N/A";
         private double currentTime = 0;
         private int currentSize = 0;
-
         private string lastRun = "N/A";
         private double lastTime = 0;
         private int lastSize = 0;
-
         private string bestRun = "N/A";
         private double bestTime = 9999;
         private int bestSize = 9999;
 
+        //Cancellation token
         private CancellationTokenSource? cts;
 
 
@@ -56,13 +66,14 @@ namespace HonoursProjectAlgorithmComparer
         {
             InitializeComponent();
 
+            //Start basic variables as null
             first = null;
             last = null;
             mode = "null";
 
+            //Retrieve size from combobox and create grid
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
             int myOption = comboBox1.Items.IndexOf(myItem);
-
             switch (myOption)
             {
                 case 0:
@@ -91,8 +102,10 @@ namespace HonoursProjectAlgorithmComparer
                     break;
             }
 
+            //Create connections manager
             cm = new ConnectionManager(size, this);
 
+            //Place start and goal node near centre of grid
             first = cm.NodesList[(size * (size / 2)) + 1];
             last = cm.NodesList[(size * (size / 2)) + size - 2];
         }
@@ -100,15 +113,16 @@ namespace HonoursProjectAlgorithmComparer
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Stop any running instances of a path searcher
             ctsStop();
 
             first = null;
             last = null;
             mode = "null";
 
+            //Retrieve grid size from combobox and create grid
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
             int myOption = comboBox1.Items.IndexOf(myItem);
-
             switch (myOption)
             {
                 case 0:
@@ -137,8 +151,10 @@ namespace HonoursProjectAlgorithmComparer
                     break;
             }
 
+            //Create new connection manager
             cm = new ConnectionManager(size, this);
 
+            //Place start and goal nodes near centre of grid
             first = cm.NodesList[(size * (size / 2)) + 1];
             last = cm.NodesList[(size * (size / 2)) + size - 2];
         }
@@ -191,7 +207,7 @@ namespace HonoursProjectAlgorithmComparer
             panelGrid.ShowGridLines = true;
             this.canContainer.Children.Add(panelGrid);
 
-            //Create start and end points
+            //Place start and goal nodes near centre of grid
             panelList[(size * (size / 2)) + 1].Background = Brushes.Green;
             panelList[(size * (size / 2)) + size - 2].Background = Brushes.Red;
         }
@@ -199,6 +215,7 @@ namespace HonoursProjectAlgorithmComparer
         //Update colour on grid
         public void updatecol(int ID, Brush color)
         {
+            //Update panel relating to node ID
             panelList[ID - 1].Background = color;
         }
 
@@ -212,6 +229,7 @@ namespace HonoursProjectAlgorithmComparer
             bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
             if (mouseIsDown)
             {
+                //Stop any running instances of a path searcher
                 ctsStop();
 
                 //If an algorithm was run remove visualised search
@@ -224,7 +242,7 @@ namespace HonoursProjectAlgorithmComparer
                     resetLabels();
                 }
 
-                //If its not the same panel, change colour
+                //If the panel isnt the same as was on on previous call, change colour
                 if (stp != laststp)
                 {
                     UpdatePanelBasedOnMode(stp);
@@ -235,6 +253,7 @@ namespace HonoursProjectAlgorithmComparer
             }
             else
             {
+                //If mouse isnt held and no algorithm is running switchmode based on hover
                 if (mode.Equals("running")!=true)
                 {
                     switchMode(stp);
@@ -250,6 +269,7 @@ namespace HonoursProjectAlgorithmComparer
             //Adds elements when clicked
             StackPanel stp = (StackPanel)sender;
 
+            //Stop any running instances of a path searcher
             ctsStop();
 
             //If an algorithm was run remove visualised search
@@ -370,8 +390,10 @@ namespace HonoursProjectAlgorithmComparer
         //Run the algorithm
         private void runBtn_Click(object sender, RoutedEventArgs e)
         {
+            //Stop any running instances of a path searcher
             ctsStop();
 
+            //If no connection manager throw error
             if(cm == null)
             {
                 MessageBox.Show("ERROR: Please create a grid");
@@ -388,9 +410,11 @@ namespace HonoursProjectAlgorithmComparer
                 diagonalAllowed = false;
             }
 
+            //Get distance type from combobox
             ComboBoxItem myItem = (ComboBoxItem)comboBox3.SelectedItem;
             int myOption = comboBox3.Items.IndexOf(myItem);
 
+            //Construct new network using options
             cm.ConstructNetwork(diagonalAllowed, myOption);
 
             //Keep list of walls
@@ -463,6 +487,8 @@ namespace HonoursProjectAlgorithmComparer
 
             //Create cancellation token
             cts = new CancellationTokenSource();
+
+            //Run speed for algorithms
             var runSpeed = 10;
 
             //Run correct mode
@@ -530,6 +556,7 @@ namespace HonoursProjectAlgorithmComparer
             }
         }
 
+        //Show results of the run
         public void showResults(double time, int pathSize)
         {    
             algLabel4.Content = "Last Algorithm Run: " + lastRun;
@@ -569,6 +596,7 @@ namespace HonoursProjectAlgorithmComparer
             }
         }
 
+        //Reset all labels
         public void resetLabels()
         {
             algLabel.Content = "Current Algorithm Run: N/A";
@@ -592,6 +620,7 @@ namespace HonoursProjectAlgorithmComparer
             bestSize = 9999;
         }
 
+        //Stop algorithm running
         public void ctsStop()
         {
             if (cts != null)
