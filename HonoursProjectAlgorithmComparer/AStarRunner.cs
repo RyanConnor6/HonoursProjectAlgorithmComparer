@@ -34,7 +34,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run A*
-        public async void algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
+        public async Task algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
         {
             //Start watch and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();

@@ -35,7 +35,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run BF search
-        public async void algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
+        public async Task algRun(Node firstNode, Node lastNode, CancellationToken token, int runSpeed)
         {
             //Start timer and disable buttons
             var watch = System.Diagnostics.Stopwatch.StartNew();

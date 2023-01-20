@@ -388,13 +388,62 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run the algorithm
-        private void runBtn_Click(object sender, RoutedEventArgs e)
+        private async void runBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Setup grid for run
+            setupForRun();
+
+            //Get algorithm from combobox
+            ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
+            int myOption2 = comboBox2.Items.IndexOf(myItem2);
+
+            //Reset parents
+            foreach (Node a in cm.NodesList)
+            {
+                a.Parent = null!;
+            }
+
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
+            //Run speed for algorithms
+            var runSpeed = 10;
+
+            //Run correct mode
+            if (myOption2 == 0)
+            {
+                currentRun = "A*";
+                AStarRunner runAStar = new AStarRunner(cm);
+                await runAStar.algRun(first!, last!, cts.Token, runSpeed);
+            }
+            if (myOption2 == 1)
+            {
+                currentRun = "Dijkstra's";
+                DijkstraRunner runDijkstra = new DijkstraRunner(cm);
+                await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
+            }
+            if (myOption2 == 2)
+            {
+                currentRun = "Breadth First";
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
+                await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
+            }
+            if (myOption2 == 3)
+            {
+                currentRun = "Greedy Best First";
+                BestFirstRunner runBestFirst = new BestFirstRunner(cm);
+                await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+            }
+        }
+
+        //Set up grid for run
+        private void setupForRun()
         {
             //Stop any running instances of a path searcher
             ctsStop();
 
             //If no connection manager throw error
-            if(cm == null)
+            if (cm == null)
             {
                 MessageBox.Show("ERROR: Please create a grid");
                 return;
@@ -405,8 +454,8 @@ namespace HonoursProjectAlgorithmComparer
 
             //Construct node network
             bool diagonalAllowed = true;
-            if ((bool)Diagonal.IsChecked! == false) 
-            { 
+            if ((bool)Diagonal.IsChecked! == false)
+            {
                 diagonalAllowed = false;
             }
 
@@ -424,7 +473,7 @@ namespace HonoursProjectAlgorithmComparer
             var iterator = 0;
             foreach (StackPanel stp in panelList)
             {
-                if(stp.Background == Brushes.Black)
+                if (stp.Background == Brushes.Black)
                 {
                     foreach (Node n in cm.NodesList[iterator].ConnectedNodes)
                     {
@@ -474,48 +523,6 @@ namespace HonoursProjectAlgorithmComparer
             //Show start and goal
             updatecol(first!.NodeID, Brushes.Green);
             updatecol(last!.NodeID, Brushes.Red);
-
-            //Get algorithm from combobox
-            ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
-            int myOption2 = comboBox2.Items.IndexOf(myItem2);
-
-            //Reset parents
-            foreach (Node a in cm.NodesList)
-            {
-                a.Parent = null!;
-            }
-
-            //Create cancellation token
-            cts = new CancellationTokenSource();
-
-            //Run speed for algorithms
-            var runSpeed = 10;
-
-            //Run correct mode
-            if (myOption2 == 0)
-            {
-                AStarRunner runAStar = new AStarRunner(cm);
-                runAStar.algRun(first, last, cts.Token, runSpeed);
-                currentRun = "A*";
-            }
-            if (myOption2 == 1)
-            {
-                DijkstraRunner runDijkstra = new DijkstraRunner(cm);
-                runDijkstra.algRun(first, last, cts.Token, runSpeed);
-                currentRun = "Dijkstra's";
-            }
-            if (myOption2 == 2)
-            {
-                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
-                runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
-                currentRun = "Breadth First";
-            }
-            if (myOption2 == 3)
-            {
-                BestFirstRunner runBestFirst = new BestFirstRunner(cm);
-                runBestFirst.algRun(first, last, cts.Token, runSpeed);
-                currentRun = "Greedy Best First";
-            }
         }
 
         //Reset tiles that were coloured by the search
@@ -608,6 +615,7 @@ namespace HonoursProjectAlgorithmComparer
             algLabel4.Content = "Path Size: N/A";
             algLabel5.Content = "Algorithm Name: N/A";
             algLabel6.Content = "Run Time: N/A";
+            algLabel7.Content = "Nodes Explored: N/A";
             algLabel8.Content = "Path Size: N/A";
 
             currentRun = "N/A";
@@ -626,6 +634,66 @@ namespace HonoursProjectAlgorithmComparer
                 cts.Cancel();
                 cts = null;
             }
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Setup grid for running
+            setupForRun();
+            
+            //Reset parents
+            foreach (Node a in cm.NodesList)
+            {
+                a.Parent = null!;
+            }
+
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
+            //Run speed for algorithms
+            var runSpeed = 10;
+
+            currentRun = "A*";
+            AStarRunner runAStar = new AStarRunner(cm);
+            await runAStar.algRun(first!, last!, cts.Token, runSpeed);
+
+            //Setup grid for running
+            setupForRun();
+
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
+            currentRun = "Dijkstra's";
+            DijkstraRunner runDijkstra = new DijkstraRunner(cm);
+            await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
+
+            //Setup grid for running
+            setupForRun();
+
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
+            currentRun = "Breadth First";
+            BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
+            await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
+
+            //Setup grid for running
+            setupForRun();
+
+            //Create cancellation token
+            cts = new CancellationTokenSource();
+
+            currentRun = "Greedy Best First";
+            BestFirstRunner runBestFirst = new BestFirstRunner(cm);
+            await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+        }
+
+        //Reset labels on diagonal checked
+        private void Diagonal_Checked(object sender, RoutedEventArgs e)
+        {
+            ctsStop();
+            resetSearchVisualisation();
+            resetLabels();
         }
     }
 }

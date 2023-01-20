@@ -27,16 +27,17 @@
                 <Button x:Name="startBtn" Content="Change Grid Size" Height="44" Width="290" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click" HorizontalAlignment="Center" Canvas.Left="310" Canvas.Top="56" VerticalAlignment="Top"/>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="1067,812,0,0" VerticalAlignment="Top" Width="610">
-            <Canvas HorizontalAlignment="Center" Width="610">
-                <Label Content="Algorithm To Run" FontSize ="30" Height="56" Width="254" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="178"/>
-                <ComboBox x:Name="comboBox2" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="56" VerticalAlignment="Top" Width="284" HorizontalAlignment="Center" Canvas.Left="10">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="1000,812,0,0" VerticalAlignment="Top" Width="752">
+            <Canvas HorizontalAlignment="Center" Width="752">
+                <Label Content="Algorithm To Run" FontSize ="30" Height="56" Width="254" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="249"/>
+                <ComboBox x:Name="comboBox2" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="56" VerticalAlignment="Top" Width="250" HorizontalAlignment="Center" Canvas.Left="10">
                     <ComboBoxItem x:Name ="AStar" IsSelected="True" Content="A*"/>
                     <ComboBoxItem x:Name ="Dijkstra" Content="Dijkstra"/>
                     <ComboBoxItem x:Name ="BreadthFirst" Content="Breadth First"/>
                     <ComboBoxItem x:Name ="GreedyBestFirst" Content="Greedy Best First"/>
                 </ComboBox>
-                <Button x:Name="runBtn" Content="Run Algorithm" Height="44" Width="290" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click" HorizontalAlignment="Center" Canvas.Left="310" Canvas.Top="56" VerticalAlignment="Top" Background="#FF4ABB00"/>
+                <Button x:Name="runBtn" Content="Run Algorithm" Height="44" Width="200" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click" HorizontalAlignment="Left" Canvas.Left="260" Canvas.Top="56" VerticalAlignment="Center" Background="#FF4ABB00"/>
+                <Button Content="Bulk Run All Algorithms" Height="44" Width="240" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="Button_Click" Canvas.Left="502" Canvas.Top="56" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FF4ABB00"/>
             </Canvas>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="107" Margin="57,221,0,0" VerticalAlignment="Top" Width="610">
@@ -47,7 +48,7 @@
                     <ComboBoxItem x:Name ="Chebyshev" Content="Chebyshev Distance"/>
                 </ComboBox>
                 <Label Content="Movement Options" FontSize ="30" Height="56" Width="278" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="166" Canvas.Top="-2"/>
-                <CheckBox x:Name ="Diagonal" Content="Diagonal Movement" Height="16" Width="140" IsChecked="False" HorizontalAlignment="Left" Canvas.Left="305" Canvas.Top="59" VerticalAlignment="Top">
+                <CheckBox x:Name ="Diagonal" Content="Diagonal Movement" Height="16" Width="140" IsChecked="False" HorizontalAlignment="Left" Canvas.Left="305" Canvas.Top="59" VerticalAlignment="Top" Checked="Diagonal_Checked" Unchecked="Diagonal_Checked">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="2" ScaleY="2" />
                     </CheckBox.LayoutTransform>
