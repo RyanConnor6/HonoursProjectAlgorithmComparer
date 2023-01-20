@@ -25,30 +25,30 @@ namespace HonoursProjectAlgorithmComparer
     {
 
         //Variables for grid
-        List<StackPanel> panelList = new();
-        Grid panelGrid = new Grid();
-        Node? first;
-        Node? last;
-        ConnectionManager cm;
-        int size = 0;
-        string mode = "null";
-        StackPanel? laststp;
-        Brush lastStpColourStart = Brushes.MintCream;
-        Brush lastStpColourEnd = Brushes.MintCream;
+        public List<StackPanel> panelList = new();
+        public Grid panelGrid = new Grid();
+        private Node? first;
+        private Node? last;
+        private ConnectionManager cm;
+        private int size = 0;
+        private string mode = "null";
+        private StackPanel? laststp;
+        private Brush lastStpColourStart = Brushes.MintCream;
+        private Brush lastStpColourEnd = Brushes.MintCream;
 
-        string currentRun = "N/A";
-        double currentTime = 0;
-        int currentSize = 0;
+        private string currentRun = "N/A";
+        private double currentTime = 0;
+        private int currentSize = 0;
 
-        string lastRun = "N/A";
-        double lastTime = 0;
-        int lastSize = 0;
+        private string lastRun = "N/A";
+        private double lastTime = 0;
+        private int lastSize = 0;
 
-        string bestRun = "N/A";
-        double bestTime = 9999;
-        int bestSize = 9999;
+        private string bestRun = "N/A";
+        private double bestTime = 9999;
+        private int bestSize = 9999;
 
-        CancellationTokenSource? cts;
+        private CancellationTokenSource? cts;
 
 
         //Main Window Initialise
