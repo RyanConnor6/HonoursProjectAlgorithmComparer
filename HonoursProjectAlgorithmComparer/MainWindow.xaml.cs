@@ -61,10 +61,35 @@ namespace HonoursProjectAlgorithmComparer
             mode = "null";
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
-            string value = myItem.Content.ToString()!;
-            string[] subs = value.Split('x');
-            size = Int32.Parse(subs[0]);
-            creategrid(size);
+            int myOption = comboBox1.Items.IndexOf(myItem);
+
+            switch (myOption)
+            {
+                case 0:
+                    size = 20;
+                    creategrid(size);
+                    break;
+                case 1:
+                    size = 25;
+                    creategrid(size);
+                    break;
+                case 2:
+                    size = 30;
+                    creategrid(size);
+                    break;
+                case 3:
+                    size = 35;
+                    creategrid(size);
+                    break;
+                case 4:
+                    size = 40;
+                    creategrid(size);
+                    break;
+                case 5:
+                    size = 45;
+                    creategrid(size);
+                    break;
+            }
 
             cm = new ConnectionManager(size, this);
 
@@ -82,10 +107,35 @@ namespace HonoursProjectAlgorithmComparer
             mode = "null";
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox1.SelectedItem;
-            string value = myItem.Content.ToString()!;
-            string[] subs = value.Split('x');
-            size = Int32.Parse(subs[0]);
-            creategrid(size);
+            int myOption = comboBox1.Items.IndexOf(myItem);
+
+            switch (myOption)
+            {
+                case 0:
+                    size = 20;
+                    creategrid(size);
+                    break;
+                case 1:
+                    size = 25;
+                    creategrid(size);
+                    break;
+                case 2:
+                    size = 30;
+                    creategrid(size);
+                    break;
+                case 3:
+                    size = 35;
+                    creategrid(size);
+                    break;
+                case 4:
+                    size = 40;
+                    creategrid(size);
+                    break;
+                case 5:
+                    size = 45;
+                    creategrid(size);
+                    break;
+            }
 
             cm = new ConnectionManager(size, this);
 
@@ -339,10 +389,9 @@ namespace HonoursProjectAlgorithmComparer
             }
 
             ComboBoxItem myItem = (ComboBoxItem)comboBox3.SelectedItem;
-            string value = myItem.Content.ToString()!;
-            char distType = value[0];
+            int myOption = comboBox3.Items.IndexOf(myItem);
 
-            cm.ConstructNetwork(diagonalAllowed, distType);
+            cm.ConstructNetwork(diagonalAllowed, myOption);
 
             //Keep list of walls
             List<StackPanel> walls = new();
@@ -404,8 +453,7 @@ namespace HonoursProjectAlgorithmComparer
 
             //Get algorithm from combobox
             ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
-            string value2 = myItem2.Content.ToString()!;
-            char run = value2[0];
+            int myOption2 = comboBox2.Items.IndexOf(myItem2);
 
             //Reset parents
             foreach (Node a in cm.NodesList)
@@ -418,21 +466,21 @@ namespace HonoursProjectAlgorithmComparer
             var runSpeed = 10;
 
             //Run correct mode
-            if (run == 'A')
+            if (myOption2 == 0)
             {
                 AStarRunner runAStar = new AStarRunner(cm);
                 runAStar.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "A*";
             }
-            if (run == 'B')
+            if (myOption2 == 1)
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
                 runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
                 lastRun = currentRun;
                 currentRun = "Breadth First";
             }
-            if (run == 'D')
+            if (myOption2 == 2)
             {
                 cts = new CancellationTokenSource();
                 DijkstraRunner runDijkstra = new DijkstraRunner(cm);
@@ -440,7 +488,7 @@ namespace HonoursProjectAlgorithmComparer
                 lastRun = currentRun;
                 currentRun = "Dijkstra's";
             }
-            if (run == 'G')
+            if (myOption2 == 3)
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(cm);
                 runBestFirst.algRun(first, last, cts.Token, runSpeed);

@@ -33,7 +33,7 @@ namespace HonoursProjectAlgorithmComparer
             //Get size and create node network
             gridSize = size;
             wnd = Window;
-            ConstructNetwork(true, 'E');
+            ConstructNetwork(true, 0);
         }
 
         //Getters and setters for private values
@@ -56,7 +56,7 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Create network
-        public void ConstructNetwork(bool diagonalAllowed, char distType)
+        public void ConstructNetwork(bool diagonalAllowed, int distType)
         {
             //Reset connections
             for (int i = 0; i < NodesList.Count(); i++)
@@ -79,22 +79,7 @@ namespace HonoursProjectAlgorithmComparer
                     int y = i+1;
                     Node node = new Node(nodeID, x, y);
 
-                    if (distType == 'E')
-                    {
-                        node.DistType(0);
-                    }
-                    else if (distType == 'M')
-                    {
-                        node.DistType(1);
-                    }
-                    else if (distType == 'C')
-                    {
-                        node.DistType(2);
-                    }
-                    else
-                    {
-                        node.DistType(0);
-                    }
+                    node.DistType(distType);
                     
                     NodesList.Add(node);
                     nodeID++;
