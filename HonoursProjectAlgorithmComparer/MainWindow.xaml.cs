@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,9 +51,6 @@ namespace HonoursProjectAlgorithmComparer
         private string currentRun = "N/A";
         private double currentTime = 0;
         private int currentSize = 0;
-        private string lastRun = "N/A";
-        private double lastTime = 0;
-        private int lastSize = 0;
         private string bestRun = "N/A";
         private double bestTime = 9999;
         private int bestSize = 9999;
@@ -496,14 +494,12 @@ namespace HonoursProjectAlgorithmComparer
             {
                 AStarRunner runAStar = new AStarRunner(cm);
                 runAStar.algRun(first, last, cts.Token, runSpeed);
-                lastRun = currentRun;
                 currentRun = "A*";
             }
             if (myOption2 == 1)
             {
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
                 runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
-                lastRun = currentRun;
                 currentRun = "Breadth First";
             }
             if (myOption2 == 2)
@@ -511,14 +507,12 @@ namespace HonoursProjectAlgorithmComparer
                 cts = new CancellationTokenSource();
                 DijkstraRunner runDijkstra = new DijkstraRunner(cm);
                 runDijkstra.algRun(first, last, cts.Token, runSpeed);
-                lastRun = currentRun;
                 currentRun = "Dijkstra's";
             }
             if (myOption2 == 3)
             {
                 BestFirstRunner runBestFirst = new BestFirstRunner(cm);
                 runBestFirst.algRun(first, last, cts.Token, runSpeed);
-                lastRun = currentRun;
                 currentRun = "Greedy Best First";
             }
         }
@@ -559,17 +553,11 @@ namespace HonoursProjectAlgorithmComparer
         //Show results of the run
         public void showResults(double time, int pathSize)
         {    
-            algLabel4.Content = "Last Algorithm Run: " + lastRun;
-            lastTime = currentTime;
-            algLabel5.Content = "Last Time Taken: " + lastTime.ToString("0.00");
-            lastSize = currentSize;
-            algLabel6.Content = "Last Path Size: " + lastSize;
-
-            algLabel.Content = "Current Algorithm Run: " + currentRun;
+            algLabel.Content = "Algorithm Being Run: " + currentRun;
             currentTime = time;
-            algLabel2.Content = "Current Time Taken: " + time.ToString("0.00");
+            algLabel2.Content = "Current Run Time: " + time.ToString("0.00");
             currentSize = pathSize;
-            algLabel3.Content = "Current Path Size Found: " + pathSize.ToString();
+            algLabel3.Content = "Path Size Found: " + pathSize.ToString();
 
             if (currentSize <= bestSize)
             {
@@ -596,15 +584,22 @@ namespace HonoursProjectAlgorithmComparer
             }
         }
 
+        //Show current algorithm being run statistics
+        public void showStatsOnRun(Stopwatch time)
+        {
+            algLabel.Content = "Algorithm Being Run: " + currentRun;
+            //currentTime = time;
+            algLabel2.Content = "Current Run Time: " + time.Elapsed.TotalSeconds.ToString("0.00");
+            currentSize = 0;
+            algLabel3.Content = "Path Size Found: N/A";
+        }
+
         //Reset all labels
         public void resetLabels()
         {
-            algLabel.Content = "Current Algorithm Run: N/A";
-            algLabel2.Content = "Current Time Taken: N/A";
-            algLabel3.Content = "Current Path Size: N/A";
-            algLabel4.Content = "Last Algorithm Run: N/A";
-            algLabel5.Content = "Last Time Taken: N/A";
-            algLabel6.Content = "Last Path Size: N/A";
+            algLabel.Content = "Algorithm Being Run: N/A";
+            algLabel2.Content = "Current Run Time: N/A";
+            algLabel3.Content = "Path Size Found: N/A";
             algLabel7.Content = "Best Algorithm Run: N/A";
             algLabel8.Content = "Best Time Taken: N/A";
             algLabel9.Content = "Best Path Size: N/A";
@@ -612,9 +607,6 @@ namespace HonoursProjectAlgorithmComparer
             currentRun = "N/A";
             currentTime = 0;
             currentSize = 0;
-            lastRun = "N/A";
-            lastTime = 0;
-            lastSize = 0;
             bestRun = "N/A";
             bestTime = 9999;
             bestSize = 9999;

@@ -54,6 +54,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Stall to show visualisation
                 await Task.Delay(runSpeed);
+                wnd.showStatsOnRun(watch);
 
                 if (token.IsCancellationRequested)
                 {
