@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="Algorithm Comparer" Height="1000" Width="1800" Left="50" Top="25">
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="115,105,0,0" VerticalAlignment="Top" Width="610">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="483" Margin="33,449,0,0" VerticalAlignment="Top" Width="670">
+            <Canvas HorizontalAlignment="Center" Height="483" VerticalAlignment="Center" Width="670">
+                <Label Content="Current Algorithm Runtime Stats" FontSize ="30" Height="56" Width="450" HorizontalAlignment="Left" Canvas.Left="110" VerticalAlignment="Top"/>
+                <Label Content="Best Algorithm Runtime Stats" FontSize ="30" Height="56" Width="400" HorizontalAlignment="Center" Canvas.Left="135" Canvas.Top="236" VerticalAlignment="Center"/>
+            </Canvas>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="57,105,0,0" VerticalAlignment="Top" Width="610">
             <Canvas HorizontalAlignment="Center" Width="610">
                 <Label Content="Grid Size" FontSize ="30" Height="56" Width="142" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="234"/>
                 <ComboBox x:Name="comboBox1" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="56" VerticalAlignment="Top" Width="284" HorizontalAlignment="Center" Canvas.Left="10">
@@ -21,7 +27,7 @@
                 <Button x:Name="startBtn" Content="Change Grid Size" Height="44" Width="290" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="startBtn_Click" HorizontalAlignment="Center" Canvas.Left="310" Canvas.Top="56" VerticalAlignment="Top"/>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="990,812,0,0" VerticalAlignment="Top" Width="610">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="1067,812,0,0" VerticalAlignment="Top" Width="610">
             <Canvas HorizontalAlignment="Center" Width="610">
                 <Label Content="Algorithm To Run" FontSize ="30" Height="56" Width="254" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="178"/>
                 <ComboBox x:Name="comboBox2" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="56" VerticalAlignment="Top" Width="284" HorizontalAlignment="Center" Canvas.Left="10">
@@ -33,7 +39,7 @@
                 <Button x:Name="runBtn" Content="Run Algorithm" Height="44" Width="290" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click" HorizontalAlignment="Center" Canvas.Left="310" Canvas.Top="56" VerticalAlignment="Top" Background="#FF4ABB00"/>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="107" Margin="115,221,0,0" VerticalAlignment="Top" Width="610">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="107" Margin="57,221,0,0" VerticalAlignment="Top" Width="610">
             <Canvas HorizontalAlignment="Center" Width="610">
                 <ComboBox x:Name="comboBox3" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="54" VerticalAlignment="Top" Width="284" HorizontalAlignment="Left" Canvas.Left="10">
                     <ComboBoxItem x:Name ="Euclidean" IsSelected="True" Content="Euclidean Distance"/>
@@ -49,13 +55,11 @@
 
             </Canvas>
         </Border>
-        <Label Content="Options" FontSize="50" HorizontalAlignment="Left" Height="78" Margin="115,22,0,0" VerticalAlignment="Top" Width="184"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="321" Margin="100,22,0,0" VerticalAlignment="Top" Width="647">
-            <Canvas HorizontalAlignment="Center" Height="360" VerticalAlignment="Center" Width="647">
-
-            </Canvas>
+        <Label Content="Options" FontSize="50" HorizontalAlignment="Left" Height="78" Margin="57,22,0,0" VerticalAlignment="Top" Width="184"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="321" Margin="42,22,0,0" VerticalAlignment="Top" Width="647">
+            <Canvas HorizontalAlignment="Center" Height="360" VerticalAlignment="Center" Width="647"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="910" Margin="906,22,0,0" VerticalAlignment="Top" Width="794">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="910" Margin="983,22,0,0" VerticalAlignment="Top" Width="794">
             <Canvas x:Name="canContainer" HorizontalAlignment="Right" Height="750" VerticalAlignment="Top" Width="750" Margin="0,25,25,0" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
@@ -67,22 +71,24 @@
                 </Canvas.RenderTransform>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" Margin="100,592,0,0" VerticalAlignment="Top" Width="648">
-            <Canvas HorizontalAlignment="Center" Background ="#FFFFDDD0" Height="166" VerticalAlignment="Center" Width="648">
-                <Label x:Name="algLabel" Content="Algorithm Being Run: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="9" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel2" Content="Current Run Time: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="59" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel3" Content="Path Size Found: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Border BorderBrush="Black" BorderThickness="1" Height="166" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" Margin="44,505,0,0" VerticalAlignment="Top" Width="648">
+            <Canvas HorizontalAlignment="Center" Background ="#FFFFDDD0" Height="180" VerticalAlignment="Center" Width="648">
+                <Label x:Name="algLabel" Content="Algorithm Name: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="0" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel2" Content="Run Time: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel3" Content="Nodes Explored: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel4" Content="Path Size: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="166" Margin="100,766,0,0" VerticalAlignment="Top" Width="648">
-            <Canvas HorizontalAlignment="Center" Background ="#FFDAFFB6" Height="166" VerticalAlignment="Center" Width="648">
-                <Label x:Name="algLabel7" Content="Best Algorithm Run: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="9" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel8" Content="Best Time Taken: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="59" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel9" Content="Best Path Size Found: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Border BorderBrush="Black" BorderThickness="1" Height="166" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" Margin="44,741,0,0" VerticalAlignment="Top" Width="648">
+            <Canvas HorizontalAlignment="Center" Background ="#FFDAFFB6" Height="180" VerticalAlignment="Center" Width="648">
+                <Label x:Name="algLabel5" Content="Algorithm Name: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="0" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel6" Content="Run Time: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel7" Content="Nodes Explored: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="algLabel8" Content="Path Size: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="752" Margin="923,47,0,0" VerticalAlignment="Top" Width="752"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="752" Margin="1000,47,0,0" VerticalAlignment="Top" Width="752"/>
     </Grid>
 </Window>

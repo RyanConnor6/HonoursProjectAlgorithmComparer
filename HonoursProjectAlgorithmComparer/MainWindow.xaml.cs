@@ -50,9 +50,11 @@ namespace HonoursProjectAlgorithmComparer
         //Comparison variables
         private string currentRun = "N/A";
         private double currentTime = 0;
+        private int currentExplored = 0;
         private int currentSize = 0;
         private string bestRun = "N/A";
         private double bestTime = 9999;
+        private int bestExplored = 9999;
         private int bestSize = 9999;
 
         //Cancellation token
@@ -498,16 +500,15 @@ namespace HonoursProjectAlgorithmComparer
             }
             if (myOption2 == 1)
             {
-                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
-                runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
-                currentRun = "Breadth First";
-            }
-            if (myOption2 == 2)
-            {
-                cts = new CancellationTokenSource();
                 DijkstraRunner runDijkstra = new DijkstraRunner(cm);
                 runDijkstra.algRun(first, last, cts.Token, runSpeed);
                 currentRun = "Dijkstra's";
+            }
+            if (myOption2 == 2)
+            {
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
+                runBreadthFirst.algRun(first, last, cts.Token, runSpeed);
+                currentRun = "Breadth First";
             }
             if (myOption2 == 3)
             {
@@ -553,11 +554,11 @@ namespace HonoursProjectAlgorithmComparer
         //Show results of the run
         public void showResults(double time, int pathSize)
         {    
-            algLabel.Content = "Algorithm Being Run: " + currentRun;
+            algLabel.Content = "Algorithm Name: " + currentRun;
             currentTime = time;
-            algLabel2.Content = "Current Run Time: " + time.ToString("0.00");
+            algLabel2.Content = "Run Time: " + time.ToString("0.00");
             currentSize = pathSize;
-            algLabel3.Content = "Path Size Found: " + pathSize.ToString();
+            algLabel4.Content = "Path Size: " + pathSize.ToString();
 
             if (currentSize <= bestSize)
             {
@@ -565,11 +566,13 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     bestRun = currentRun;
                     bestTime = currentTime;
+                    bestExplored = currentExplored;
                     bestSize = currentSize;
 
-                    algLabel7.Content = "Best Algorithm Run: " + bestRun;
-                    algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
-                    algLabel9.Content = "Best Path Size: " + bestSize;
+                    algLabel5.Content = "Algorithm Name: " + bestRun;
+                    algLabel6.Content = "Run Time: " + bestTime.ToString("0.00");
+                    algLabel7.Content = "Nodes Explored: " + bestExplored.ToString();
+                    algLabel8.Content = "Path Size: " + bestSize;
                 }
                 if (currentTime <=bestTime)
                 {
@@ -577,32 +580,35 @@ namespace HonoursProjectAlgorithmComparer
                     bestTime = currentTime;
                     bestSize = currentSize;
 
-                    algLabel7.Content = "Best Algorithm Run: " + bestRun;
-                    algLabel8.Content = "Best Time Taken: " + bestTime.ToString("0.00");
-                    algLabel9.Content = "Best Path Size: " + bestSize;
+                    algLabel5.Content = "Algorithm Name: " + bestRun;
+                    algLabel6.Content = "Run Time: " + bestTime.ToString("0.00");
+                    algLabel7.Content = "Nodes Explored: " + bestExplored.ToString();
+                    algLabel8.Content = "Path Size: " + bestSize;
                 }
             }
         }
 
         //Show current algorithm being run statistics
-        public void showStatsOnRun(Stopwatch time)
+        public void showStatsOnRun(Stopwatch time, int nodesExplored)
         {
-            algLabel.Content = "Algorithm Being Run: " + currentRun;
-            //currentTime = time;
-            algLabel2.Content = "Current Run Time: " + time.Elapsed.TotalSeconds.ToString("0.00");
+            algLabel.Content = "Algorithm Name: " + currentRun;
+            algLabel2.Content = "Run Time: " + time.Elapsed.TotalSeconds.ToString("0.00");
             currentSize = 0;
-            algLabel3.Content = "Path Size Found: N/A";
+            algLabel3.Content = "Nodes Explored: " + nodesExplored;
+            currentExplored = nodesExplored;
+            algLabel4.Content = "Path Size: N/A";
         }
 
         //Reset all labels
         public void resetLabels()
         {
-            algLabel.Content = "Algorithm Being Run: N/A";
-            algLabel2.Content = "Current Run Time: N/A";
-            algLabel3.Content = "Path Size Found: N/A";
-            algLabel7.Content = "Best Algorithm Run: N/A";
-            algLabel8.Content = "Best Time Taken: N/A";
-            algLabel9.Content = "Best Path Size: N/A";
+            algLabel.Content = "Algorithm Name: N/A";
+            algLabel2.Content = "Run Time: N/A";
+            algLabel3.Content = "Nodes Explored: N/A";
+            algLabel4.Content = "Path Size: N/A";
+            algLabel5.Content = "Algorithm Name: N/A";
+            algLabel6.Content = "Run Time: N/A";
+            algLabel8.Content = "Path Size: N/A";
 
             currentRun = "N/A";
             currentTime = 0;

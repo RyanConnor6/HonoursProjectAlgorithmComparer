@@ -21,6 +21,9 @@ namespace HonoursProjectAlgorithmComparer
         //Table handler
         ConnectionManager cm;
 
+        //Explored nodes
+        int exploredNodes = 0;
+
         //Main Window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
@@ -56,7 +59,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Stall to show visualisation
                 await Task.Delay(runSpeed);
-                wnd.showStatsOnRun(watch);
+                wnd.showStatsOnRun(watch, exploredNodes);
 
                 if (token.IsCancellationRequested)
                 {
@@ -65,6 +68,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
+                exploredNodes++;
 
                 wnd.updatecol(NodeChecking.NodeID, Brushes.LightGreen);
 

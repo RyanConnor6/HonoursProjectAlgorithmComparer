@@ -20,6 +20,9 @@ namespace HonoursProjectAlgorithmComparer
         //ConnectionManager
         ConnectionManager cm;
 
+        //Explored nodes
+        int exploredNodes = 0;
+
         //Main window
         MainWindow wnd = (MainWindow)Application.Current.MainWindow;
 
@@ -56,7 +59,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Stall task to show visualisation
                 await Task.Delay(runSpeed);
-                wnd.showStatsOnRun(watch);
+                wnd.showStatsOnRun(watch, exploredNodes);
 
                 if (token.IsCancellationRequested)
                 {
@@ -79,6 +82,7 @@ namespace HonoursProjectAlgorithmComparer
                 //Get the next Node with the lowest fScore 
                 Node NodeChecking = openSet[0];
                 String Nodeat = "_" + NodeChecking.CoordinateX.ToString() + NodeChecking.CoordinateY.ToString();
+                exploredNodes++;
 
                 //If the Node is now the last Node
                 if (NodeChecking == lastNode)
