@@ -72,13 +72,16 @@ namespace HonoursProjectAlgorithmComparer
         {
             InitializeComponent();
 
-            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
-            var txtFiles = Directory.GetFiles(folder, "*.txt").ToList();
+            noFiles = 0;
+            size = 20;
 
-            foreach (string e in txtFiles)
+            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
+
+            foreach (string tfile in txtFiles)
             {
-                string[] words = e.Split(@"\");
-                var myFile = words[words.Length-1];
+                string[] words = tfile.Split(@"\");
+                var myFile = words[words.Length - 1];
                 LayoutBox.Items.Add(myFile);
                 noFiles++;
             }
@@ -169,6 +172,23 @@ namespace HonoursProjectAlgorithmComparer
                     creategrid(size);
                     break;
             }
+
+            LayoutBox.Items.Clear();
+
+            noFiles = 0;
+
+            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
+
+            foreach (string tfile in txtFiles)
+            {
+                string[] words = tfile.Split(@"\");
+                var myFile = words[words.Length - 1];
+                LayoutBox.Items.Add(myFile);
+                noFiles++;
+            }
+
+            LayoutBox.SelectedIndex = 0;
 
             //Create new connection manager
             cm = new ConnectionManager(size, this);
@@ -717,7 +737,7 @@ namespace HonoursProjectAlgorithmComparer
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            using StreamWriter file = new($"Layout{noFiles:D2}.txt");
+            using StreamWriter file = new($"GridSize{size:D2}LayoutNo{noFiles:D2}.txt");
             noFiles++;
             foreach (StackPanel stp in panelList)
             {
@@ -751,7 +771,7 @@ namespace HonoursProjectAlgorithmComparer
             noFiles = 0;
 
             var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
-            var txtFiles = Directory.GetFiles(folder, "*.txt").ToList();
+            var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
             foreach (string tfile in txtFiles)
             {
@@ -769,7 +789,7 @@ namespace HonoursProjectAlgorithmComparer
             //Get file name
             //ComboBoxItem myItem = (ComboBoxItem)LayoutBox.SelectedItem;
             int myOption = LayoutBox.Items.IndexOf(LayoutBox.SelectedItem);
-            StreamReader sr = new StreamReader($"Layout{myOption:D2}.txt");
+            StreamReader sr = new StreamReader($"GridSize{size:D2}LayoutNo{myOption:D2}.txt");
 
             //Read saved data
             var line = sr.ReadLine();
