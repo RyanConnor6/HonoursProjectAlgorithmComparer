@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 // RYAN CONNOR - 40437041
 // HONOURS PROJECT
@@ -694,6 +696,96 @@ namespace HonoursProjectAlgorithmComparer
             ctsStop();
             resetSearchVisualisation();
             resetLabels();
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            using StreamWriter file = new("WriteLines.txt");
+            foreach (StackPanel stp in panelList)
+            {
+                if (stp.Background == Brushes.MintCream)
+                {
+                    await file.WriteLineAsync("MintCream");
+                }
+                if (stp.Background == Brushes.Black)
+                {
+                    await file.WriteLineAsync("Black");
+                }
+                if (stp.Background == Brushes.Green)
+                {
+                    await file.WriteLineAsync("Green");
+                }
+                if (stp.Background == Brushes.Red)
+                {
+                    await file.WriteLineAsync("Red");
+                }
+                if (stp.Background == Brushes.LightGreen)
+                {
+                    await file.WriteLineAsync("MintCream");
+                }
+                if (stp.Background == Brushes.GreenYellow)
+                {
+                    await file.WriteLineAsync("MintCream");
+                }
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            //Pass the file path and file name to the StreamReader constructor
+            StreamReader sr = new StreamReader("WriteLines.txt");
+            //Read the first line of text
+            var line = sr.ReadLine();
+            var counter = 0;
+            if (line!.Equals("MintCream"))
+            {
+                panelList[counter].Background = Brushes.MintCream;
+            }
+            if (line!.Equals("Black"))
+            {
+                panelList[counter].Background = Brushes.Black;
+            }
+            if (line!.Equals("Green"))
+            {
+                panelList[counter].Background = Brushes.Green;
+            }
+            if (line!.Equals("Red"))
+            {
+                panelList[counter].Background = Brushes.Red;
+            }
+            counter++;
+
+            //Continue to read until you reach end of file
+            while (line != null)
+            {
+                //write the lie to console window
+                Console.WriteLine(line);
+                //Read the next line
+                line = sr.ReadLine();
+
+                if (line != null)
+                {
+                    if (line.Equals("MintCream"))
+                    {
+                        panelList[counter].Background = Brushes.MintCream;
+                    }
+                    if (line.Equals("Black"))
+                    {
+                        panelList[counter].Background = Brushes.Black;
+                    }
+                    if (line.Equals("Green"))
+                    {
+                        panelList[counter].Background = Brushes.Green;
+                    }
+                    if (line.Equals("Red"))
+                    {
+                        panelList[counter].Background = Brushes.Red;
+                    }
+                    counter++;
+                }
+            }
+            //close the file
+            sr.Close();
         }
     }
 }
