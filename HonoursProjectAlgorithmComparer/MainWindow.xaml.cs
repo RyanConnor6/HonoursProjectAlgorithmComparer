@@ -802,61 +802,65 @@ namespace HonoursProjectAlgorithmComparer
             //Get file name
             //ComboBoxItem myItem = (ComboBoxItem)LayoutBox.SelectedItem;
             int myOption = LayoutBox.Items.IndexOf(LayoutBox.SelectedItem);
-            StreamReader sr = new StreamReader($"GridSize{size:D2}LayoutNo{myOption:D2}.txt");
 
-            //Read saved data
-            var line = sr.ReadLine();
-            var counter = 0;
-            if (line!.Equals("MintCream"))
+            if (LayoutBox.SelectedItem != null)
             {
-                panelList[counter].Background = Brushes.MintCream;
-            }
-            if (line!.Equals("Black"))
-            {
-                panelList[counter].Background = Brushes.Black;
-            }
-            if (line!.Equals("Green"))
-            {
-                panelList[counter].Background = Brushes.Green;
-            }
-            if (line!.Equals("Red"))
-            {
-                panelList[counter].Background = Brushes.Red;
-            }
-            counter++;
+                StreamReader sr = new StreamReader($"GridSize{size:D2}LayoutNo{myOption:D2}.txt");
 
-            //Continue reading
-            while (line != null)
-            {
-                //Read the next line
-                line = sr.ReadLine();
-
-                //Change grid
-                if (line != null)
+                //Read saved data
+                var line = sr.ReadLine();
+                var counter = 0;
+                if (line!.Equals("MintCream"))
                 {
-                    if (line.Equals("MintCream"))
-                    {
-                        panelList[counter].Background = Brushes.MintCream;
-                    }
-                    if (line.Equals("Black"))
-                    {
-                        panelList[counter].Background = Brushes.Black;
-                    }
-                    if (line.Equals("Green"))
-                    {
-                        panelList[counter].Background = Brushes.Green;
-                    }
-                    if (line.Equals("Red"))
-                    {
-                        panelList[counter].Background = Brushes.Red;
-                    }
-                    counter++;
+                    panelList[counter].Background = Brushes.MintCream;
                 }
-            }
-            //close file
-            sr.Close();
+                if (line!.Equals("Black"))
+                {
+                    panelList[counter].Background = Brushes.Black;
+                }
+                if (line!.Equals("Green"))
+                {
+                    panelList[counter].Background = Brushes.Green;
+                }
+                if (line!.Equals("Red"))
+                {
+                    panelList[counter].Background = Brushes.Red;
+                }
+                counter++;
 
-            setupForRun();
+                //Continue reading
+                while (line != null)
+                {
+                    //Read the next line
+                    line = sr.ReadLine();
+
+                    //Change grid
+                    if (line != null)
+                    {
+                        if (line.Equals("MintCream"))
+                        {
+                            panelList[counter].Background = Brushes.MintCream;
+                        }
+                        if (line.Equals("Black"))
+                        {
+                            panelList[counter].Background = Brushes.Black;
+                        }
+                        if (line.Equals("Green"))
+                        {
+                            panelList[counter].Background = Brushes.Green;
+                        }
+                        if (line.Equals("Red"))
+                        {
+                            panelList[counter].Background = Brushes.Red;
+                        }
+                        counter++;
+                    }
+                }
+                //close file
+                sr.Close();
+
+                setupForRun();
+            }
         }
     }
 }
