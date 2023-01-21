@@ -624,6 +624,7 @@ namespace HonoursProjectAlgorithmComparer
                 {
                     bestRun = currentRun;
                     bestTime = currentTime;
+                    bestExplored = currentExplored;
                     bestSize = currentSize;
 
                     algLabel5.Content = "Algorithm Name: " + bestRun;
@@ -695,6 +696,7 @@ namespace HonoursProjectAlgorithmComparer
             currentRun = "A*";
             AStarRunner runAStar = new AStarRunner(cm);
             await runAStar.algRun(first!, last!, cts.Token, runSpeed);
+            await pathMade();
 
             //Setup grid for running
             setupForRun();
@@ -705,6 +707,7 @@ namespace HonoursProjectAlgorithmComparer
             currentRun = "Dijkstra's";
             DijkstraRunner runDijkstra = new DijkstraRunner(cm);
             await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
+            await pathMade();
 
             //Setup grid for running
             setupForRun();
@@ -715,6 +718,7 @@ namespace HonoursProjectAlgorithmComparer
             currentRun = "Breadth First";
             BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
             await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
+            await pathMade();
 
             //Setup grid for running
             setupForRun();
@@ -725,6 +729,15 @@ namespace HonoursProjectAlgorithmComparer
             currentRun = "Greedy Best First";
             BestFirstRunner runBestFirst = new BestFirstRunner(cm);
             await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+        }
+
+        private async Task pathMade()
+        {
+            while(currentSize == 0)
+            {
+                await Task.Delay(10);
+            }
+            return;
         }
 
         //Reset labels on diagonal checked
