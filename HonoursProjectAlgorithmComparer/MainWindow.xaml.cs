@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 // RYAN CONNOR - 40437041
 // HONOURS PROJECT
@@ -62,11 +63,27 @@ namespace HonoursProjectAlgorithmComparer
         //Cancellation token
         private CancellationTokenSource? cts;
 
+        //File variables
+        int noFiles = 0;
+
 
         //Main Window Initialise
         public MainWindow()
         {
             InitializeComponent();
+
+            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var txtFiles = Directory.GetFiles(folder, "*.txt").ToList();
+
+            foreach (string e in txtFiles)
+            {
+                string[] words = e.Split(@"\");
+                var myFile = words[words.Length-1];
+                LayoutBox.Items.Add(myFile);
+                noFiles++;
+            }
+
+            LayoutBox.SelectedIndex = 0;
 
             //Start basic variables as null
             first = null;
@@ -700,7 +717,8 @@ namespace HonoursProjectAlgorithmComparer
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            using StreamWriter file = new("WriteLines.txt");
+            using StreamWriter file = new($"Layout{noFiles:D2}.txt");
+            noFiles++;
             foreach (StackPanel stp in panelList)
             {
                 if (stp.Background == Brushes.MintCream)
@@ -728,13 +746,32 @@ namespace HonoursProjectAlgorithmComparer
                     await file.WriteLineAsync("MintCream");
                 }
             }
+
+            LayoutBox.Items.Clear();
+            noFiles = 0;
+
+            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var txtFiles = Directory.GetFiles(folder, "*.txt").ToList();
+
+            foreach (string tfile in txtFiles)
+            {
+                string[] words = tfile.Split(@"\");
+                var myFile = words[words.Length - 1];
+                LayoutBox.Items.Add(myFile);
+                noFiles++;
+            }
+
+            LayoutBox.SelectedIndex = 0;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //Pass the file path and file name to the StreamReader constructor
-            StreamReader sr = new StreamReader("WriteLines.txt");
-            //Read the first line of text
+            //Get file name
+            //ComboBoxItem myItem = (ComboBoxItem)LayoutBox.SelectedItem;
+            int myOption = LayoutBox.Items.IndexOf(LayoutBox.SelectedItem);
+            StreamReader sr = new StreamReader($"Layout{myOption:D2}.txt");
+
+            //Read saved data
             var line = sr.ReadLine();
             var counter = 0;
             if (line!.Equals("MintCream"))
@@ -755,14 +792,13 @@ namespace HonoursProjectAlgorithmComparer
             }
             counter++;
 
-            //Continue to read until you reach end of file
+            //Continue reading
             while (line != null)
             {
-                //write the lie to console window
-                Console.WriteLine(line);
                 //Read the next line
                 line = sr.ReadLine();
 
+                //Change grid
                 if (line != null)
                 {
                     if (line.Equals("MintCream"))
@@ -784,8 +820,10 @@ namespace HonoursProjectAlgorithmComparer
                     counter++;
                 }
             }
-            //close the file
+            //close file
             sr.Close();
+
+            setupForRun();
         }
     }
 }
