@@ -737,6 +737,7 @@ namespace HonoursProjectAlgorithmComparer
             {
                 await Task.Delay(10);
             }
+            await Task.Delay(1000);
             return;
         }
 

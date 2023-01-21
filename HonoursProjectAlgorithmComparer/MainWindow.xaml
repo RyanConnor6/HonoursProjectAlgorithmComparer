@@ -91,7 +91,7 @@
             </Canvas>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="752" Margin="1000,47,0,0" VerticalAlignment="Top" Width="752"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="239" Margin="713,60,0,0" VerticalAlignment="Top" Width="253">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="239" Margin="709,60,0,0" VerticalAlignment="Top" Width="253">
             <Canvas HorizontalAlignment="Center" Height="238" VerticalAlignment="Center" Width="232">
                 <Button Content="Save Layout" FontSize="25" Height="58" Width="230" Click="Button_Click_1" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="1" Canvas.Top="10"/>
                 <Button Content="Load Layout" FontSize="25" Height="59" Width="230" Click="Button_Click_2" HorizontalAlignment="Left" Canvas.Top="169" VerticalAlignment="Top" Canvas.Left="2" />
