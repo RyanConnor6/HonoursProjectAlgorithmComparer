@@ -62,17 +62,25 @@ namespace HonoursProjectAlgorithmComparer
 
         //Stats variables
         private double aStarTime = 9999;
+        private double aStarAverage = 9999;
         private int aStarSize = 9999;
         private int aStarExplored = 9999;
+        private int aStarRuns = 9999;
         private double dijkstraTime = 9999;
+        private double dijkstraAverage = 9999;
         private int dijkstraSize = 9999;
         private int dijkstraExplored = 9999;
+        private int dijkstraRuns = 9999;
         private double breadthFirstTime = 9999;
+        private double breadthFirstAverage = 9999;
         private int breadthFirstSize = 9999;
         private int breadthFirstExplored = 9999;
+        private int breadthFirstRuns = 9999;
         private double greedyBestFirstTime = 9999;
+        private double greedyBestFirstAverage = 9999;
         private int greedyBestFirstSize = 9999;
         private int greedyBestFirstExplored = 9999;
+        private int greedyBestFirstRuns = 9999;
         private int algSelected = 0;
 
         //Cancellation token
@@ -660,54 +668,86 @@ namespace HonoursProjectAlgorithmComparer
 
             if (currentRun == "A*")
             {
-                if (currentTime < aStarTime)
+                if (aStarTime != 9999)
                 {
+                    aStarRuns++;
+                    aStarTime = aStarTime + currentTime;
+                    aStarAverage = aStarTime / aStarRuns;
+                }
+                else
+                {
+                    aStarRuns = 1;
                     aStarTime = currentTime;
-                    aStarSize = currentSize;
-                    aStarExplored = currentExplored;
-                    if (algSelected == 0)
-                    {
-                        Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
-                    }                  
+                    aStarAverage = aStarTime / aStarRuns;
+                }
+                aStarSize = currentSize;
+                aStarExplored = currentExplored;
+                if (algSelected == 0)
+                {
+                    Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
                 }
             }
             else if (currentRun == "Dijkstra's")
             {
-                if (currentTime < dijkstraTime)
+                if (dijkstraTime != 9999)
                 {
+                    dijkstraRuns++;
+                    dijkstraTime = dijkstraTime + currentTime;
+                    dijkstraAverage = dijkstraTime / dijkstraRuns;
+                }
+                else
+                {
+                    dijkstraRuns = 1;
                     dijkstraTime = currentTime;
-                    dijkstraSize = currentSize;
-                    dijkstraExplored = currentExplored;
-                    if (algSelected == 1)
-                    {
-                        Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
-                    }                  
+                    dijkstraAverage = dijkstraTime / dijkstraRuns;
+                }
+                dijkstraSize = currentSize;
+                dijkstraExplored = currentExplored;
+                if (algSelected == 1)
+                {
+                    Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
                 }
             }
             else if (currentRun == "Breadth First")
             {
-                if (currentTime < breadthFirstTime)
+                if (breadthFirstTime != 9999)
                 {
+                    breadthFirstRuns++;
+                    breadthFirstTime = breadthFirstTime + currentTime;
+                    breadthFirstAverage = breadthFirstTime / breadthFirstRuns;
+                }
+                else
+                {
+                    breadthFirstRuns = 1;
                     breadthFirstTime = currentTime;
-                    breadthFirstSize = currentSize;
-                    breadthFirstExplored = currentExplored;
-                    if (algSelected == 2)
-                    {
-                        Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
-                    }                   
+                    breadthFirstAverage = breadthFirstTime / breadthFirstRuns;
+                }
+                breadthFirstSize = currentSize;
+                breadthFirstExplored = currentExplored;
+                if (algSelected == 2)
+                {
+                    Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
                 }
             }
             else
             {
-                if (currentTime < greedyBestFirstTime)
+                if (greedyBestFirstTime != 9999)
                 {
+                    greedyBestFirstRuns++;
+                    greedyBestFirstTime = greedyBestFirstTime + currentTime;
+                    greedyBestFirstAverage = greedyBestFirstTime / greedyBestFirstRuns;
+                }
+                else
+                {
+                    greedyBestFirstRuns = 1;
                     greedyBestFirstTime = currentTime;
-                    greedyBestFirstSize = currentSize;
-                    greedyBestFirstExplored = currentExplored;
-                    if (algSelected == 3)
-                    {
-                        Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
-                    }           
+                    greedyBestFirstAverage = greedyBestFirstTime / greedyBestFirstRuns;
+                }
+                greedyBestFirstSize = currentSize;
+                greedyBestFirstExplored = currentExplored;
+                if (algSelected == 3)
+                {
+                    Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
                 }
             }
         }
@@ -749,17 +789,25 @@ namespace HonoursProjectAlgorithmComparer
             bestSize = 9999;
 
             aStarTime = 9999;
+            aStarAverage = 9999;
             aStarExplored = 9999;
             aStarSize = 9999;
+            aStarRuns = 9999;
             dijkstraTime = 9999;
+            dijkstraAverage = 9999;
             dijkstraExplored = 9999;
             dijkstraSize = 9999;
+            dijkstraRuns = 9999;
             breadthFirstTime = 9999;
+            breadthFirstAverage = 9999;
             breadthFirstExplored = 9999;
             breadthFirstSize = 9999;
+            breadthFirstRuns = 9999;
             greedyBestFirstTime = 9999;
+            greedyBestFirstAverage = 9999;
             greedyBestFirstExplored = 9999;
             greedyBestFirstSize = 9999;
+            greedyBestFirstRuns = 9999;
 
             Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
         }
@@ -907,6 +955,9 @@ namespace HonoursProjectAlgorithmComparer
         //Load file
         private void Load(object sender, RoutedEventArgs e)
         {
+            //reset labels
+            resetLabels();
+
             //Get file name
             int myOption = LayoutBox.Items.IndexOf(LayoutBox.SelectedItem);
 
@@ -989,7 +1040,7 @@ namespace HonoursProjectAlgorithmComparer
                     if (aStarTime != 9999)
                     {
                         statsNameLabel.Content = "A* Algorithm";
-                        Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                        Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
                     }
                     else
                     {
@@ -1002,7 +1053,7 @@ namespace HonoursProjectAlgorithmComparer
                     if (dijkstraTime != 9999)
                     {
                         statsNameLabel.Content = "Dijkstra Algorithm";
-                        Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                        Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
                     }
                     else
                     {
@@ -1015,7 +1066,7 @@ namespace HonoursProjectAlgorithmComparer
                     if (breadthFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Breadth First Algorithm";
-                        Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                        Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
                     }
                     else
                     {
@@ -1028,7 +1079,7 @@ namespace HonoursProjectAlgorithmComparer
                     if (greedyBestFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Greedy Best First Algorithm";
-                        Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                        Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
                     }
                     else
                     {

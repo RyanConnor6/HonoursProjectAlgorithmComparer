@@ -108,8 +108,8 @@
                 <Button x:Name="ShowBtn" FontSize="20" FontFamily="Arial Rounded MT Bold" Content="Show" Height="44" Canvas.Left="273" Canvas.Top="100" Width="132" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ShowBtn_Click"/>
                 <Border Background ="#FFFFFFDA" BorderBrush="Black" BorderThickness="1" Height="356" Width="392" HorizontalAlignment="Left" Canvas.Left="13" Canvas.Top="165" VerticalAlignment="Center">
                     <Canvas HorizontalAlignment="Center" Height="356" VerticalAlignment="Center" Width="386">
-                        <Label x:Name="StatsLabel"  FontSize="25" HorizontalAlignment="Left" Height="201" VerticalAlignment="Center" Width="366" Canvas.Left="10" Canvas.Top="145">
-                            <AccessText x:Name="Ststs" TextWrapping="WrapWithOverflow" Height="191" Width="356">
+                        <Label x:Name="StatsLabel"  FontSize="25" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="201" VerticalAlignment="Center" Width="366" Canvas.Left="10" Canvas.Top="145">
+                            <AccessText x:Name="Ststs" TextWrapping="WrapWithOverflow" Height="191" Width="356" HorizontalAlignment="Center">
                                 This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats
                             </AccessText>
                         </Label>
