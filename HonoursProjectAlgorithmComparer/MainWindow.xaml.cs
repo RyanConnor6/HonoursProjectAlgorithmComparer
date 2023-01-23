@@ -73,6 +73,7 @@ namespace HonoursProjectAlgorithmComparer
         private double greedyBestFirstTime = 9999;
         private int greedyBestFirstSize = 9999;
         private int greedyBestFirstExplored = 9999;
+        private int algSelected = 0;
 
         //Cancellation token
         private CancellationTokenSource? cts;
@@ -664,7 +665,10 @@ namespace HonoursProjectAlgorithmComparer
                     aStarTime = currentTime;
                     aStarSize = currentSize;
                     aStarExplored = currentExplored;
-                    Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                    if (algSelected == 0)
+                    {
+                        Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                    }                  
                 }
             }
             else if (currentRun == "Dijkstra's")
@@ -674,7 +678,10 @@ namespace HonoursProjectAlgorithmComparer
                     dijkstraTime = currentTime;
                     dijkstraSize = currentSize;
                     dijkstraExplored = currentExplored;
-                    Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                    if (algSelected == 1)
+                    {
+                        Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                    }                  
                 }
             }
             else if (currentRun == "Breadth First")
@@ -684,7 +691,10 @@ namespace HonoursProjectAlgorithmComparer
                     breadthFirstTime = currentTime;
                     breadthFirstSize = currentSize;
                     breadthFirstExplored = currentExplored;
-                    Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                    if (algSelected == 2)
+                    {
+                        Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                    }                   
                 }
             }
             else
@@ -694,7 +704,10 @@ namespace HonoursProjectAlgorithmComparer
                     greedyBestFirstTime = currentTime;
                     greedyBestFirstSize = currentSize;
                     greedyBestFirstExplored = currentExplored;
-                    Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                    if (algSelected == 3)
+                    {
+                        Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                    }           
                 }
             }
         }
@@ -972,6 +985,7 @@ namespace HonoursProjectAlgorithmComparer
             switch (myOption)
             {
                 case 0:
+                    algSelected = myOption;
                     if (aStarTime != 9999)
                     {
                         statsNameLabel.Content = "A* Algorithm";
@@ -984,6 +998,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                     break;
                 case 1:
+                    algSelected = myOption;
                     if (dijkstraTime != 9999)
                     {
                         statsNameLabel.Content = "Dijkstra Algorithm";
@@ -996,6 +1011,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                     break;
                 case 2:
+                    algSelected = myOption;
                     if (breadthFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Breadth First Algorithm";
@@ -1008,6 +1024,7 @@ namespace HonoursProjectAlgorithmComparer
                     }
                     break;
                 case 3:
+                    algSelected = myOption;
                     if (greedyBestFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Greedy Best First Algorithm";
