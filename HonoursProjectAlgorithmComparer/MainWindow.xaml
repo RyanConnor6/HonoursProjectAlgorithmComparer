@@ -7,12 +7,6 @@
         mc:Ignorable="d"
         Title="Algorithm Comparer" Height="1000" Width="1800" Left="50" Top="25">
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="483" Margin="174,412,0,0" VerticalAlignment="Top" Width="670">
-            <Canvas HorizontalAlignment="Center" Height="483" VerticalAlignment="Center" Width="670">
-                <Label Content="Current Algorithm Runtime Stats" FontSize ="30" Height="56" Width="450" HorizontalAlignment="Left" Canvas.Left="110" VerticalAlignment="Top"/>
-                <Label Content="Best Algorithm Runtime Stats" FontSize ="30" Height="56" Width="400" HorizontalAlignment="Center" Canvas.Left="135" Canvas.Top="236" VerticalAlignment="Center"/>
-            </Canvas>
-        </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="108" Margin="57,105,0,0" VerticalAlignment="Top" Width="610">
             <Canvas HorizontalAlignment="Center" Width="610">
                 <Label Content="Grid Size" FontSize ="30" Height="56" Width="142" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="234"/>
@@ -38,7 +32,7 @@
                     <ComboBoxItem x:Name ="GreedyBestFirst" Content="Greedy Best First"/>
                 </ComboBox>
                 <Button x:Name="runBtn" Content="Run Algorithm" Height="44" Width="200" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="runBtn_Click" HorizontalAlignment="Left" Canvas.Left="260" Canvas.Top="56" VerticalAlignment="Center" Background="#FF4ABB00"/>
-                <Button Content="Bulk Run All Algorithms" Height="44" Width="240" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="Button_Click" Canvas.Left="502" Canvas.Top="56" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FF4ABB00"/>
+                <Button x:Name="BatchRun" Content="Bulk Run All Algorithms" Height="44" Width="240" FontSize="20" FontFamily="Arial Rounded MT Bold" Click="BulkRun" Canvas.Left="502" Canvas.Top="56" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FF4ABB00"/>
             </Canvas>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="107" Margin="57,221,0,0" VerticalAlignment="Top" Width="610">
@@ -73,31 +67,59 @@
                 </Canvas.RenderTransform>
             </Canvas>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" Margin="186,468,0,0" VerticalAlignment="Top" Width="648">
-            <Canvas HorizontalAlignment="Center" Background ="#FFFFDDD0" Height="180" VerticalAlignment="Center" Width="648">
-                <Label x:Name="algLabel" Content="Algorithm Name: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="0" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel2" Content="Run Time: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel3" Content="Nodes Explored: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel4" Content="Path Size: N/A" FontSize="25" Height="45" Width="637" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </Canvas>
-        </Border>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="180" Margin="186,704,0,0" VerticalAlignment="Top" Width="648">
-            <Canvas HorizontalAlignment="Center" Background ="#FFDAFFB6" Height="180" VerticalAlignment="Center" Width="648">
-                <Label x:Name="algLabel5" Content="Algorithm Name: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" HorizontalAlignment="Center" Canvas.Top="0" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel6" Content="Run Time: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel7" Content="Nodes Explored: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="algLabel8" Content="Path Size: N/A" FontSize="25" Height="50" Width="637" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="648" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </Canvas>
-        </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="752" Margin="1000,47,0,0" VerticalAlignment="Top" Width="752"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="223" Margin="687,105,0,0" VerticalAlignment="Top" Width="253">
             <Canvas HorizontalAlignment="Center" Height="238" VerticalAlignment="Center" Width="232">
-                <Button Content="Save Grid Layout" FontSize="25" Height="58" Width="230" Click="Button_Click_1" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="1" Canvas.Top="18"/>
-                <Button Content="Load Grid Layout" FontSize="25" Height="59" Width="230" Click="Button_Click_2" HorizontalAlignment="Center" Canvas.Top="161" VerticalAlignment="Top" Canvas.Left="2" />
+                <Button x:Name="SaveBtn" Content="Save Grid Layout" FontSize="25" Height="58" Width="230" Click="Save" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="1" Canvas.Top="18"/>
+                <Button x:Name="LoadBtn" Content="Load Grid Layout" FontSize="25" Height="59" Width="230" Click="Load" HorizontalAlignment="Center" Canvas.Top="161" VerticalAlignment="Top" Canvas.Left="2" />
                 <ComboBox x:Name="LayoutBox" FontSize="15" FontFamily="Arial Rounded MT Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="60" Width="230" HorizontalAlignment="Center" Canvas.Top="101" VerticalAlignment="Top" Canvas.Left="2"/>
             </Canvas>
         </Border>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="531" Margin="502,401,0,0" VerticalAlignment="Top" Width="460">
+            <Canvas HorizontalAlignment="Center" Height="531" VerticalAlignment="Center" Width="436">
+                <Canvas Background ="#FFFFDDD0" Height="180" Width="437" HorizontalAlignment="Left" Canvas.Left="-1" Canvas.Top="66" VerticalAlignment="Center">
+                    <Label x:Name="algLabel" Content="Algorithm Name:" FontSize="25" Height="45" Width="417" Canvas.Left="10" HorizontalAlignment="Left" Canvas.Top="0" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel2" Content="Run Time:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel3" Content="Nodes Explored:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel4" Content="Path Size:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="437" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Canvas>
+                <Canvas Background ="#FFDAFFB6" Height="180" Width="437" HorizontalAlignment="Center" Canvas.Left="-1" Canvas.Top="341" VerticalAlignment="Top">
+                    <Label x:Name="algLabel5" Content="Algorithm Name:" FontSize="25" Height="45" Width="417" Canvas.Left="10" HorizontalAlignment="Left" Canvas.Top="0" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel6" Content="Run Time:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="45" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel7" Content="Nodes Explored:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="90" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label x:Name="algLabel8" Content="Path Size:" FontSize="25" Height="45" Width="384" Canvas.Left="10" Canvas.Top="135" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Height="180" Width="437" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Canvas>
+                <Label Content="Current Algorithm Stats" FontSize ="30" Height="56" Width="394" HorizontalAlignment="Left" Canvas.Top="10" VerticalAlignment="Center"/>
+                <Label Content="Best Algorithm Stats" FontSize ="30" Height="56" Width="394" HorizontalAlignment="Center" Canvas.Left="-1" Canvas.Top="285" VerticalAlignment="Top"/>
+            </Canvas>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="531" Margin="42,401,0,0" VerticalAlignment="Top" Width="432">
+            <Canvas HorizontalAlignment="Center" Height="531" VerticalAlignment="Center" Width="414">
+                <Label Content="Detailed Algorithm Stats" FontSize ="30" Height="56" Canvas.Left="10" Canvas.Top="10" Width="394" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <ComboBox x:Name="ComboBoxDetailed" FontSize="20" FontFamily="Arial Rounded MT Bold" Height="44" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Canvas.Top="100" VerticalAlignment="Center" Width="263" HorizontalAlignment="Left" Canvas.Left="10">
+                    <ComboBoxItem x:Name ="Alg1" IsSelected="True" Content="A* Stats"/>
+                    <ComboBoxItem x:Name ="Alg2" Content="Dijkstra's Stats"/>
+                    <ComboBoxItem x:Name ="Alg3" Content="Breadth First Stats"/>
+                    <ComboBoxItem x:Name ="Alg4" Content="Greedy Best First Stats"/>
+                </ComboBox>
+                <Button x:Name="ShowBtn" FontSize="20" FontFamily="Arial Rounded MT Bold" Content="Show" Height="44" Canvas.Left="273" Canvas.Top="100" Width="132" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ShowBtn_Click"/>
+                <Border Background ="#FFFFFFDA" BorderBrush="Black" BorderThickness="1" Height="356" Width="392" HorizontalAlignment="Left" Canvas.Left="13" Canvas.Top="165" VerticalAlignment="Center">
+                    <Canvas HorizontalAlignment="Center" Height="356" VerticalAlignment="Center" Width="386">
+                        <Label x:Name="StatsLabel"  FontSize="25" HorizontalAlignment="Left" Height="201" VerticalAlignment="Center" Width="366" Canvas.Left="10" Canvas.Top="145">
+                            <AccessText x:Name="Ststs" TextWrapping="WrapWithOverflow" Height="191" Width="356">
+                                This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats
+                            </AccessText>
+                        </Label>
+                        <Label x:Name="statsNameLabel" Content="A* Algorithm" HorizontalContentAlignment="Center" FontSize="25" HorizontalAlignment="Left" Height="82" VerticalAlignment="Center" Width="366" Canvas.Left="10" Canvas.Top="10"/>
+                    </Canvas>
+
+                </Border>
+
+            </Canvas>
+        </Border>
+
     </Grid>
 </Window>

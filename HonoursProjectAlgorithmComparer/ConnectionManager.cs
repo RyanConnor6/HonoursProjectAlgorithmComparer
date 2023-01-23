@@ -168,6 +168,7 @@ namespace HonoursProjectAlgorithmComparer
             wnd.updatecol(currentNode.NodeID, Brushes.Red);
             currentNode = currentNode.Parent;
 
+            //While there are still parented nodes, draw path
             if(currentNode.Parent != null)
             {
                 do
@@ -177,13 +178,16 @@ namespace HonoursProjectAlgorithmComparer
                         return;
                     }
 
+                    //Delay to show path being created, update path label in main window
                     await Task.Delay(runSpeed);
+                    wnd.UpdatePathSize(pathSize);
 
                     if (token.IsCancellationRequested)
                     {
                         return;
                     }
 
+                    //Update path colour
                     pathSize++;
                     wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                     currentNode = currentNode.Parent;
@@ -192,6 +196,7 @@ namespace HonoursProjectAlgorithmComparer
 
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
 
+            //Show results in mainwindow
             wnd.showResults(time, pathSize); 
         }
     }

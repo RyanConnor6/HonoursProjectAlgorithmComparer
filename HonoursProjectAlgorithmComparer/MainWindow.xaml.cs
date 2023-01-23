@@ -51,14 +51,28 @@ namespace HonoursProjectAlgorithmComparer
         private Brush lastStpColourEnd = Brushes.MintCream;
 
         //Comparison variables
-        private string currentRun = "N/A";
+        private string currentRun = "";
         private double currentTime = 0;
         private int currentExplored = 0;
         private int currentSize = 0;
-        private string bestRun = "N/A";
+        private string bestRun = "";
         private double bestTime = 9999;
         private int bestExplored = 9999;
         private int bestSize = 9999;
+
+        //Stats variables
+        private double aStarTime = 9999;
+        private int aStarSize = 9999;
+        private int aStarExplored = 9999;
+        private double dijkstraTime = 9999;
+        private int dijkstraSize = 9999;
+        private int dijkstraExplored = 9999;
+        private double breadthFirstTime = 9999;
+        private int breadthFirstSize = 9999;
+        private int breadthFirstExplored = 9999;
+        private double greedyBestFirstTime = 9999;
+        private int greedyBestFirstSize = 9999;
+        private int greedyBestFirstExplored = 9999;
 
         //Cancellation token
         private CancellationTokenSource? cts;
@@ -70,14 +84,18 @@ namespace HonoursProjectAlgorithmComparer
         //Main Window Initialise
         public MainWindow()
         {
+            //Initialise window
             InitializeComponent();
 
+            //Update size and files no
             noFiles = 0;
             size = 20;
 
+            //Get files
             var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
+            //Add files to combo box for selection
             foreach (string tfile in txtFiles)
             {
                 string[] words = tfile.Split(@"\");
@@ -86,6 +104,7 @@ namespace HonoursProjectAlgorithmComparer
                 noFiles++;
             }
 
+            //Start on item 0
             LayoutBox.SelectedIndex = 0;
 
             //Start basic variables as null
@@ -138,6 +157,7 @@ namespace HonoursProjectAlgorithmComparer
             //Stop any running instances of a path searcher
             ctsStop();
 
+            //Reset variables
             first = null;
             last = null;
             mode = "null";
@@ -173,13 +193,15 @@ namespace HonoursProjectAlgorithmComparer
                     break;
             }
 
+            //reset load box
             LayoutBox.Items.Clear();
-
             noFiles = 0;
 
+            //get files from folder
             var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
+            //Add files to combo box
             foreach (string tfile in txtFiles)
             {
                 string[] words = tfile.Split(@"\");
@@ -188,6 +210,7 @@ namespace HonoursProjectAlgorithmComparer
                 noFiles++;
             }
 
+            //Start on item 0
             LayoutBox.SelectedIndex = 0;
 
             //Create new connection manager
@@ -633,6 +656,47 @@ namespace HonoursProjectAlgorithmComparer
                     algLabel8.Content = "Path Size: " + bestSize;
                 }
             }
+
+            if (currentRun == "A*")
+            {
+                if (currentTime < aStarTime)
+                {
+                    aStarTime = currentTime;
+                    aStarSize = currentSize;
+                    aStarExplored = currentExplored;
+                    Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                }
+            }
+            else if (currentRun == "Dijkstra's")
+            {
+                if (currentTime < dijkstraTime)
+                {
+                    dijkstraTime = currentTime;
+                    dijkstraSize = currentSize;
+                    dijkstraExplored = currentExplored;
+                    Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                }
+            }
+            else if (currentRun == "Breadth First")
+            {
+                if (currentTime < breadthFirstTime)
+                {
+                    breadthFirstTime = currentTime;
+                    breadthFirstSize = currentSize;
+                    breadthFirstExplored = currentExplored;
+                    Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                }
+            }
+            else
+            {
+                if (currentTime < greedyBestFirstTime)
+                {
+                    greedyBestFirstTime = currentTime;
+                    greedyBestFirstSize = currentSize;
+                    greedyBestFirstExplored = currentExplored;
+                    Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                }
+            }
         }
 
         //Show current algorithm being run statistics
@@ -643,27 +707,48 @@ namespace HonoursProjectAlgorithmComparer
             currentSize = 0;
             algLabel3.Content = "Nodes Explored: " + nodesExplored;
             currentExplored = nodesExplored;
-            algLabel4.Content = "Path Size: N/A";
+            algLabel4.Content = "Path Size: ";
+        }
+
+        //Update path size box as it is being constructed
+        public void UpdatePathSize(int pathSize)
+        {
+            algLabel4.Content = "Path Size: " + pathSize;
         }
 
         //Reset all labels
         public void resetLabels()
         {
-            algLabel.Content = "Algorithm Name: N/A";
-            algLabel2.Content = "Run Time: N/A";
-            algLabel3.Content = "Nodes Explored: N/A";
-            algLabel4.Content = "Path Size: N/A";
-            algLabel5.Content = "Algorithm Name: N/A";
-            algLabel6.Content = "Run Time: N/A";
-            algLabel7.Content = "Nodes Explored: N/A";
-            algLabel8.Content = "Path Size: N/A";
+            algLabel.Content = "Algorithm Name: ";
+            algLabel2.Content = "Run Time: ";
+            algLabel3.Content = "Nodes Explored: ";
+            algLabel4.Content = "Path Size: ";
+            algLabel5.Content = "Algorithm Name: ";
+            algLabel6.Content = "Run Time: ";
+            algLabel7.Content = "Nodes Explored: ";
+            algLabel8.Content = "Path Size: ";
 
-            currentRun = "N/A";
+            currentRun = "";
             currentTime = 0;
             currentSize = 0;
-            bestRun = "N/A";
+            bestRun = "";
             bestTime = 9999;
             bestSize = 9999;
+
+            aStarTime = 9999;
+            aStarExplored = 9999;
+            aStarSize = 9999;
+            dijkstraTime = 9999;
+            dijkstraExplored = 9999;
+            dijkstraSize = 9999;
+            breadthFirstTime = 9999;
+            breadthFirstExplored = 9999;
+            breadthFirstSize = 9999;
+            greedyBestFirstTime = 9999;
+            greedyBestFirstExplored = 9999;
+            greedyBestFirstSize = 9999;
+
+            Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
         }
 
         //Stop algorithm running
@@ -676,7 +761,8 @@ namespace HonoursProjectAlgorithmComparer
             }
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        //Bulk run all algorithms
+        private async void BulkRun(object sender, RoutedEventArgs e)
         {
             //Setup grid for running
             setupForRun();
@@ -731,6 +817,7 @@ namespace HonoursProjectAlgorithmComparer
             await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
         }
 
+        //Stall until path is built, when path is built show it for a few seconds
         private async Task pathMade()
         {
             while(currentSize == 0)
@@ -749,8 +836,10 @@ namespace HonoursProjectAlgorithmComparer
             resetLabels();
         }
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        //Save layout
+        private async void Save(object sender, RoutedEventArgs e)
         {
+            //Save all tiles in a new file
             using StreamWriter file = new($"GridSize{size:D2}LayoutNo{noFiles:D2}.txt");
             noFiles++;
             foreach (StackPanel stp in panelList)
@@ -781,12 +870,15 @@ namespace HonoursProjectAlgorithmComparer
                 }
             }
 
+            //Clear layoutbox
             LayoutBox.Items.Clear();
             noFiles = 0;
 
+            //Get all relevant files
             var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
+            //Add each file to combo box
             foreach (string tfile in txtFiles)
             {
                 string[] words = tfile.Split(@"\");
@@ -795,17 +887,20 @@ namespace HonoursProjectAlgorithmComparer
                 noFiles++;
             }
 
+            //Start on item 0
             LayoutBox.SelectedIndex = 0;
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        //Load file
+        private void Load(object sender, RoutedEventArgs e)
         {
             //Get file name
-            //ComboBoxItem myItem = (ComboBoxItem)LayoutBox.SelectedItem;
             int myOption = LayoutBox.Items.IndexOf(LayoutBox.SelectedItem);
 
+            //Only continue if there is a file
             if (LayoutBox.SelectedItem != null)
             {
+                //Open selected file
                 StreamReader sr = new StreamReader($"GridSize{size:D2}LayoutNo{myOption:D2}.txt");
 
                 //Read saved data
@@ -860,7 +955,70 @@ namespace HonoursProjectAlgorithmComparer
                 //close file
                 sr.Close();
 
+                //Setup grid for running
                 setupForRun();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem myItem = (ComboBoxItem)ComboBoxDetailed.SelectedItem;
+            int myOption = ComboBoxDetailed.Items.IndexOf(myItem);
+            switch (myOption)
+            {
+                case 0:
+                    if (aStarTime != 9999)
+                    {
+                        statsNameLabel.Content = "A* Algorithm";
+                        Ststs.Text = "Run Time: " + aStarTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                    }
+                    else
+                    {
+                        statsNameLabel.Content = "A* Algorithm";
+                        Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
+                    }
+                    break;
+                case 1:
+                    if (dijkstraTime != 9999)
+                    {
+                        statsNameLabel.Content = "Dijkstra Algorithm";
+                        Ststs.Text = "Run Time: " + dijkstraTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                    }
+                    else
+                    {
+                        statsNameLabel.Content = "Dijkstra Algorithm";
+                        Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
+                    }
+                    break;
+                case 2:
+                    if (breadthFirstTime != 9999)
+                    {
+                        statsNameLabel.Content = "Breadth First Algorithm";
+                        Ststs.Text = "Run Time: " + breadthFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                    }
+                    else
+                    {
+                        statsNameLabel.Content = "Breadth First Algorithm";
+                        Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
+                    }
+                    break;
+                case 3:
+                    if (greedyBestFirstTime != 9999)
+                    {
+                        statsNameLabel.Content = "Greedy Best First Algorithm";
+                        Ststs.Text = "Run Time: " + greedyBestFirstTime.ToString("0.00") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                    }
+                    else
+                    {
+                        statsNameLabel.Content = "Greedy Best First Algorithm";
+                        Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
+                    }
+                    break;
             }
         }
     }
