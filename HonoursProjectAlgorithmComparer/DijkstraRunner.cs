@@ -63,6 +63,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Stall to show visualisation
                 await Task.Delay(runSpeed);
+                exploredNodes++;
                 wnd.showStatsOnRun(watch, exploredNodes);
 
                 if (token.IsCancellationRequested)
@@ -78,7 +79,6 @@ namespace HonoursProjectAlgorithmComparer
                 nodeQueue = nodeQueue.OrderBy(o => o.distance).ToList();
                 Node NodeChecking = nodeQueue[0];
                 nodeQueue.RemoveAt(0);
-                exploredNodes++;
 
                 if (NodeChecking.Parent != null)
                 {

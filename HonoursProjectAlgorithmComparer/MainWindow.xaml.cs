@@ -823,59 +823,90 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Bulk run all algorithms
-        private async void BulkRun(object sender, RoutedEventArgs e)
+        private void BulkRun(object sender, RoutedEventArgs e)
         {
-            //Setup grid for running
-            setupForRun();
-            
-            //Reset parents
-            foreach (Node a in cm.NodesList)
+            ComboBoxItem myItem = (ComboBoxItem)comboboxRun.SelectedItem;
+            int myOption = comboboxRun.Items.IndexOf(myItem);
+
+            int runAmount = 1;
+            switch (myOption)
             {
-                a.Parent = null!;
+                case 0:
+                    runAmount = 1;
+                    runBulkAmount(runAmount);
+                    return;
+                case 1:
+                    runAmount = 5;
+                    runBulkAmount(runAmount);
+                    return;
+                case 2:
+                    runAmount = 10;
+                    runBulkAmount(runAmount);
+                    return;
+                case 3:
+                    runAmount = 20;
+                    runBulkAmount(runAmount);
+                    return;
             }
+        }
 
-            //Create cancellation token
-            cts = new CancellationTokenSource();
+        private async void runBulkAmount(int runAmount)
+        {
+            for (int i = 0; i < runAmount; i++)
+            {
+                //Setup grid for running
+                setupForRun();
 
-            //Run speed for algorithms
-            var runSpeed = 10;
+                //Reset parents
+                foreach (Node a in cm.NodesList)
+                {
+                    a.Parent = null!;
+                }
 
-            currentRun = "A*";
-            AStarRunner runAStar = new AStarRunner(cm);
-            await runAStar.algRun(first!, last!, cts.Token, runSpeed);
-            await pathMade();
+                //Create cancellation token
+                cts = new CancellationTokenSource();
 
-            //Setup grid for running
-            setupForRun();
+                //Run speed for algorithms
+                var runSpeed = 10;
 
-            //Create cancellation token
-            cts = new CancellationTokenSource();
+                currentRun = "A*";
+                AStarRunner runAStar = new AStarRunner(cm);
+                await runAStar.algRun(first!, last!, cts.Token, runSpeed);
+                await pathMade();
 
-            currentRun = "Dijkstra's";
-            DijkstraRunner runDijkstra = new DijkstraRunner(cm);
-            await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
-            await pathMade();
+                //Setup grid for running
+                setupForRun();
 
-            //Setup grid for running
-            setupForRun();
+                //Create cancellation token
+                cts = new CancellationTokenSource();
 
-            //Create cancellation token
-            cts = new CancellationTokenSource();
+                currentRun = "Dijkstra's";
+                DijkstraRunner runDijkstra = new DijkstraRunner(cm);
+                await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
+                await pathMade();
 
-            currentRun = "Breadth First";
-            BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
-            await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
-            await pathMade();
+                //Setup grid for running
+                setupForRun();
 
-            //Setup grid for running
-            setupForRun();
+                //Create cancellation token
+                cts = new CancellationTokenSource();
 
-            //Create cancellation token
-            cts = new CancellationTokenSource();
+                currentRun = "Breadth First";
+                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
+                await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
+                await pathMade();
 
-            currentRun = "Greedy Best First";
-            BestFirstRunner runBestFirst = new BestFirstRunner(cm);
-            await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+                //Setup grid for running
+                setupForRun();
+
+                //Create cancellation token
+                cts = new CancellationTokenSource();
+
+                currentRun = "Greedy Best First";
+                BestFirstRunner runBestFirst = new BestFirstRunner(cm);
+                await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+                await pathMade();
+            }
         }
 
         //Stall until path is built, when path is built show it for a few seconds
