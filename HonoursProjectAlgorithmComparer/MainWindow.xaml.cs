@@ -459,51 +459,85 @@ namespace HonoursProjectAlgorithmComparer
         }
 
         //Run the algorithm
-        private async void runBtn_Click(object sender, RoutedEventArgs e)
+        private void runBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Setup grid for run
-            setupForRun();
+            ComboBoxItem myItem = (ComboBoxItem)comboboxRun.SelectedItem;
+            int myOption = comboboxRun.Items.IndexOf(myItem);
 
-            //Get algorithm from combobox
-            ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
-            int myOption2 = comboBox2.Items.IndexOf(myItem2);
-
-            //Reset parents
-            foreach (Node a in cm.NodesList)
+            int runAmount = 1;
+            switch (myOption)
             {
-                a.Parent = null!;
+                case 0:
+                    runAmount = 1;
+                    runAlgorithm(runAmount);
+                    return;
+                case 1:
+                    runAmount = 5;
+                    runAlgorithm(runAmount);
+                    return;
+                case 2:
+                    runAmount = 10;
+                    runAlgorithm(runAmount);
+                    return;
+                case 3:
+                    runAmount = 20;
+                    runAlgorithm(runAmount);
+                    return;
             }
+        }
 
-            //Create cancellation token
-            cts = new CancellationTokenSource();
+        private async void runAlgorithm(int runAmount)
+        {
+            for (int i = 0; i < runAmount; i++)
+            {
+                //Setup grid for run
+                setupForRun();
 
-            //Run speed for algorithms
-            var runSpeed = 10;
+                //Get algorithm from combobox
+                ComboBoxItem myItem2 = (ComboBoxItem)comboBox2.SelectedItem;
+                int myOption2 = comboBox2.Items.IndexOf(myItem2);
 
-            //Run correct mode
-            if (myOption2 == 0)
-            {
-                currentRun = "A*";
-                AStarRunner runAStar = new AStarRunner(cm);
-                await runAStar.algRun(first!, last!, cts.Token, runSpeed);
-            }
-            if (myOption2 == 1)
-            {
-                currentRun = "Dijkstra's";
-                DijkstraRunner runDijkstra = new DijkstraRunner(cm);
-                await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
-            }
-            if (myOption2 == 2)
-            {
-                currentRun = "Breadth First";
-                BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
-                await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
-            }
-            if (myOption2 == 3)
-            {
-                currentRun = "Greedy Best First";
-                BestFirstRunner runBestFirst = new BestFirstRunner(cm);
-                await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+                //Reset parents
+                foreach (Node a in cm.NodesList)
+                {
+                    a.Parent = null!;
+                }
+
+                //Create cancellation token
+                cts = new CancellationTokenSource();
+
+                //Run speed for algorithms
+                var runSpeed = 10;
+
+                //Run correct mode
+                if (myOption2 == 0)
+                {
+                    currentRun = "A*";
+                    AStarRunner runAStar = new AStarRunner(cm);
+                    await runAStar.algRun(first!, last!, cts.Token, runSpeed);
+                    await pathMade();
+                }
+                if (myOption2 == 1)
+                {
+                    currentRun = "Dijkstra's";
+                    DijkstraRunner runDijkstra = new DijkstraRunner(cm);
+                    await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
+                    await pathMade();
+                }
+                if (myOption2 == 2)
+                {
+                    currentRun = "Breadth First";
+                    BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
+                    await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
+                    await pathMade();
+                }
+                if (myOption2 == 3)
+                {
+                    currentRun = "Greedy Best First";
+                    BestFirstRunner runBestFirst = new BestFirstRunner(cm);
+                    await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
+                    await pathMade();
+                }
             }
         }
 
