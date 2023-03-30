@@ -64,21 +64,25 @@ namespace HonoursProjectAlgorithmComparer
         private double aStarTime = 9999;
         private double aStarAverage = 9999;
         private int aStarSize = 9999;
+        private List<double> aStarVals = new List<double>(); 
         private int aStarExplored = 9999;
         private int aStarRuns = 9999;
         private double dijkstraTime = 9999;
         private double dijkstraAverage = 9999;
         private int dijkstraSize = 9999;
+        private List<double> DijkstraVals = new List<double>();
         private int dijkstraExplored = 9999;
         private int dijkstraRuns = 9999;
         private double breadthFirstTime = 9999;
         private double breadthFirstAverage = 9999;
         private int breadthFirstSize = 9999;
+        private List<double> BreadthFirstVals = new List<double>();
         private int breadthFirstExplored = 9999;
         private int breadthFirstRuns = 9999;
         private double greedyBestFirstTime = 9999;
         private double greedyBestFirstAverage = 9999;
         private int greedyBestFirstSize = 9999;
+        private List<double> BestFirstVals = new List<double>();
         private int greedyBestFirstExplored = 9999;
         private int greedyBestFirstRuns = 9999;
         private int algSelected = 0;
@@ -707,18 +711,22 @@ namespace HonoursProjectAlgorithmComparer
                     aStarRuns++;
                     aStarTime = aStarTime + currentTime;
                     aStarAverage = aStarTime / aStarRuns;
+                    aStarVals.Add(currentTime);
                 }
                 else
                 {
                     aStarRuns = 1;
                     aStarTime = currentTime;
                     aStarAverage = aStarTime / aStarRuns;
+                    aStarVals.Add(currentTime);
                 }
                 aStarSize = currentSize;
                 aStarExplored = currentExplored;
                 if (algSelected == 0)
                 {
-                    Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                    double avg = aStarVals.Average();
+                    double standardDevi = Math.Sqrt(aStarVals.Average(v => Math.Pow(v - avg, 2)));
+                    Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
                 }
             }
             else if (currentRun == "Dijkstra's")
@@ -728,18 +736,22 @@ namespace HonoursProjectAlgorithmComparer
                     dijkstraRuns++;
                     dijkstraTime = dijkstraTime + currentTime;
                     dijkstraAverage = dijkstraTime / dijkstraRuns;
+                    DijkstraVals.Add(currentTime);
                 }
                 else
                 {
                     dijkstraRuns = 1;
                     dijkstraTime = currentTime;
                     dijkstraAverage = dijkstraTime / dijkstraRuns;
+                    DijkstraVals.Add(currentTime);
                 }
                 dijkstraSize = currentSize;
                 dijkstraExplored = currentExplored;
                 if (algSelected == 1)
                 {
-                    Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                    double avg = DijkstraVals.Average();
+                    double standardDevi = Math.Sqrt(DijkstraVals.Average(v => Math.Pow(v - avg, 2)));
+                    Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
                 }
             }
             else if (currentRun == "Breadth First")
@@ -749,18 +761,22 @@ namespace HonoursProjectAlgorithmComparer
                     breadthFirstRuns++;
                     breadthFirstTime = breadthFirstTime + currentTime;
                     breadthFirstAverage = breadthFirstTime / breadthFirstRuns;
+                    BreadthFirstVals.Add(currentTime);
                 }
                 else
                 {
                     breadthFirstRuns = 1;
                     breadthFirstTime = currentTime;
                     breadthFirstAverage = breadthFirstTime / breadthFirstRuns;
+                    BreadthFirstVals.Add(currentTime);
                 }
                 breadthFirstSize = currentSize;
                 breadthFirstExplored = currentExplored;
                 if (algSelected == 2)
                 {
-                    Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                    double avg = BreadthFirstVals.Average();
+                    double standardDevi = Math.Sqrt(BreadthFirstVals.Average(v => Math.Pow(v - avg, 2)));
+                    Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
                 }
             }
             else
@@ -770,18 +786,22 @@ namespace HonoursProjectAlgorithmComparer
                     greedyBestFirstRuns++;
                     greedyBestFirstTime = greedyBestFirstTime + currentTime;
                     greedyBestFirstAverage = greedyBestFirstTime / greedyBestFirstRuns;
+                    BestFirstVals.Add(currentTime);
                 }
                 else
                 {
                     greedyBestFirstRuns = 1;
                     greedyBestFirstTime = currentTime;
                     greedyBestFirstAverage = greedyBestFirstTime / greedyBestFirstRuns;
+                    BestFirstVals.Add(currentTime);
                 }
                 greedyBestFirstSize = currentSize;
                 greedyBestFirstExplored = currentExplored;
                 if (algSelected == 3)
                 {
-                    Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                    double avg = BestFirstVals.Average();
+                    double standardDevi = Math.Sqrt(BestFirstVals.Average(v => Math.Pow(v - avg, 2)));
+                    Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
                 }
             }
         }
@@ -826,21 +846,25 @@ namespace HonoursProjectAlgorithmComparer
             aStarAverage = 9999;
             aStarExplored = 9999;
             aStarSize = 9999;
+            aStarVals.Clear();
             aStarRuns = 9999;
             dijkstraTime = 9999;
             dijkstraAverage = 9999;
             dijkstraExplored = 9999;
             dijkstraSize = 9999;
+            DijkstraVals.Clear();
             dijkstraRuns = 9999;
             breadthFirstTime = 9999;
             breadthFirstAverage = 9999;
             breadthFirstExplored = 9999;
             breadthFirstSize = 9999;
+            BreadthFirstVals.Clear();
             breadthFirstRuns = 9999;
             greedyBestFirstTime = 9999;
             greedyBestFirstAverage = 9999;
             greedyBestFirstExplored = 9999;
             greedyBestFirstSize = 9999;
+            BestFirstVals.Clear();
             greedyBestFirstRuns = 9999;
 
             Ststs.Text = "This algorithm hasn't been run on this problem yet, please run the algorithm to view its stats";
@@ -1105,7 +1129,9 @@ namespace HonoursProjectAlgorithmComparer
                     if (aStarTime != 9999)
                     {
                         statsNameLabel.Content = "A* Algorithm";
-                        Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
+                        double avg = aStarVals.Average();
+                        double standardDevi = Math.Sqrt(aStarVals.Average(v => Math.Pow(v - avg, 2)));
+                        Ststs.Text = "Mean Run Time: " + aStarAverage.ToString("0.00") + " (" + aStarRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + aStarExplored + System.Environment.NewLine + "path Size: " + aStarSize;
                     }
                     else
                     {
@@ -1118,7 +1144,9 @@ namespace HonoursProjectAlgorithmComparer
                     if (dijkstraTime != 9999)
                     {
                         statsNameLabel.Content = "Dijkstra Algorithm";
-                        Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
+                        double avg = DijkstraVals.Average();
+                        double standardDevi = Math.Sqrt(DijkstraVals.Average(v => Math.Pow(v - avg, 2)));
+                        Ststs.Text = "Mean Run Time: " + dijkstraAverage.ToString("0.00") + " (" + dijkstraRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + dijkstraExplored + System.Environment.NewLine + "path Size: " + dijkstraSize;
                     }
                     else
                     {
@@ -1131,7 +1159,9 @@ namespace HonoursProjectAlgorithmComparer
                     if (breadthFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Breadth First Algorithm";
-                        Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
+                        double avg = BreadthFirstVals.Average();
+                        double standardDevi = Math.Sqrt(BreadthFirstVals.Average(v => Math.Pow(v - avg, 2)));
+                        Ststs.Text = "Mean Run Time: " + breadthFirstAverage.ToString("0.00") + " (" + breadthFirstRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + breadthFirstExplored + System.Environment.NewLine + "path Size: " + breadthFirstSize;
                     }
                     else
                     {
@@ -1144,7 +1174,9 @@ namespace HonoursProjectAlgorithmComparer
                     if (greedyBestFirstTime != 9999)
                     {
                         statsNameLabel.Content = "Greedy Best First Algorithm";
-                        Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
+                        double avg = BestFirstVals.Average();
+                        double standardDevi = Math.Sqrt(BestFirstVals.Average(v => Math.Pow(v - avg, 2)));
+                        Ststs.Text = "Mean Run Time: " + greedyBestFirstAverage.ToString("0.00") + " (" + greedyBestFirstRuns + " Runs)" + System.Environment.NewLine + "Standard Deviation: " + standardDevi.ToString("0.0000") + System.Environment.NewLine + "Nodes Explored: " + greedyBestFirstExplored + System.Environment.NewLine + "path Size: " + greedyBestFirstSize;
                     }
                     else
                     {
