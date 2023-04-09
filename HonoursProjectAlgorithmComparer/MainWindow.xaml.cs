@@ -509,6 +509,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Create cancellation token
                 cts = new CancellationTokenSource();
+                CancellationToken token = cts.Token;
 
                 //Run speed for algorithms
                 var runSpeed = 10;
@@ -519,28 +520,44 @@ namespace HonoursProjectAlgorithmComparer
                     currentRun = "A*";
                     AStarRunner runAStar = new AStarRunner(cm);
                     await runAStar.algRun(first!, last!, cts.Token, runSpeed);
-                    await pathMade();
+                    await pathMade(token);
+                    if (token.IsCancellationRequested == true)
+                    {
+                        return;
+                    }
                 }
                 if (myOption2 == 1)
                 {
                     currentRun = "Dijkstra's";
                     DijkstraRunner runDijkstra = new DijkstraRunner(cm);
                     await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
-                    await pathMade();
+                    await pathMade(token);
+                    if (token.IsCancellationRequested == true)
+                    {
+                        return;
+                    }
                 }
                 if (myOption2 == 2)
                 {
                     currentRun = "Breadth First";
                     BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
                     await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
-                    await pathMade();
+                    await pathMade(token);
+                    if (token.IsCancellationRequested == true)
+                    {
+                        return;
+                    }
                 }
                 if (myOption2 == 3)
                 {
                     currentRun = "Greedy Best First";
                     BestFirstRunner runBestFirst = new BestFirstRunner(cm);
                     await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
-                    await pathMade();
+                    await pathMade(token);
+                    if (token.IsCancellationRequested == true)
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -923,6 +940,7 @@ namespace HonoursProjectAlgorithmComparer
 
                 //Create cancellation token
                 cts = new CancellationTokenSource();
+                CancellationToken token = cts.Token;
 
                 //Run speed for algorithms
                 var runSpeed = 10;
@@ -930,52 +948,80 @@ namespace HonoursProjectAlgorithmComparer
                 currentRun = "A*";
                 AStarRunner runAStar = new AStarRunner(cm);
                 await runAStar.algRun(first!, last!, cts.Token, runSpeed);
-                await pathMade();
+                await pathMade(token);
+                if (token.IsCancellationRequested == true)
+                {
+                    return;
+                }
 
                 //Setup grid for running
                 setupForRun();
 
                 //Create cancellation token
                 cts = new CancellationTokenSource();
+                token = cts.Token;
 
                 currentRun = "Dijkstra's";
                 DijkstraRunner runDijkstra = new DijkstraRunner(cm);
                 await runDijkstra.algRun(first!, last!, cts.Token, runSpeed);
-                await pathMade();
+                await pathMade(token);
+                if (token.IsCancellationRequested == true)
+                {
+                    return;
+                }
 
                 //Setup grid for running
                 setupForRun();
 
                 //Create cancellation token
                 cts = new CancellationTokenSource();
+                token = cts.Token;
 
                 currentRun = "Breadth First";
                 BreadthFirstRunner runBreadthFirst = new BreadthFirstRunner(cm);
                 await runBreadthFirst.algRun(first!, last!, cts.Token, runSpeed);
-                await pathMade();
+                await pathMade(token);
+                if (token.IsCancellationRequested == true)
+                {
+                    return;
+                }
 
                 //Setup grid for running
                 setupForRun();
 
                 //Create cancellation token
                 cts = new CancellationTokenSource();
+                token = cts.Token;
 
                 currentRun = "Greedy Best First";
                 BestFirstRunner runBestFirst = new BestFirstRunner(cm);
                 await runBestFirst.algRun(first!, last!, cts.Token, runSpeed);
-                await pathMade();
+                await pathMade(token);
+                if (token.IsCancellationRequested == true)
+                {
+                    return;
+                }
             }
         }
 
         //Stall until path is built, when path is built show it for a few seconds
-        private async Task pathMade()
+        private async Task pathMade(CancellationToken token)
         {
             while(currentSize == 0)
             {
                 await Task.Delay(10);
             }
-            //await Task.Delay(1000);
-            //return;
+            int test = 0;
+            do
+            {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+                await Task.Delay(10);
+                test++;
+            } while (test <= 60);
+            return;
         }
 
         //Reset labels on diagonal checked

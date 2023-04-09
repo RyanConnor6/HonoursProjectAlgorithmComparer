@@ -192,16 +192,6 @@ namespace HonoursProjectAlgorithmComparer
                     wnd.updatecol(currentNode.NodeID, Brushes.Khaki);
                     currentNode = currentNode.Parent;
                 } while (currentNode.Parent != null);
-                int test = 0;
-                do
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-                    await Task.Delay(runSpeed);
-                    test++;
-                } while (test <= 60);
             }
 
             wnd.updatecol(currentNode.NodeID, Brushes.Green);
