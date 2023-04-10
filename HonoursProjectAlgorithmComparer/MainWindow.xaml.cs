@@ -105,7 +105,8 @@ namespace HonoursProjectAlgorithmComparer
             size = 20;
 
             //Get files
-            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            folder = folder.Substring(6);
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
             //Add files to combo box for selection
@@ -211,7 +212,8 @@ namespace HonoursProjectAlgorithmComparer
             noFiles = 0;
 
             //get files from folder
-            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            folder = folder.Substring(6);
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
             //Add files to combo box
@@ -1071,7 +1073,8 @@ namespace HonoursProjectAlgorithmComparer
             noFiles = 0;
 
             //Get all relevant files
-            var folder = @"C:\[0] HonsProj\[0] VS Proj\HonoursProjectAlgorithmComparer\HonoursProjectAlgorithmComparer\bin\Debug\net6.0-windows";
+            var folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            folder = folder.Substring(6);
             var txtFiles = Directory.GetFiles(folder, $"GridSize{size:D2}LayoutNo*.txt").ToList();
 
             //Add each file to combo box
