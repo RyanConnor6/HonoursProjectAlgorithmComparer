@@ -165,6 +165,14 @@ namespace HonoursProjectAlgorithmComparer
             last = cm.NodesList[(size * (size / 2)) + size - 2];
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            int nWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+            int nHieght = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+
+            this.LayoutTransform = new ScaleTransform(nWidth / 1920, nHieght / 1080);
+        }
+
         //Start Button clicked
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
